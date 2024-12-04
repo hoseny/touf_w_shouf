@@ -2,26 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-import 'country_picker_icon.dart';
 
-class PhoneField extends StatelessWidget {
+class StandardInputField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
+  final bool isPassword;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
-  final String countryFlag;
-  final VoidCallback showCountryPicker;
+  final TextInputType? keyboardType;
   final AutovalidateMode? autoValidateMode;
+  final bool isObscured;
+  final VoidCallback togglePasswordVisibility;
 
-  const PhoneField({
+  const StandardInputField({
     Key? key,
     required this.hintText,
     required this.controller,
+    required this.isPassword,
     this.validator,
     this.onChanged,
-    required this.countryFlag,
-    required this.showCountryPicker,
+    this.keyboardType,
     this.autoValidateMode,
+    required this.isObscured,
+    required this.togglePasswordVisibility,
   }) : super(key: key);
 
   @override
@@ -30,8 +33,9 @@ class PhoneField extends StatelessWidget {
       width: 327.w,
       height: 46.h,
       child: TextFormField(
-        autovalidateMode: autoValidateMode,
         controller: controller,
+        keyboardType: keyboardType,
+        obscureText: isObscured,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyles.font14Grey600Regular,
@@ -54,15 +58,22 @@ class PhoneField extends StatelessWidget {
           ),
           filled: true,
           fillColor: AppColors.white,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.h),
-          prefixIcon: CountryPickerIcon(
-            countryFlag: countryFlag,
-            showCountryPicker: showCountryPicker,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 12.h,
           ),
+          suffixIcon: isPassword
+              ? IconButton(
+            icon: Icon(
+              isObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+              color: AppColors.steelGrey,
+            ),
+            onPressed: togglePasswordVisibility,
+          )
+              : null,
         ),
         validator: validator,
         cursorColor: AppColors.black,
-        keyboardType: TextInputType.phone,
         onChanged: onChanged,
       ),
     );

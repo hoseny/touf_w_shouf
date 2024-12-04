@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
-import 'phone_field.dart';
-import 'regular_text_field.dart';
+import 'phone_input_field.dart';
+import 'standard_input_field.dart';
 
-class AuthTextField extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
   final TextEditingController controller;
@@ -13,7 +13,7 @@ class AuthTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final AutovalidateMode? autoValidateMode;
 
-  const AuthTextField({
+  const CustomTextField({
     super.key,
     required this.hintText,
     this.isPassword = false,
@@ -26,10 +26,10 @@ class AuthTextField extends StatefulWidget {
   });
 
   @override
-  AuthTextFieldState createState() => AuthTextFieldState();
+  CustomTextFieldState createState() => CustomTextFieldState();
 }
 
-class AuthTextFieldState extends State<AuthTextField> {
+class CustomTextFieldState extends State<CustomTextField> {
   late bool _isObscured;
   String _countryFlag = "🇪🇬";
 
@@ -58,7 +58,7 @@ class AuthTextFieldState extends State<AuthTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.isPhoneField)
-          PhoneField(
+          PhoneInputField(
             hintText: widget.hintText,
             controller: widget.controller,
             validator: widget.validator,
@@ -68,7 +68,7 @@ class AuthTextFieldState extends State<AuthTextField> {
             autoValidateMode: widget.autoValidateMode,
           )
         else
-          RegularTextField(
+          StandardInputField(
             hintText: widget.hintText,
             controller: widget.controller,
             isPassword: widget.isPassword,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
+import 'package:touf_w_shouf/core/widgets/custom_text_field.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
-import '../auth_text_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -35,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          AuthTextField(
+          CustomTextField(
             hintText: "Email",
             controller: emailController,
             validator: (value) {
@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
             autoValidateMode: autoValidateMode,
           ),
           10.verticalSpace,
-          AuthTextField(
+          CustomTextField(
             hintText: "Password",
             controller: passwordController,
             isPassword: true,
