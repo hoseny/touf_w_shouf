@@ -55,16 +55,43 @@ class TextStyles {
   );
 
   /// Example: Common Text Styles
+  static TextStyle font14Grey600Regular = baseStyle(
+    fontSize: 14,
+    color: AppColors.steelGrey,
+    fontWeight: FontWeightHelper.regular,
+  );
+  static TextStyle font14Grey600Medium = baseStyle(
+      fontSize: 14,
+      color: AppColors.steelGrey,
+      fontWeight: FontWeightHelper.medium,
+      );
+  static TextStyle font14Blue500Bold = baseStyle(
+      fontSize: 14,
+      color: AppColors.primaryBlue,
+      fontWeight: FontWeightHelper.bold,
+      );
+  static TextStyle font14Grey700Medium = baseStyle(
+      fontSize: 14,
+      color: AppColors.slateGrey,
+      fontWeight: FontWeightHelper.medium,
+      );
+
   static TextStyle font24WhiteSemiBold = baseStyle(
     fontSize: 24,
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.white,
   );
 
+
   static TextStyle font16BlackRegular = baseStyle(
     fontSize: 16,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.black,
+  );
+  static TextStyle font16WhiteMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColors.white,
   );
 
   static TextStyle font18OrangeRegular = baseStyle(
@@ -72,15 +99,25 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
     color: AppColors.orange,
   );
-  static TextStyle font18OrangeMedium = TextStyle(
+  static TextStyle font18OrangeMedium = baseStyle(
     fontSize: 18.sp,
     color: AppColors.orange,
     fontWeight: FontWeightHelper.medium,
   );
-  static TextStyle font18WhiteMedium = TextStyle(
+  static TextStyle font18WhiteMedium = baseStyle(
     fontSize: 18.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
   );
 
+  static TextStyle font26GreyExtraBold = baseStyle(
+    fontSize: 26.sp,
+    color: AppColors.darkSlateGrey,
+    fontWeight: FontWeightHelper.extraBold,
+  );
+  static TextStyle font14GreyMedium = baseStyle(
+    fontSize: 14.sp,
+    color: AppColors.steelGrey,
+    fontWeight: FontWeightHelper.medium,
+  );
 }
