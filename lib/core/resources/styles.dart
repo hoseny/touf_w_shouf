@@ -14,4 +14,14 @@ abstract class TextStyles {
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
   );
+  static TextStyle font18OrangeMedium = TextStyle(
+    fontSize: 18.sp,
+    color: AppColors.orange,
+    fontWeight: FontWeightHelper.medium,
+  );
+  static TextStyle font18WhiteMedium = TextStyle(
+    fontSize: 18.sp,
+    color: AppColors.white,
+    fontWeight: FontWeightHelper.medium,
+  );
 }
