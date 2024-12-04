@@ -49,7 +49,6 @@ dependencies:
   cached_network_image: ^3.4.1
   pretty_dio_logger: ^1.4.0
   fluttertoast: ^8.2.8
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,7 +58,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,7 +75,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
-#    - assets/svgs/
+    - assets/svgs/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -90,20 +90,20 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Montserrat
-       fonts:
-         - asset: assets/fonts/Montserrat-VariableFont_wght.ttf
-         - asset: assets/fonts/Montserrat-Bold.ttf
-         - asset: assets/fonts/Montserrat-Italic-VariableFont_wght.ttf
-         - asset: assets/fonts/Montserrat-Medium.ttf
-         - asset: assets/fonts/Montserrat-Regular.ttf
-         - asset: assets/fonts/Montserrat-SemiBold.ttf
-         - asset: assets/fonts/Montserrat-Light.ttf
-     - family: Inter
-       fonts:
-         - asset: assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
-         - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
-         - asset: assets/fonts/Inter-Regular.otf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/Montserrat-Light.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
+        - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
+        - asset: assets/fonts/Inter-Regular.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
