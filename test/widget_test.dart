@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:touf_w_shouf/core/routing/app_router.dart';
-import 'package:touf_w_shouf/main.dart';
 import 'package:touf_w_shouf/touf_w_shouf.dart';
 
 void main() {

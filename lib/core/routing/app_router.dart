@@ -14,7 +14,7 @@ class AppRouter {
         );
       case Routes.onboardingView:
         return RouteAnimations.buildPageRoute(
-          page: OnboardingView(),
+          page: const OnboardingView(),
           settings: settings,
           transitionType: TransitionType.slideFromBottom,
         );

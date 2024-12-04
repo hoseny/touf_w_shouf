@@ -15,7 +15,7 @@ class SplashBody extends StatelessWidget {
           },
           text: 'Test',
           isLoading: false,
-
+          
         ),
       ),
     );
