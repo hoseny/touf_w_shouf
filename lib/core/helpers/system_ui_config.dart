@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class SystemUIConfig {
+  static void configure() {
+    setSystemUIStyles();
+    lockPortraitMode();
+  }
+
+  // the status bar at the top and bottom nav bar colors
+  static void setSystemUIStyles() {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.white,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
+  // disable device orientation
+  static void lockPortraitMode() {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+  }
+}
