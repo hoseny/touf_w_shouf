@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
           ? const CircularProgressIndicator(color: AppColors.white)
           : Text(
               text,
-              style: TextStyles.font16WhiteMedium,
+              // style: TextStyles.font16WhiteMedium,
             ),
     );
   }
