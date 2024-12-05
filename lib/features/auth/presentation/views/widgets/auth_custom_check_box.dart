@@ -5,12 +5,12 @@ import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class AuthCustomCheckBox extends StatefulWidget {
   const AuthCustomCheckBox({
-    Key? key,
+    super.key,
     required this.mainText,
     this.highlightedParts = const [],
     this.isChecked = false,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   final String mainText;
   final List<String> highlightedParts;

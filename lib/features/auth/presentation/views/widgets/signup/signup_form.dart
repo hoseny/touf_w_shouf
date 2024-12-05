@@ -6,7 +6,7 @@ import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({Key? key}) : super(key: key);
+  const SignUpForm({super.key});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -19,7 +19,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+  final AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
   @override
   void dispose() {
@@ -45,21 +45,21 @@ class _SignUpFormState extends State<SignUpForm> {
             validator: Validation.userNameValidator,
             autoValidateMode: _autoValidateMode,
           ),
-          20.verticalSpace,
+          15.verticalSpace,
           AppTextFormField(
             hintText: "Last name",
             controller: _lastnameController,
             validator: Validation.userNameValidator,
             autoValidateMode: _autoValidateMode,
           ),
-          20.verticalSpace,
+          15.verticalSpace,
           AppTextFormField(
             hintText: "Email",
             controller: _emailController,
             validator: Validation.emailValidator,
             autoValidateMode: _autoValidateMode,
           ),
-          20.verticalSpace,
+          15.verticalSpace,
           AppTextFormField(
             hintText: "Phone number",
             controller: _phoneController,
@@ -68,7 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
             isPhoneField: true,
             autoValidateMode: _autoValidateMode,
           ),
-          20.verticalSpace,
+          15.verticalSpace,
           AppTextFormField(
             hintText: "Password",
             controller: _passwordController,

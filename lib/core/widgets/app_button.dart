@@ -7,7 +7,7 @@ enum ButtonVariant { filled, text }
 
 class AppButton extends StatelessWidget {
   const AppButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.backgroundColor,
@@ -16,7 +16,7 @@ class AppButton extends StatelessWidget {
     this.variant = ButtonVariant.filled,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final String text;

@@ -6,7 +6,7 @@ class CountryPickerIcon extends StatelessWidget {
   final String countryFlag;
   final VoidCallback showCountryPicker;
 
-  const CountryPickerIcon({
+  const CountryPickerIcon({super.key, 
     required this.countryFlag,
     required this.showCountryPicker,
   });

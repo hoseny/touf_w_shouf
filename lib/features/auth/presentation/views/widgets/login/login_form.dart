@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
+import 'package:touf_w_shouf/features/auth/data/models/login_models/login_request.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -42,7 +45,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             autoValidateMode: autoValidateMode,
           ),
-          20.verticalSpace,
+          15.verticalSpace,
           AppTextFormField(
             hintText: "Password",
             controller: passwordController,
@@ -60,7 +63,21 @@ class _LoginFormState extends State<LoginForm> {
           ),
           10.verticalSpace,
           AppButton(
-            onPressed: () {},
+            onPressed: () {
+              // closeKeyboard(context);
+              if (formKey.currentState!.validate()) {
+                context.read<LoginCubit>().login(
+                  loginRequest: LoginRequest(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  ),
+                );
+              } else {
+                setState(() {
+                  autoValidateMode = AutovalidateMode.always;
+                });
+              }
+            },
             text: 'Login',
             width: 327.w,
             height: 46.h,

@@ -4,10 +4,10 @@ import 'onboarding_slide_images.dart';
 
 class OnboardingCarousel extends StatelessWidget {
   const OnboardingCarousel({
-    Key? key,
+    super.key,
     required this.carouselController,
     required this.onPageChanged,
-  }) : super(key: key);
+  });
 
   final CarouselSliderController? carouselController;
   final Function(int) onPageChanged;

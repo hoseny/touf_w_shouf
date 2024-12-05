@@ -14,7 +14,7 @@ class PhoneInputField extends StatelessWidget {
   final AutovalidateMode? autoValidateMode;
 
   const PhoneInputField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.controller,
     this.validator,
@@ -22,13 +22,13 @@ class PhoneInputField extends StatelessWidget {
     required this.countryFlag,
     required this.showCountryPicker,
     this.autoValidateMode,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 327.w,
-      height: 46.h,
+      height: 60.h, // Increased height to prevent shrinking
       child: TextFormField(
         autovalidateMode: autoValidateMode,
         controller: controller,
@@ -52,9 +52,24 @@ class PhoneInputField extends StatelessWidget {
             ),
             borderSide: BorderSide(color: AppColors.primaryBlue, width: 2.w),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(14.r),
+            ),
+            borderSide: BorderSide(color: AppColors.error, width: 2.w), // Error border
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(14.r),
+            ),
+            borderSide: BorderSide(color: AppColors.error, width: 2.w), // Focused error border
+          ),
           filled: true,
           fillColor: AppColors.white,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.h),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 12.h,
+            horizontal: 16.w, // Add horizontal padding to ensure consistency
+          ),
           prefixIcon: CountryPickerIcon(
             countryFlag: countryFlag,
             showCountryPicker: showCountryPicker,

@@ -15,7 +15,7 @@ class StandardInputField extends StatelessWidget {
   final VoidCallback togglePasswordVisibility;
 
   const StandardInputField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.controller,
     required this.isPassword,
@@ -25,13 +25,13 @@ class StandardInputField extends StatelessWidget {
     this.autoValidateMode,
     required this.isObscured,
     required this.togglePasswordVisibility,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 327.w,
-      height: 46.h,
+      width: 327.w, // Fixed width to maintain size
+      height: 60.h, // Increased height for error message space
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -56,6 +56,18 @@ class StandardInputField extends StatelessWidget {
             ),
             borderSide: BorderSide(color: AppColors.primaryBlue, width: 2.w),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(14.r),
+            ),
+            borderSide: BorderSide(color: AppColors.error, width: 1.w), // Error border
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(14.r),
+            ),
+            borderSide: BorderSide(color: AppColors.error, width: 2.w), // Focused error border
+          ),
           filled: true,
           fillColor: AppColors.white,
           contentPadding: EdgeInsets.symmetric(
@@ -65,7 +77,9 @@ class StandardInputField extends StatelessWidget {
           suffixIcon: isPassword
               ? IconButton(
             icon: Icon(
-              isObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+              isObscured
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
               color: AppColors.steelGrey,
             ),
             onPressed: togglePasswordVisibility,

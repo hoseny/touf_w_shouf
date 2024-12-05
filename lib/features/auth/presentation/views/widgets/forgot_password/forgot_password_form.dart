@@ -5,7 +5,7 @@ import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
-  const ForgotPasswordForm({Key? key}) : super(key: key);
+  const ForgotPasswordForm({super.key});
 
   @override
   State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();

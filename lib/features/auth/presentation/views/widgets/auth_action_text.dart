@@ -9,11 +9,11 @@ class AuthActionText extends StatelessWidget {
   final VoidCallback onActionTap;
 
   const AuthActionText({
-    Key? key,
+    super.key,
     required this.initialText,
     required this.actionText,
     required this.onActionTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

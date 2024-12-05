@@ -4,14 +4,14 @@ import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class OnboardingButton extends StatelessWidget {
   const OnboardingButton({
-    Key? key,
+    super.key,
     required this.color,
     required this.text,
     required this.onTap,
     this.textStyle,
     this.width,
     this.height,
-  }) : super(key: key);
+  });
 
   final Color color;
   final String text;
