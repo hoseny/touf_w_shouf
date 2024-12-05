@@ -1,28 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:touf_w_shouf/core/resources/assets.dart';
-import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_header.dart';
-import 'package:touf_w_shouf/features/auth/presentation/views/widgets/forgot_password/forgot_password_form.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password/forgot_password_cubit.dart';
+import 'package:touf_w_shouf/features/auth/presentation/views/widgets/loading_indicator.dart';
+import 'forgot_password_header.dart';
+import 'forgot_password_form.dart';
+
 class ForgotPasswordBody extends StatelessWidget {
   const ForgotPasswordBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-       children: [
-         AuthHeader(
-           imageAsset: Assets.forgetpass,
-           title: 'Forgot password?',
-           subtitle: 'Don’t worry! It’s happens. Please enter the email address associated with your account.',
-           imageHeight: 328.89.h,
-           titleSpacing: 12.h,
-           subtitleSpacing: 8.h,
-         ),
-         20.verticalSpace,
-         ForgotPasswordForm(),
-       ],
-      ),
+    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+      listener: (context, state) {
+        if (state is ForgotPasswordLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const LoadingIndicator(),
+          );
+        } else if (state is ForgotPasswordSuccess) {
+          context.pop();
+          ToastHelper.showSuccessToast('Please Review Your Mail ');
+          // Todo
+        } else if (state is ForgotPasswordFailure) {
+          context.pop();
+          ToastHelper.showErrorToast(state.errMessage);
+        }
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const ForgotPasswordHeader(),
+              const ForgotPasswordForm(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

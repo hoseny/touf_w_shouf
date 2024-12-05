@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
@@ -23,6 +24,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+  bool _isChecked = false;
 
   @override
   void dispose() {
@@ -83,28 +85,35 @@ class _SignUpFormState extends State<SignUpForm> {
           AuthCustomCheckBox(
             mainText: "I agree to Platform Terms of Service and Privacy Policy",
             highlightedParts: ["Terms", "of", "Service", "Privacy", "Policy"],
-            isChecked: false,
-            onChanged: (value) {},
+            isChecked: _isChecked,
+            onChanged: (value) {
+              setState(() {
+                _isChecked = value;
+              });
+            },
           ),
           10.verticalSpace,
           AppButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (_formKey.currentState!.validate() && _isChecked) {
                 context.read<SignUpCubit>().signUp(
-                      signUpRequest: SignUpRequest(
-                        phone: _phoneController.text.trim(),
-                        email: _emailController.text.trim(),
-                        userName:
-                            "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
-                        password: _passwordController.text.trim(),
-                        nat: "1",
-                        address: "address",
-                      ),
-                    );
+                  signUpRequest: SignUpRequest(
+                    phone: _phoneController.text.trim(),
+                    email: _emailController.text.trim(),
+                    userName:
+                    "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
+                    password: _passwordController.text.trim(),
+                    nat: "1",
+                    address: "address",
+                  ),
+                );
               } else {
                 setState(() {
                   _autoValidateMode = AutovalidateMode.always;
                 });
+                if (!_isChecked) {
+                 ToastHelper.showErrorToast('You must agree to the terms to create an account');
+                }
               }
             },
             text: 'Create account',

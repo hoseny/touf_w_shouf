@@ -6,6 +6,7 @@ import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/core/networking/dio_factory.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
+import 'package:touf_w_shouf/features/auth/data/models/forgot_password_models/forgot_password_response.dart';
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_request.dart';
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_response.dart';
 import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
@@ -64,4 +65,22 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
   //////////////////////////////////////////////////////////////////
+
+  @override
+  Future<Either<Failure, ForgotPasswordResponse>> forgetPassword({required String email}) async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.forgetPassword(email: email),
+      );
+      final forgetPasswordResponse = ForgotPasswordResponse.fromJson(response);
+      return right(forgetPasswordResponse);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
+
 }

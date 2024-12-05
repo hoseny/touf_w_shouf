@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password/forgot_password_cubit.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -24,7 +26,9 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
 
   void _submit() {
     if (formKey.currentState?.validate() ?? false) {
-      // Handle the form submission logic
+      final email = forgetPassController.text.trim();
+
+      context.read<ForgotPasswordCubit>().forgetPassword(email: email);
     } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
