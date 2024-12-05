@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-import '../../features/auth/presentation/views/widgets/country_picker_icon.dart';
-
 class PhoneInputField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;

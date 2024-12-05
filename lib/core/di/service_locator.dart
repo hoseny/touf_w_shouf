@@ -8,7 +8,7 @@ final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
   //dio & ApiService
-  Dio dio = await DioFactory.getDio();
+  Dio dio = DioFactory.getDio();
   getIt.registerSingleton<ApiService>(ApiService(dio));
   //repos
   getIt.registerSingleton<AuthRepoImpl>(AuthRepoImpl(getIt.get<ApiService>()));

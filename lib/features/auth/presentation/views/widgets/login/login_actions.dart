@@ -25,7 +25,7 @@ class LoginActions extends StatelessWidget {
           initialText: 'First time here?',
           actionText: 'Sign up for free',
           onActionTap: () {
-            context.pushNamedAndRemoveUntil(Routes.signUpView, predicate: (route) => false);;
+            context.pushNamedAndRemoveUntil(Routes.signUpView, predicate: (route) => false);
           },
         ),
       ],
