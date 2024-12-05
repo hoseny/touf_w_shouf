@@ -28,7 +28,7 @@ class PhoneInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 327.w,
-      height: 60.h, // Increased height to prevent shrinking
+      height: 60.h,
       child: TextFormField(
         autovalidateMode: autoValidateMode,
         controller: controller,
@@ -56,19 +56,19 @@ class PhoneInputField extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(14.r),
             ),
-            borderSide: BorderSide(color: AppColors.error, width: 2.w), // Error border
+            borderSide: BorderSide(color: AppColors.error, width: 2.w),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(14.r),
             ),
-            borderSide: BorderSide(color: AppColors.error, width: 2.w), // Focused error border
+            borderSide: BorderSide(color: AppColors.error, width: 2.w),
           ),
           filled: true,
           fillColor: AppColors.white,
           contentPadding: EdgeInsets.symmetric(
             vertical: 12.h,
-            horizontal: 16.w, // Add horizontal padding to ensure consistency
+            horizontal: 16.w,
           ),
           prefixIcon: CountryPickerIcon(
             countryFlag: countryFlag,
@@ -79,6 +79,47 @@ class PhoneInputField extends StatelessWidget {
         cursorColor: AppColors.black,
         keyboardType: TextInputType.phone,
         onChanged: onChanged,
+      ),
+    );
+  }
+}
+
+class CountryPickerIcon extends StatelessWidget {
+  final String countryFlag;
+  final VoidCallback showCountryPicker;
+
+  const CountryPickerIcon({super.key,
+    required this.countryFlag,
+    required this.showCountryPicker,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: showCountryPicker,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.h),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              countryFlag,
+              style: TextStyle(fontSize: 20.sp),
+            ),
+            SizedBox(width: 2.w),
+            Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Color(0xffB3BECD),
+              size: 16.sp,
+            ),
+            SizedBox(width: 10.w),
+            Container(
+              width: 1,
+              height: 30,
+              color: AppColors.mediumGrey,
+            ),
+          ],
+        ),
       ),
     );
   }

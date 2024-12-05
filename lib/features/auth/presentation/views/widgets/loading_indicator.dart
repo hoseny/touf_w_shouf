@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 
-class LoginLoadingIndicator extends StatelessWidget {
-  const LoginLoadingIndicator({super.key});
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

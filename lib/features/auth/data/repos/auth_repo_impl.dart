@@ -8,6 +8,8 @@ import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_request.dart';
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_response.dart';
+import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
+import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_response.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {
@@ -23,21 +25,17 @@ class AuthRepoImpl extends AuthRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.login(loginRequest: loginRequest),
       );
-
       final loginResponse = LoginResponse.fromJson(response);
-
       final token = loginResponse.token ?? '';
       if (token.isNotEmpty) {
         await SharedPref.setData(
           key: SharedPrefKeys.token,
           value: token,
         );
-
         DioFactory.setTokenIntoHeaderAfterLogin(token);
       } else {
         return Left(ServerFailure('Token is missing or invalid'));
       }
-
       return Right(loginResponse);
     } catch (e) {
       if (e is DioException) {
@@ -46,4 +44,24 @@ class AuthRepoImpl extends AuthRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+///////////////////////////////////////////////////////////////////
+  @override
+  Future<Either<Failure, SignUpResponse>> signUpRequest(
+      {required SignUpRequest signUpRequest}) async {
+    try {
+      final response = await apiService.post(
+        endpoint: ApiEndpoints.signUp,
+        data: signUpRequest.toJson(),
+      );
+      final signUpResponse = SignUpResponse.fromJson(response);
+      return right(signUpResponse);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
+  //////////////////////////////////////////////////////////////////
 }

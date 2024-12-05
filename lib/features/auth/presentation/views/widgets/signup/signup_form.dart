@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
+import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/signup_cubit/sign_up_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -19,7 +22,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
+  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
 
   @override
   void dispose() {
@@ -81,12 +84,29 @@ class _SignUpFormState extends State<SignUpForm> {
             mainText: "I agree to Platform Terms of Service and Privacy Policy",
             highlightedParts: ["Terms", "of", "Service", "Privacy", "Policy"],
             isChecked: false,
-            onChanged: (value) {
-            },
+            onChanged: (value) {},
           ),
           10.verticalSpace,
           AppButton(
-            onPressed: () {},
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<SignUpCubit>().signUp(
+                      signUpRequest: SignUpRequest(
+                        phone: _phoneController.text.trim(),
+                        email: _emailController.text.trim(),
+                        userName:
+                            "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
+                        password: _passwordController.text.trim(),
+                        nat: "1",
+                        address: "address",
+                      ),
+                    );
+              } else {
+                setState(() {
+                  _autoValidateMode = AutovalidateMode.always;
+                });
+              }
+            },
             text: 'Create account',
             width: 327.w,
             height: 46.h,

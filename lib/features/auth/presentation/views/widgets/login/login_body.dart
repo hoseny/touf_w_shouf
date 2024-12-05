@@ -7,7 +7,7 @@ import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/logi
 import 'login_actions.dart';
 import 'login_form.dart';
 import 'login_header.dart';
-import 'login_loading_indicator.dart';
+import '../loading_indicator.dart';
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
 
@@ -19,7 +19,7 @@ class LoginBody extends StatelessWidget {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => const LoginLoadingIndicator(),
+            builder: (context) => const LoadingIndicator(),
           );
         } else if (state is LoginSuccess) {
           context.pop();
