@@ -3,7 +3,7 @@ import 'package:country_picker/country_picker.dart';
 import 'phone_input_field.dart';
 import 'standard_input_field.dart';
 
-class CustomTextField extends StatefulWidget {
+class AppTextFormField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
   final TextEditingController controller;
@@ -13,7 +13,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final AutovalidateMode? autoValidateMode;
 
-  const CustomTextField({
+  const AppTextFormField({
     super.key,
     required this.hintText,
     this.isPassword = false,
@@ -26,10 +26,10 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  CustomTextFieldState createState() => CustomTextFieldState();
+  AppTextFormFieldState createState() => AppTextFormFieldState();
 }
 
-class CustomTextFieldState extends State<CustomTextField> {
+class AppTextFormFieldState extends State<AppTextFormField> {
   late bool _isObscured;
   String _countryFlag = "🇪🇬";
 

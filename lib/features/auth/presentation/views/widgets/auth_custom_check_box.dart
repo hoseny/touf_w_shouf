@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-class CustomCheckbox extends StatefulWidget {
-  const CustomCheckbox({
+class AuthCustomCheckBox extends StatefulWidget {
+  const AuthCustomCheckBox({
     Key? key,
     required this.mainText,
     this.highlightedParts = const [],
@@ -18,10 +18,10 @@ class CustomCheckbox extends StatefulWidget {
   final ValueChanged<bool>? onChanged;
 
   @override
-  State<CustomCheckbox> createState() => _CustomCheckboxState();
+  State<AuthCustomCheckBox> createState() => _AuthCustomCheckBoxState();
 }
 
-class _CustomCheckboxState extends State<CustomCheckbox> {
+class _AuthCustomCheckBoxState extends State<AuthCustomCheckBox> {
   late bool _isChecked;
 
   @override
