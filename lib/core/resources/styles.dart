@@ -76,16 +76,22 @@ class TextStyles {
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14Blue500Medium = baseStyle(
-    fontSize: 14.sp,
+    fontSize: 14,
     color: AppColors.primaryBlue,
     fontWeight: FontWeightHelper.medium,
   );
+  static TextStyle font20BlackMedium = baseStyle(
+      fontSize: 20,
+      color: AppColors.black,
+      fontWeight: FontWeightHelper.medium,
+      );
 
   static TextStyle font24WhiteSemiBold = baseStyle(
     fontSize: 24,
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.white,
   );
+
 
   static TextStyle font16BlackRegular = baseStyle(
     fontSize: 16,

@@ -8,9 +8,15 @@ import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/signup_cubit/sign_up_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
-
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+
+  const SignUpForm({
+    super.key,
+    required this.emailController,
+    required this.phoneController,
+  });
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -20,8 +26,6 @@ class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   bool _isChecked = false;
@@ -30,8 +34,6 @@ class _SignUpFormState extends State<SignUpForm> {
   void dispose() {
     _firstnameController.dispose();
     _lastnameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -60,14 +62,14 @@ class _SignUpFormState extends State<SignUpForm> {
           15.verticalSpace,
           AppTextFormField(
             hintText: "Email",
-            controller: _emailController,
+            controller: widget.emailController,
             validator: Validation.emailValidator,
             autoValidateMode: _autoValidateMode,
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: "Phone number",
-            controller: _phoneController,
+            controller: widget.phoneController,
             validator: Validation.phoneNumberValidator,
             keyboardType: TextInputType.phone,
             isPhoneField: true,
@@ -98,8 +100,8 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate() && _isChecked) {
                 context.read<SignUpCubit>().signUp(
                   signUpRequest: SignUpRequest(
-                    phone: _phoneController.text.trim(),
-                    email: _emailController.text.trim(),
+                    phone: widget.phoneController.text.trim(),
+                    email: widget.emailController.text.trim(),
                     userName:
                     "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
                     password: _passwordController.text.trim(),
@@ -112,7 +114,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   _autoValidateMode = AutovalidateMode.always;
                 });
                 if (!_isChecked) {
-                 ToastHelper.showErrorToast('You must agree to the terms to create an account');
+                  ToastHelper.showErrorToast('You must agree to the terms to create an account');
                 }
               }
             },

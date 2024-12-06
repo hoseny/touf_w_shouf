@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
-import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password/forgot_password_cubit.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/loading_indicator.dart';
 import 'forgot_password_header.dart';
 import 'forgot_password_form.dart';
@@ -22,7 +22,7 @@ class ForgotPasswordBody extends StatelessWidget {
           );
         } else if (state is ForgotPasswordSuccess) {
           context.pop();
-          ToastHelper.showSuccessToast('Please Review Your Mail ');
+          ToastHelper.showSuccessToast(state.response.items.first.otp!);
           // Todo
         } else if (state is ForgotPasswordFailure) {
           context.pop();

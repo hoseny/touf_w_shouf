@@ -11,6 +11,8 @@ import 'package:touf_w_shouf/features/auth/data/models/login_models/login_reques
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_response.dart';
 import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
 import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_response.dart';
+import 'package:touf_w_shouf/features/auth/data/models/validate_otp_models/validate_otp_request.dart';
+import 'package:touf_w_shouf/features/auth/data/models/validate_otp_models/validate_otp_response.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {
@@ -45,42 +47,63 @@ class AuthRepoImpl extends AuthRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
-///////////////////////////////////////////////////////////////////
+
   @override
-  Future<Either<Failure, SignUpResponse>> signUpRequest(
-      {required SignUpRequest signUpRequest}) async {
+  Future<Either<Failure, SignUpResponse>> signUpRequest({
+    required SignUpRequest signUpRequest,
+  }) async {
     try {
       final response = await apiService.post(
         endpoint: ApiEndpoints.signUp,
         data: signUpRequest.toJson(),
       );
       final signUpResponse = SignUpResponse.fromJson(response);
-      return right(signUpResponse);
+      return Right(signUpResponse);
     } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       } else {
-        return left(ServerFailure(e.toString()));
+        return Left(ServerFailure(e.toString()));
       }
     }
   }
-  //////////////////////////////////////////////////////////////////
 
   @override
-  Future<Either<Failure, ForgotPasswordResponse>> forgetPassword({required String email}) async {
+  Future<Either<Failure, ForgotPasswordResponse>> forgetPassword({
+    required String email,
+  }) async {
     try {
       final response = await apiService.get(
         endpoint: ApiEndpoints.forgetPassword(email: email),
       );
       final forgetPasswordResponse = ForgotPasswordResponse.fromJson(response);
-      return right(forgetPasswordResponse);
+      return Right(forgetPasswordResponse);
     } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       } else {
-        return left(ServerFailure(e.toString()));
+        return Left(ServerFailure(e.toString()));
       }
     }
   }
 
+  @override
+  Future<Either<Failure, ValidateOtpResponse>> validateOtp({
+    required ValidateOtpRequest validateOtpRequest,
+  }) async {
+    try {
+      final response = await apiService.post(
+        endpoint: ApiEndpoints.validateEmail(otp: validateOtpRequest.otp),
+        data: validateOtpRequest.toJson(),
+      );
+      final validateOtpResponse = ValidateOtpResponse.fromJson(response);
+      return Right(validateOtpResponse);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      } else {
+        return Left(ServerFailure(e.toString()));
+      }
+    }
+  }
 }
