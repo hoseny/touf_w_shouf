@@ -11,8 +11,13 @@ abstract class ApiEndpoints {
   static String forgetPassword({required String email}) {
     return 'forgetPassword/$email';
   }
-
+  static String validateOtpForget({required String email}) {
+    return 'forgetPassword/$email';
+  }
   static String validateEmail({required String otp}) {
     return 'validation/$otp';
+  }
+  static String resetPassword() {
+    return 'forgetPassword/:Email';
   }
 }
