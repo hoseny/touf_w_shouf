@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
@@ -128,8 +126,7 @@ class AuthRepoImpl extends AuthRepo {
         endpoint: ApiEndpoints.validateOtpForget(email: email),
         data: request.toJson(),
       );
-      final validateOtpForgetResponse =
-          ValidateOtpForgetResponse.fromJson(response);
+      final validateOtpForgetResponse = ValidateOtpForgetResponse.fromJson(response);
       return Right(validateOtpForgetResponse);
     } catch (e) {
       if (e is DioException) {
