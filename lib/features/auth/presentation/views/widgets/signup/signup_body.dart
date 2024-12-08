@@ -33,7 +33,6 @@ class _SignupBodyState extends State<SignupBody> {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          context.pop();
           context.pushNamed(
             Routes.validateOtpView,
             arguments: {
@@ -41,9 +40,8 @@ class _SignupBodyState extends State<SignupBody> {
               'phone': phoneController.text.trim()
             },
           );
-          ToastHelper.showSuccessToast(state.signUpResponse.items.first.otp!);
+          ToastHelper.showSuccessToast(state.signUpResponse.message);
         } else if (state is SignUpFailure) {
-          context.pop();
           ToastHelper.showErrorToast(state.errMessage);
         }
       },

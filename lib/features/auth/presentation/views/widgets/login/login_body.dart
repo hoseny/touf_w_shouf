@@ -18,7 +18,7 @@ class LoginBody extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           context.pushNamedAndRemoveUntil(Routes.homeView, predicate: (route) => false);
-          ToastHelper.showErrorToast('success');
+          ToastHelper.showSuccessToast('Login Successfully');
         } else if (state is LoginFailure) {
           ToastHelper.showErrorToast(state.errMessage);
         }

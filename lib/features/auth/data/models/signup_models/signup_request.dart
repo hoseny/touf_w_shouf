@@ -1,4 +1,3 @@
-
 class SignUpRequest {
   final String phone;
   final String email;

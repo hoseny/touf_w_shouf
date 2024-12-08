@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
@@ -32,7 +34,7 @@ class AuthRepoImpl extends AuthRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.login(loginRequest: loginRequest),
       );
-      final loginResponse = LoginResponse.fromJson(response.data['item']);
+      final loginResponse = LoginResponse.fromJson(response['item'][0]);
       final token = loginResponse.token;
       final custCode = loginResponse.custCode;
       if (token.isNotEmpty) {
@@ -66,7 +68,7 @@ class AuthRepoImpl extends AuthRepo {
         endpoint: ApiEndpoints.signUp,
         data: signUpRequest.toJson(),
       );
-      final signUpResponse = SignUpResponse.fromJson(response);
+      final signUpResponse = SignUpResponse.fromJson(response['item'][0]);
       return Right(signUpResponse);
     } catch (e) {
       if (e is DioException) {

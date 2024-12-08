@@ -19,7 +19,7 @@ class LoginResponse {
       name: json['NAME'] as String,
       telephone: json['TELEPHONE'] as String,
       email: json['EMAIL'] as String,
-      token: json['Token ']?.toString().trim() ?? '',
+      token: json['Token '],
     );
   }
 }
