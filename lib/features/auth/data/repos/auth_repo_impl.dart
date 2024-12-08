@@ -129,7 +129,7 @@ class AuthRepoImpl extends AuthRepo {
         data: request.toJson(),
       );
       final validateOtpForgetResponse =
-          ValidateOtpForgetResponse.fromJson(response);
+      ValidateOtpForgetResponse.fromJson(response);
       return Right(validateOtpForgetResponse);
     } catch (e) {
       if (e is DioException) {
@@ -146,7 +146,7 @@ class AuthRepoImpl extends AuthRepo {
   }) async {
     try {
       final response = await apiService.put(
-        endpoint: ApiEndpoints.resetPassword(),
+        endpoint: ApiEndpoints.resetPassword(request: resetPasswordRequest),
         data: resetPasswordRequest.toJson(),
       );
       final resetPasswordResponse = ResetPasswordResponse.fromJson(response);

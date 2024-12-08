@@ -5,6 +5,7 @@ import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
+
 class ForgotPasswordForm extends StatefulWidget {
   final TextEditingController emailController;
 
@@ -49,11 +50,16 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             validator: Validation.validatePhoneOrEmail,
           ),
           SizedBox(height: 150.h),
-          AppButton(
-            onPressed: _submit,
-            text: 'Submit',
-            width: 327.w,
-            height: 46.h,
+          BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+            builder: (context, state) {
+              return AppButton(
+                onPressed: _submit,
+                text: 'Submit',
+                width: 327.w,
+                height: 46.h,
+                isLoading: state is ForgotPasswordLoading,
+              );
+            },
           ),
         ],
       ),

@@ -12,11 +12,13 @@ import 'package:touf_w_shouf/features/auth/presentation/views/widgets/validate_o
 class ValidateOtpForm extends StatefulWidget {
   final String email;
   final String? phone;
+  final TextEditingController otpController;
 
   const ValidateOtpForm({
     super.key,
     required this.email,
     required this.phone,
+    required this.otpController,
   });
 
   @override
@@ -25,14 +27,7 @@ class ValidateOtpForm extends StatefulWidget {
 
 class _ValidateOtpFormState extends State<ValidateOtpForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _otpController = TextEditingController();
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
-
-  @override
-  void dispose() {
-    _otpController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +38,24 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ValidateOtpPinPut(
-            otpController: _otpController,
+            otpController: widget.otpController,
             onCompleted: (otp) {
               _onSubmitted(otp);
             },
           ),
           150.verticalSpace,
-          AppButton(
-            onPressed: () {
-              _onSubmitted(_otpController.text);
+          BlocBuilder<ValidateOtpCubit, ValidateOtpState>(
+            builder: (context, state) {
+              return AppButton(
+                onPressed: () {
+                  _onSubmitted(widget.otpController.text);
+                },
+                width: 327.w,
+                height: 46.h,
+                text: 'Verify',
+                isLoading: state is ValidateOtpLoading,
+              );
             },
-            width: 327.w,
-            height: 46.h,
-            text: 'Verify',
           ),
           BlocConsumer<ValidateOtpCubit, ValidateOtpState>(
             listener: (context, state) {
@@ -80,20 +80,18 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
   void _onSubmitted(String otp) {
     if (_formKey.currentState!.validate()) {
       if (widget.phone != null) {
-        // Normal OTP validation with email and phone
         context.read<ValidateOtpCubit>().validateOtp(
-              validateOtpRequest: ValidateOtpRequest(
-                otp: otp,
-                email: widget.email,
-                phone: widget.phone!,
-              ),
-            );
+          validateOtpRequest: ValidateOtpRequest(
+            otp: otp,
+            email: widget.email,
+            phone: widget.phone!,
+          ),
+        );
       } else {
-        // OTP validation for forgot password with email only
         context.read<ValidateOtpForgetCubit>().validateOtpForget(
-              request: ValidateOtpForgetRequest(vOtp: otp),
-              email: widget.email,
-            );
+          request: ValidateOtpForgetRequest(vOtp: otp),
+          email: widget.email,
+        );
       }
     } else {
       setState(() {

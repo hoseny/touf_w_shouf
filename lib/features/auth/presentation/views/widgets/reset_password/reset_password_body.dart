@@ -23,14 +23,7 @@ class ResetPasswordBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
-        if (state is ResetPasswordLoading) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) =>
-                const Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is ResetPasswordSuccess) {
+      if (state is ResetPasswordSuccess) {
           context.pop();
           ToastHelper.showSuccessToast('Password Reset Successful');
           context.pushNamedAndRemoveUntil(Routes.loginView,

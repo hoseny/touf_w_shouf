@@ -12,7 +12,9 @@ class ValidateOtpBody extends StatelessWidget {
   final String email;
   final String? phone;
 
-  const ValidateOtpBody({super.key, required this.email, required this.phone});
+  final TextEditingController otpController = TextEditingController();
+
+  ValidateOtpBody({super.key, required this.email, required this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +22,15 @@ class ValidateOtpBody extends StatelessWidget {
       listeners: [
         BlocListener<ValidateOtpCubit, ValidateOtpState>(
           listener: (context, state) {
-            if (state is ValidateOtpLoading) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else if (state is ValidateOtpSuccess) {
+            if (state is ValidateOtpSuccess) {
               context.pop();
-              context.pushNamedAndRemoveUntil(Routes.loginView, predicate: (route) => false);
-              ToastHelper.showSuccessToast('Verifying Successfully, Please login now');
+              context.pushNamedAndRemoveUntil(
+                Routes.loginView,
+                predicate: (route) => false,
+              );
+              ToastHelper.showSuccessToast(
+                'Verifying Successfully, Please login now',
+              );
             } else if (state is ValidateOtpFailure) {
               context.pop();
               ToastHelper.showErrorToast(state.errMessage);
@@ -50,12 +49,17 @@ class ValidateOtpBody extends StatelessWidget {
               );
             } else if (state is ValidateOtpForgetSuccess) {
               context.pop();
-              context.pushNamed(Routes.resetPasswordView, arguments: {
-                'email': email,
-                'otp': state.response.otp,
-                'transNo': state.response.transactionNo,
-              });
-              ToastHelper.showSuccessToast('OTP verification successful for password reset');
+              context.pushNamed(
+                Routes.resetPasswordView,
+                arguments: {
+                  'email': email,
+                  'otp': otpController.text,
+                  'transNo': state.response.transactionNo,
+                },
+              );
+              ToastHelper.showSuccessToast(
+                'OTP verification successful for password reset',
+              );
             } else if (state is ValidateOtpForgetFailure) {
               context.pop();
               ToastHelper.showErrorToast(state.errorMessage);
@@ -67,7 +71,11 @@ class ValidateOtpBody extends StatelessWidget {
         child: Column(
           children: [
             ValidateOtpHeader(),
-            ValidateOtpForm(email: email, phone: phone),
+            ValidateOtpForm(
+              email: email,
+              phone: phone,
+              otpController: otpController,
+            ),
           ],
         ),
       ),

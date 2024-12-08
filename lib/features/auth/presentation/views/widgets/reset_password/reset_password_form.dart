@@ -28,7 +28,7 @@ class ResetPasswordForm extends StatefulWidget {
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final TextEditingController newPassController = TextEditingController();
   final TextEditingController confirmNewPassController =
-      TextEditingController();
+  TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
@@ -74,8 +74,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
         password: newPassword,
       );
       context.read<ResetPasswordCubit>().resetPassword(
-            resetPasswordRequest: resetPasswordRequest,
-          );
+        resetPasswordRequest: resetPasswordRequest,
+      );
     } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
@@ -95,7 +95,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
           children: [
             Column(
               children: [
-                // New Password Field
                 AppTextFormField(
                   hintText: "Enter new password",
                   controller: newPassController,
@@ -105,7 +104,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   },
                 ),
                 3.verticalSpace,
-                // Password Validations
                 ResetPasswordValidations(
                   minLength: minLength,
                   hasNumber: hasNumber,
@@ -114,7 +112,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   hasSymbol: hasSymbol,
                 ),
                 10.verticalSpace,
-                // Confirm New Password Field
                 AppTextFormField(
                   hintText: "Confirm new password",
                   controller: confirmNewPassController,
@@ -129,12 +126,16 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               ],
             ),
             10.verticalSpace,
-            // Reset Password Button
-            AppButton(
-              width: 327.w,
-              height: 46.h,
-              onPressed: _onSubmit,
-              text: "Reset Password",
+            BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
+              builder: (context, state) {
+                return AppButton(
+                  isLoading: state is ResetPasswordLoading,
+                  onPressed: _onSubmit,
+                  text: "Reset Password",
+                  width: 327.w,
+                  height: 46.h,
+                );
+              },
             ),
           ],
         ),
