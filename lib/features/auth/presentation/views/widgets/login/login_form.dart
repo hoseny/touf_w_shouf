@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:touf_w_shouf/core/helpers/fucntions.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
@@ -69,14 +68,13 @@ class _LoginFormState extends State<LoginForm> {
               return AppButton(
                 isLoading: state is LoginLoading,
                 onPressed: () {
-                  unFocusAndCloseKeyboard(context);
                   if (formKey.currentState!.validate()) {
                     context.read<LoginCubit>().login(
-                      loginRequest: LoginRequest(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      ),
-                    );
+                          loginRequest: LoginRequest(
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          ),
+                        );
                   } else {
                     setState(() {
                       autoValidateMode = AutovalidateMode.always;

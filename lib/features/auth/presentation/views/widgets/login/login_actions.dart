@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
-import 'package:touf_w_shouf/core/helpers/fucntions.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_action_text.dart';
@@ -14,7 +13,6 @@ class LoginActions extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            unFocusAndCloseKeyboard(context);
             context.pushNamed(Routes.forgotPasswordView);
           },
           child: Text(
@@ -26,7 +24,7 @@ class LoginActions extends StatelessWidget {
           initialText: 'First time here?',
           actionText: 'Sign up for free',
           onActionTap: () {
-            context.pushNamed(Routes.signUpView);
+            context.pushReplacementNamed(Routes.signUpView);
           },
         ),
       ],

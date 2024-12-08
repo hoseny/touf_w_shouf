@@ -8,6 +8,7 @@ import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/signup_cubit/sign_up_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
+
 class SignUpForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController phoneController;
@@ -95,32 +96,39 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
           10.verticalSpace,
-          AppButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate() && _isChecked) {
-                context.read<SignUpCubit>().signUp(
-                  signUpRequest: SignUpRequest(
-                    phone: widget.phoneController.text.trim(),
-                    email: widget.emailController.text.trim(),
-                    userName:
-                    "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
-                    password: _passwordController.text.trim(),
-                    nat: "1",
-                    address: "address",
-                  ),
-                );
-              } else {
-                setState(() {
-                  _autoValidateMode = AutovalidateMode.always;
-                });
-                if (!_isChecked) {
-                  ToastHelper.showErrorToast('You must agree to the terms to create an account');
-                }
-              }
+          BlocBuilder<SignUpCubit, SignUpState>(
+            builder: (context, state) {
+              return AppButton(
+                isLoading: state is SignUpLoading,
+                onPressed: () {
+                  if (_formKey.currentState!.validate() && _isChecked) {
+                    context.read<SignUpCubit>().signUp(
+                      signUpRequest: SignUpRequest(
+                        phone: widget.phoneController.text.trim(),
+                        email: widget.emailController.text.trim(),
+                        userName:
+                        "${_firstnameController.text
+                            .trim()} ${_lastnameController.text.trim()}",
+                        password: _passwordController.text.trim(),
+                        nat: "1",
+                        address: "address",
+                      ),
+                    );
+                  } else {
+                    setState(() {
+                      _autoValidateMode = AutovalidateMode.always;
+                    });
+                    if (!_isChecked) {
+                      ToastHelper.showErrorToast(
+                          'You must agree to the terms to create an account');
+                    }
+                  }
+                },
+                text: 'Create account',
+                width: 327.w,
+                height: 46.h,
+              );
             },
-            text: 'Create account',
-            width: 327.w,
-            height: 46.h,
           )
         ],
       ),

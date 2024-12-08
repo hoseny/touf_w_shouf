@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
-import 'package:touf_w_shouf/core/helpers/fucntions.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -18,11 +17,9 @@ class LoginBody extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          unFocusAndCloseKeyboard(context);
           context.pushNamedAndRemoveUntil(Routes.homeView, predicate: (route) => false);
           ToastHelper.showErrorToast('success');
         } else if (state is LoginFailure) {
-          unFocusAndCloseKeyboard(context);
           ToastHelper.showErrorToast(state.errMessage);
         }
       },
