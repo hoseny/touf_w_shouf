@@ -3,10 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-class ProgramListHeader extends StatelessWidget {
-  const ProgramListHeader({
+class OutingsSectionHeader extends StatelessWidget {
+  const OutingsSectionHeader({
     super.key,
+    required this.title,
+    this.onTap,
   });
+
+  final String title;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +29,18 @@ class ProgramListHeader extends StatelessWidget {
           ),
           4.horizontalSpace,
           Text(
-            'Best Selling',
+            title,
             style: TextStyles.font20BlackMedium,
           ),
           Spacer(),
-          GestureDetector(
-            onTap: () {},
-            child: Text(
-              'See All',
-              style: TextStyles.font16BlackRegular,
+          if (onTap != null)
+            GestureDetector(
+              onTap: onTap,
+              child: Text(
+                'See All',
+                style: TextStyles.font16BlackRegular,
+              ),
             ),
-          ),
         ],
       ),
     );

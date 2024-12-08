@@ -16,6 +16,8 @@ class AppButton extends StatelessWidget {
     this.variant = ButtonVariant.filled,
     this.width,
     this.height,
+    this.borderRadius,
+    this.style,
   });
 
   final VoidCallback onPressed;
@@ -26,6 +28,8 @@ class AppButton extends StatelessWidget {
   final ButtonVariant variant;
   final double? width;
   final double? height;
+  final double? borderRadius;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class AppButton extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor: backgroundColor ?? AppColors.primaryBlue,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
           ),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -53,7 +57,7 @@ class AppButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: TextStyles.font16WhiteMedium,
+                style: style ?? TextStyles.font16WhiteMedium,
               ),
       ),
     );

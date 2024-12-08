@@ -18,10 +18,20 @@ class HomeCarousel extends StatelessWidget {
           Assets.example1,
           Assets.example2
         ];
-        return Image.asset(
-          images[index],
-          fit: BoxFit.cover,
-          width: double.infinity,
+        return Stack(
+          children: [
+            Image.asset(
+              images[index],
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+              ),
+            ),
+          ],
         );
       },
       options: CarouselOptions(
