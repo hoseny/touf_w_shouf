@@ -28,7 +28,7 @@ class HomeCarousel extends StatelessWidget {
         viewportFraction: 1,
         height: 300.h,
         enableInfiniteScroll: true,
-        autoPlay: true,
+        autoPlay: false,
         autoPlayInterval: const Duration(seconds: 5),
       ),
     );
