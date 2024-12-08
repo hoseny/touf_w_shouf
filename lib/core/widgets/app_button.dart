@@ -29,30 +29,32 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isFilled = variant == ButtonVariant.filled;
-
     return SizedBox(
-      width: width ?? (isFilled ? double.infinity : 128.w),
-      height: height ?? (isFilled ? 46.h : 20.h),
+      width: width ?? double.infinity,
+      height: height ?? 46.h,
       child: TextButton(
         onPressed: isLoading ? null : onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: isFilled ? backgroundColor ?? AppColors.primaryBlue : Colors.transparent,
+          backgroundColor: backgroundColor ?? AppColors.primaryBlue,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(isFilled ? 16.r : 0),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          padding: EdgeInsets.zero,
-          elevation: isFilled ? 0 : null,
+          elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: isLoading
-            ? CircularProgressIndicator(color: AppColors.white)
+            ? SizedBox(
+                height: 30.h,
+                width: 30.w,
+                child: CircularProgressIndicator(
+                  color: AppColors.white,
+                  strokeWidth: 2,
+                ),
+              )
             : Text(
-          text,
-          style: isFilled
-              ? TextStyles.font16WhiteMedium
-              : TextStyles.font14Blue500Medium.copyWith(color: textColor ?? AppColors.primaryBlue),
-        ),
+                text,
+                style: TextStyles.font16WhiteMedium,
+              ),
       ),
     );
   }
