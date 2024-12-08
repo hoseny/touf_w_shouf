@@ -143,11 +143,26 @@ class TextStyles {
     color: AppColors.orange,
     fontWeight: FontWeightHelper.medium,
   );
+  static TextStyle error = baseStyle(
+    fontSize: 18.sp,
+    color: AppColors.error,
+    fontWeight: FontWeightHelper.medium,
+  );
 
   static TextStyle font18WhiteMedium = baseStyle(
     fontSize: 18.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
+  );
+  static TextStyle font18WhiteSemiBold = baseStyle(
+    fontSize: 18.sp,
+    color: AppColors.white,
+    fontWeight: FontWeightHelper.semiBold,
+  );
+  static TextStyle font18BlueSemiBold = baseStyle(
+    fontSize: 18.sp,
+    color: AppColors.primaryBlue,
+    fontWeight: FontWeightHelper.semiBold,
   );
 
   static TextStyle font26GreyExtraBold = baseStyle(

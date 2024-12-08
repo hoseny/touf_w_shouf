@@ -24,4 +24,5 @@ abstract class ApiEndpoints {
   static String resetPassword({required ResetPasswordRequest request}) {
     return 'forgetPassword/${request.email}?V_OTP=${request.otp}&TransNo=${request.transactionNo}&Pass=${request.password}';
   }
+  static const String allActivePrograms = 'onlyCurrent/0';
 }

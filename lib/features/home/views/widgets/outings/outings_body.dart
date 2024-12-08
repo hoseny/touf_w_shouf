@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/outings/active_program_bloc_builder.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/advertisements.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/partners.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/program_list_view.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/program_section_header.dart';
 
 class OutingsBody extends StatelessWidget {
@@ -13,10 +13,10 @@ class OutingsBody extends StatelessWidget {
     return Column(
       children: [
         OutingsSectionHeader(
-          title: 'Best Selling',
+          title: 'Active Programs',
           onTap: () {},
         ),
-        ProgramListView(),
+        ActiveProgramBlocBuilder(),
         OutingsSectionHeader(title: 'Advertisements'),
         Advertisements(),
         OutingsSectionHeader(title: 'Partners'),

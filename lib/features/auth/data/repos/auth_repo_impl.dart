@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
@@ -24,7 +22,8 @@ import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 class AuthRepoImpl extends AuthRepo {
   final ApiService apiService;
 
-  AuthRepoImpl(this.apiService);
+  AuthRepoImpl({required this.apiService});
+
 
   @override
   Future<Either<Failure, LoginResponse>> loginRequest({

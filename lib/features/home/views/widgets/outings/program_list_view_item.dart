@@ -1,14 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
+import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 
 class ProgramListViewItem extends StatelessWidget {
   const ProgramListViewItem({
     super.key,
+    required this.program,
   });
+
+  final ProgramModel program;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +22,23 @@ class ProgramListViewItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.r),
-          child: Image.asset(
-            Assets.listExample,
+          child: CachedNetworkImage(
+            imageUrl: program.imgPath,
             width: 265.w,
             height: double.infinity,
             fit: BoxFit.cover,
+            maxHeightDiskCache: 1200,
+            maxWidthDiskCache: 800,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryBlue,
+              ),
+            ),
+            errorWidget: (context, url, error) => Icon(
+              Icons.error,
+              color: AppColors.error,
+              size: 45.w,
+            ),
           ),
         ),
         Container(
@@ -52,7 +70,7 @@ class ProgramListViewItem extends StatelessWidget {
                   style: TextStyles.font10mutedGreyRegular,
                 ),
                 Text(
-                  '850 EGP',
+                  '${program.startPrice.toString()} EGP',
                   style: TextStyles.font16OrangeSemiBold,
                 ),
               ],
@@ -69,36 +87,41 @@ class ProgramListViewItem extends StatelessWidget {
               SizedBox(
                 width: 265.w,
                 child: Text(
-                  'The Egyptian Gulf (Hospice of the Sultan)',
+                  program.programName,
                   style: TextStyles.font18WhiteMedium,
                 ),
               ),
-              RatingBar(
-                ratingWidget: RatingWidget(
-                  full: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                    child: SvgPicture.asset(Assets.starFull),
-                  ),
-                  half: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                    child: SvgPicture.asset(Assets.starHalf),
-                  ),
-                  empty: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                    child: SvgPicture.asset(Assets.starEmpty),
-                  ),
-                ),
-                initialRating: 3.6,
-                minRating: 1,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 20.w,
-                updateOnDrag: false,
-                tapOnlyMode: false,
-                ignoreGestures: true,
-                onRatingUpdate: (double rating) {},
-              ),
+              program.rateReview != 'No Review'
+                  ? RatingBar(
+                      ratingWidget: RatingWidget(
+                        full: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
+                          child: SvgPicture.asset(Assets.starFull),
+                        ),
+                        half: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
+                          child: SvgPicture.asset(Assets.starHalf),
+                        ),
+                        empty: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
+                          child: SvgPicture.asset(Assets.starEmpty),
+                        ),
+                      ),
+                      initialRating: double.parse(program.rateReview),
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemSize: 20.w,
+                      updateOnDrag: false,
+                      tapOnlyMode: false,
+                      ignoreGestures: true,
+                      onRatingUpdate: (double rating) {},
+                    )
+                  : Text(
+                      program.rateReview,
+                      style: TextStyles.font18WhiteMedium,
+                    ),
             ],
           ),
         )
