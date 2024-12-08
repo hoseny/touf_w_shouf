@@ -48,7 +48,7 @@ class AuthRepoImpl extends AuthRepo {
         );
         DioFactory.setTokenIntoHeaderAfterLogin(token);
       } else {
-        return Left(ServerFailure('Token is missing or invalid'));
+        return Left(CacheFailure('Token is missing or invalid'));
       }
       return Right(loginResponse);
     } catch (e) {
