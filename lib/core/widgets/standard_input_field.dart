@@ -31,7 +31,6 @@ class StandardInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 327.w, // Fixed width to maintain size
-      height: 60.h, // Increased height for error message space
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,

@@ -32,12 +32,17 @@ class AuthRepoImpl extends AuthRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.login(loginRequest: loginRequest),
       );
-      final loginResponse = LoginResponse.fromJson(response);
-      final token = loginResponse.token ?? '';
+      final loginResponse = LoginResponse.fromJson(response.data['item']);
+      final token = loginResponse.token;
+      final custCode = loginResponse.custCode;
       if (token.isNotEmpty) {
         await SharedPref.setData(
           key: SharedPrefKeys.token,
           value: token,
+        );
+        await SharedPref.setData(
+          key: SharedPrefKeys.custCode,
+          value: custCode,
         );
         DioFactory.setTokenIntoHeaderAfterLogin(token);
       } else {
@@ -122,7 +127,7 @@ class AuthRepoImpl extends AuthRepo {
         data: request.toJson(),
       );
       final validateOtpForgetResponse =
-      ValidateOtpForgetResponse.fromJson(response);
+          ValidateOtpForgetResponse.fromJson(response);
       return Right(validateOtpForgetResponse);
     } catch (e) {
       if (e is DioException) {

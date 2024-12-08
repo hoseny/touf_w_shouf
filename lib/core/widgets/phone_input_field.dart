@@ -26,7 +26,6 @@ class PhoneInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 327.w,
-      height: 60.h,
       child: TextFormField(
         autovalidateMode: autoValidateMode,
         controller: controller,
