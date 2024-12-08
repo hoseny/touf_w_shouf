@@ -11,7 +11,7 @@ class HomeTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80.h,
+      height: 60.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 3,

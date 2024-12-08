@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/auth/data/models/forgot_password_models/forgot_password_response.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 

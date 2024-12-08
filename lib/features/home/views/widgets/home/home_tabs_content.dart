@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/outings/outings_body.dart';
 
 class HomeTabContent extends StatelessWidget {
   final int index;
@@ -9,7 +10,7 @@ class HomeTabContent extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (index) {
       case 0:
-        return const Text('Outings Tab Content');
+        return OutingsBody();
       case 1:
         return const Text('Hotels Tab Content');
       case 2:

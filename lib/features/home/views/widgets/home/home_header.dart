@@ -11,7 +11,7 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 300.h,
+      expandedHeight: 260.h,
       toolbarHeight: 0,
       pinned: false,
       backgroundColor: Colors.white,
@@ -20,7 +20,7 @@ class HomeHeader extends StatelessWidget {
           children: [
             HomeCarousel(),
             Positioned(
-              bottom: 0,
+              bottom: -20.h,
               left: 0,
               right: 0,
               child: const HomeTabs(),
