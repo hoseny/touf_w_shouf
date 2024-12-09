@@ -15,7 +15,8 @@ class ProgramDetailsHeader extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: 260.h,
       toolbarHeight: 0,
-      pinned: false,
+      pinned: true,
+      scrolledUnderElevation: 0,
       backgroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(

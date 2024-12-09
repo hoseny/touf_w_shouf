@@ -12,7 +12,7 @@ class ProgramInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.w),

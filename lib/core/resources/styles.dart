@@ -30,7 +30,7 @@ class TextStyles {
   }
 
   static TextStyle onboardingTitleStyle = baseStyle(
-    fontSize: 24,
+    fontSize: 24.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Inter',
     color: AppColors.white,
@@ -39,7 +39,7 @@ class TextStyles {
   );
 
   static TextStyle onboardingDescriptionStyle = baseStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Inter',
     color: AppColors.white,
@@ -48,7 +48,7 @@ class TextStyles {
   );
 
   static TextStyle onboardingButtonStyle = baseStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Inter',
     color: AppColors.white,
@@ -56,89 +56,100 @@ class TextStyles {
 
   /// Example: Common Text Styles
   static TextStyle font14Grey600Regular = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.steelGrey,
     fontWeight: FontWeightHelper.regular,
   );
   static TextStyle font10mutedGreyRegular = baseStyle(
-    fontSize: 10,
+    fontSize: 10.sp,
     color: AppColors.mutedGrey,
     fontWeight: FontWeightHelper.regular,
   );
   static TextStyle font14Grey600Medium = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.steelGrey,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14Blue500Bold = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.primaryBlue,
     fontWeight: FontWeightHelper.bold,
   );
   static TextStyle font14Grey700Medium = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.slateGrey,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14Blue500Medium = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.primaryBlue,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14Green500Medium = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.success,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14Grey500Medium = baseStyle(
-    fontSize: 14,
+    fontSize: 14.sp,
     color: AppColors.steelGrey,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font20BlackMedium = baseStyle(
-    fontSize: 20,
+    fontSize: 20.sp,
     color: AppColors.black,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font20WhiteMedium = baseStyle(
-    fontSize: 20,
+    fontSize: 20.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font18WhiteRegular = baseStyle(
-    fontSize: 18,
+    fontSize: 18.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.regular,
   );
 
   static TextStyle font24WhiteSemiBold = baseStyle(
-    fontSize: 24,
+    fontSize: 24.sp,
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.white,
   );
 
   static TextStyle font16BlackRegular = baseStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.black,
-  );static TextStyle font16MutedGreyRegular = baseStyle(
-    fontSize: 16,
+  );
+  static TextStyle font16MutedGreyRegular = baseStyle(
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.mutedGrey,
   );
+  static TextStyle font18MutedGreyMedium = baseStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColors.mutedGrey,
+  );
+  static TextStyle font18BlackMedium = baseStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColors.black,
+  );
   static TextStyle font16OrangeSemiBold = baseStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.orange,
   );
   static TextStyle font16WhiteMedium = TextStyle(
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeightHelper.medium,
     color: AppColors.white,
   );
 
   static TextStyle font18OrangeRegular = baseStyle(
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.orange,
   );
