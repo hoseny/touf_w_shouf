@@ -3,18 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-class ProgramDetailsHeaderActionButton extends StatelessWidget {
-  const ProgramDetailsHeaderActionButton({
+class IconTextButton extends StatelessWidget {
+  const IconTextButton({
     super.key,
     required this.svgPath,
     required this.text,
-    this.lPadding, required this.onTap,
+    this.lPadding,
+    required this.onTap,
   });
 
   final String svgPath;
   final String text;
   final double? lPadding;
   final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -35,9 +37,11 @@ class ProgramDetailsHeaderActionButton extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: const [
                   BoxShadow(
-                    color: Colors.black26,
+                    color: Colors.black12,
                     blurRadius: 4,
+                    offset: Offset(2, 2),
                   ),
+
                 ],
               ),
               child: Center(

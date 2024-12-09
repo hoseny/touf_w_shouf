@@ -121,6 +121,10 @@ class TextStyles {
     fontSize: 16,
     fontWeight: FontWeightHelper.regular,
     color: AppColors.black,
+  );static TextStyle font16MutedGreyRegular = baseStyle(
+    fontSize: 16,
+    fontWeight: FontWeightHelper.regular,
+    color: AppColors.mutedGrey,
   );
   static TextStyle font16OrangeSemiBold = baseStyle(
     fontSize: 16,

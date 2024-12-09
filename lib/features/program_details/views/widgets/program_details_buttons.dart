@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_header_action_button.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/icon_text_button.dart';
 
-class ActionButtons extends StatelessWidget {
-  const ActionButtons({
+class ProgramDetailsButtons extends StatelessWidget {
+  const ProgramDetailsButtons({
     super.key,
   });
 
@@ -22,13 +22,13 @@ class ActionButtons extends StatelessWidget {
           children: [
             Row(
               children: [
-                ProgramDetailsHeaderActionButton(
+                IconTextButton(
                   svgPath: Assets.heart,
                   text: 'Add To Wishlist',
                   onTap: () {},
                 ),
                 Spacer(),
-                ProgramDetailsHeaderActionButton(
+                IconTextButton(
                   svgPath: Assets.map,
                   text: 'Map',
                   onTap: () {},
@@ -36,7 +36,7 @@ class ActionButtons extends StatelessWidget {
               ],
             ),
             10.verticalSpace,
-            ProgramDetailsHeaderActionButton(
+            IconTextButton(
               svgPath: Assets.play,
               text: 'Watch Video',
               lPadding: 4,
