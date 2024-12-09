@@ -10,11 +10,11 @@ class AppStarRating extends StatelessWidget {
   final bool ignoreGestures;
 
   const AppStarRating({
-    Key? key,
+    super.key,
     required this.rating,
     this.itemSize = 20.0,
     this.ignoreGestures = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

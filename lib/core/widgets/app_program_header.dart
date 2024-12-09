@@ -9,11 +9,11 @@ class AppProgramHeader extends StatelessWidget {
   final String rating;
 
   const AppProgramHeader({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.rating,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
