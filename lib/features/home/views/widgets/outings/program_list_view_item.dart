@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 
 class ProgramListViewItem extends StatelessWidget {
@@ -91,37 +89,9 @@ class ProgramListViewItem extends StatelessWidget {
                   style: TextStyles.font18WhiteMedium,
                 ),
               ),
-              program.rateReview != 'No Review'
-                  ? RatingBar(
-                      ratingWidget: RatingWidget(
-                        full: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                          child: SvgPicture.asset(Assets.starFull),
-                        ),
-                        half: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                          child: SvgPicture.asset(Assets.starHalf),
-                        ),
-                        empty: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 1.5.w),
-                          child: SvgPicture.asset(Assets.starEmpty),
-                        ),
-                      ),
-                      initialRating: double.parse(program.rateReview),
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemSize: 20.w,
-                      updateOnDrag: false,
-                      tapOnlyMode: false,
-                      ignoreGestures: true,
-                      onRatingUpdate: (double rating) {},
-                    )
-                  : Text(
-                      program.rateReview,
-                      style: TextStyles.font18WhiteMedium,
-                    ),
+              AppStarRating(
+                rating: program.rateReview,
+              ),
             ],
           ),
         )

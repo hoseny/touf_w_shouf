@@ -53,7 +53,7 @@ class _ProgramDetailsTabsState extends State<ProgramDetailsTabs> {
                     });
                   },
                   child: Padding(
-                    padding: EdgeInsets.only(left: index != 0 ? 8.w : 0),
+                    padding: EdgeInsets.only(left: index != 0 ? 12.w : 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

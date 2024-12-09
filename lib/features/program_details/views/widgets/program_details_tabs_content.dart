@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/overview_tab.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement.dart';
 
 class ProgramDetailsTabsContent extends StatelessWidget {
   const ProgramDetailsTabsContent({super.key, required this.index});
@@ -12,7 +13,7 @@ class ProgramDetailsTabsContent extends StatelessWidget {
       case 0:
         return const OverviewTab();
       case 1:
-        return const Text("Supplement content");
+        return const Supplement();
       case 2:
         return const Text("Photo Gallery content");
       case 3:

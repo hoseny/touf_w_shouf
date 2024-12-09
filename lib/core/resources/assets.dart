@@ -33,4 +33,6 @@ class Assets {
   static const String location = 'assets/svgs/location.svg';
   static const String heart = 'assets/svgs/heart.svg';
   static const String clock = 'assets/svgs/clock.svg';
+  static const String checkMark = 'assets/svgs/checkmark.svg';
+  static const String informationCircle = 'assets/svgs/information_circle.svg';
 }
