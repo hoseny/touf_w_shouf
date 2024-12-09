@@ -26,4 +26,11 @@ class Assets {
   static const String starFull = 'assets/svgs/star_full.svg';
   static const String starHalf = 'assets/svgs/star_half.svg';
   static const String starEmpty = 'assets/svgs/star_empty.svg';
+  static const String play = 'assets/svgs/play.svg';
+  static const String price = 'assets/svgs/price.svg';
+  static const String map = 'assets/svgs/map.svg';
+  static const String walking = 'assets/svgs/walking.svg';
+  static const String location = 'assets/svgs/location.svg';
+  static const String heart = 'assets/svgs/heart.svg';
+  static const String clock = 'assets/svgs/clock.svg';
 }

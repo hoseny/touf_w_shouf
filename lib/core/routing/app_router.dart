@@ -6,8 +6,10 @@ import 'package:touf_w_shouf/features/auth/presentation/views/login_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/reset_password_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/signup_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/validate_otp_view.dart';
-import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/views/home_view.dart';
+import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:touf_w_shouf/features/program_details/views/program_details_view.dart';
 
 class AppRouter {
   Route<dynamic>? generateRouter(RouteSettings settings) {
@@ -88,7 +90,19 @@ class AppRouter {
           settings: settings,
           transitionType: TransitionType.slideFromRight,
         );
+      case Routes.programDetailsView:
+        if (arguments is ProgramModel) {
+          final program = arguments;
+          return RouteAnimations.buildPageRoute(
+            page: ProgramDetailsView(program: program),
+            settings: settings,
+            transitionType: TransitionType.slideFromRight,
+          );
+        } else {
+          return null;
+        }
       default:
+        //Exit app
         return null;
     }
   }

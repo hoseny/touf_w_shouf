@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/program_list_view_item.dart';
 
@@ -25,8 +27,16 @@ class ProgramListView extends StatelessWidget {
             padding: EdgeInsets.only(
               right: index == programs.length - 1 ? 0 : 16,
             ),
-            child: ProgramListViewItem(
-              program: programs[index],
+            child: GestureDetector(
+              onTap: () {
+                context.pushNamed(
+                  Routes.programDetailsView,
+                  arguments: programs[index],
+                );
+              },
+              child: ProgramListViewItem(
+                program: programs[index],
+              ),
             ),
           );
         },
