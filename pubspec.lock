@@ -613,6 +613,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_stepper:
+    dependency: "direct main"
+    description:
+      name: smart_stepper
+      sha256: "646dcc05f448143f66b40117b9f1aa57173231cdc5cc26d01f2ebef4dda62443"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   smooth_page_indicator:
     dependency: "direct main"
     description:
