@@ -18,6 +18,9 @@ class Assets {
   static const String partner1 = 'assets/images/partner1.png';
   static const String partner2 = 'assets/images/partner2.png';
   static const String partner3 = 'assets/images/partner3.png';
+  static const String visa = 'assets/images/visa.png';
+  static const String masterCard = 'assets/images/master.png';
+  static const String payPal = 'assets/images/paypal.png';
 
   //svgs
   static const String hotel = 'assets/svgs/hotel.svg';
@@ -35,4 +38,6 @@ class Assets {
   static const String clock = 'assets/svgs/clock.svg';
   static const String date = 'assets/svgs/date.svg';
   static const String checkMark = 'assets/svgs/checkmark.svg';
-  static const String informationCircle = 'assets/svgs/information_circle.svg';}
+  static const String informationCircle = 'assets/svgs/information_circle.svg';
+
+}

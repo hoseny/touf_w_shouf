@@ -1,9 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-enum ButtonVariant { filled, text }
+enum ButtonVariant { filled, text, outlined } // Added 'outlined'
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -39,26 +40,34 @@ class AppButton extends StatelessWidget {
       child: TextButton(
         onPressed: isLoading ? null : onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: backgroundColor ?? AppColors.primaryBlue,
+          backgroundColor: variant == ButtonVariant.outlined
+              ? Colors.transparent
+              : backgroundColor ?? AppColors.primaryBlue,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
+            side: variant == ButtonVariant.outlined
+                ? const BorderSide(
+              color: AppColors.orange,
+              width: 1,
+            )
+                : BorderSide.none,
           ),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: isLoading
             ? SizedBox(
-                height: 30.h,
-                width: 30.w,
-                child: CircularProgressIndicator(
-                  color: AppColors.white,
-                  strokeWidth: 2,
-                ),
-              )
+          height: 30.h,
+          width: 30.w,
+          child: CircularProgressIndicator(
+            color: AppColors.white,
+            strokeWidth: 2,
+          ),
+        )
             : Text(
-                text,
-                style: style ?? TextStyles.font16WhiteMedium,
-              ),
+          text,
+          style: style ?? TextStyles.font16WhiteMedium.copyWith(color: textColor),
+        ),
       ),
     );
   }

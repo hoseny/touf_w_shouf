@@ -105,16 +105,16 @@ class TextStyles {
     color: AppColors.black,
     fontWeight: FontWeightHelper.medium,
   );
-  static TextStyle font14FadedGreyMedium = TextStyle(
+  static TextStyle font14FadedGreyMedium = baseStyle(
       fontSize: 14.sp,
       color: AppColors.fadedGrey,
       fontWeight: FontWeightHelper.medium,
   );
-  static TextStyle font14deepTealRegular = TextStyle(
+  static TextStyle font14deepTealRegular = baseStyle(
       fontSize: 14.sp,
       color: AppColors.deepTeal,
       fontWeight: FontWeightHelper.regular,
-      fontFamily: 'Montserrat');
+  );
   static TextStyle font20BlackMedium = baseStyle(
     fontSize: 20.sp,
     color: AppColors.black,
@@ -156,11 +156,6 @@ class TextStyles {
       fontWeight: FontWeightHelper.medium,
       color: AppColors.charcoalGrey
   );
-  static TextStyle font16BlackMedium = baseStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeightHelper.medium,
-    color: AppColors.black,
-  );
   static TextStyle font16FadedGreyMedium = baseStyle(
       fontSize: 16.sp,
       color: AppColors.fadedGrey,
@@ -187,7 +182,12 @@ class TextStyles {
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.orange,
   );
-  static TextStyle font16WhiteMedium = TextStyle(
+  static TextStyle font16CharcoalGreySemiBold = baseStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    color: AppColors.charcoalGrey,
+  );
+  static TextStyle font16WhiteMedium = baseStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.medium,
     color: AppColors.white,

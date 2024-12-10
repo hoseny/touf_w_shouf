@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/features/payment/data/models/service_selection_data.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_total_price.dart';
+import 'payment_buttons.dart';
+import 'payment_method_tab_bar.dart';
 import 'services_group_card.dart';
+import 'terms_and_conditions.dart';
 
-class PaymentForm extends StatelessWidget {
+class PaymentForm extends StatefulWidget {
   const PaymentForm({super.key});
+
+  @override
+  State<PaymentForm> createState() => _PaymentFormState();
+}
+
+class _PaymentFormState extends State<PaymentForm> {
+  bool isChecked = false;
+  bool showPaymentMethod = false;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ServicesGroupCard(
             title: 'Number of People',
@@ -42,7 +55,7 @@ class PaymentForm extends StatelessWidget {
             services: [
               ServiceSelectionData(
                 label: 'Dinner',
-                description: 'A Dinner meal in 5 starts resturant',
+                description: 'A Dinner meal in 5 stars restaurant',
                 count: 2,
                 onIncrease: () {},
                 onDecrease: () {},
@@ -63,7 +76,35 @@ class PaymentForm extends StatelessWidget {
               ),
             ],
           ),
-          PaymentTotalPrice(price: '2,550 EGP',)
+          PaymentTotalPrice(price: '2,550 EGP'),
+          20.verticalSpace,
+          TermsAndConditionsWidget(
+            isChecked: isChecked,
+            onChanged: (bool? value) {
+              setState(() {
+                isChecked = value!;
+              });
+            },
+          ),
+          20.verticalSpace,
+          PaymentButtons(
+            onPayPressed: isChecked
+                ? () {
+              setState(() {
+                showPaymentMethod = true;
+              });
+            }
+                : null, // Disable if checkbox is not checked
+            onAddToCartPressed: isChecked
+                ? () {
+              //TODO
+            }
+                : null, // Disable if checkbox is not checked
+          ),
+          if (showPaymentMethod) ...[
+            20.verticalSpace,
+            const PaymentMethodTabBar(),
+          ],
         ],
       ),
     );
