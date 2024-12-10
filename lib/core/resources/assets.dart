@@ -39,5 +39,5 @@ class Assets {
   static const String date = 'assets/svgs/date.svg';
   static const String checkMark = 'assets/svgs/checkmark.svg';
   static const String informationCircle = 'assets/svgs/information_circle.svg';
-
+  static const String success = 'assets/svgs/success.svg';
 }

@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-class PaymentInputField extends StatelessWidget {
+class PaymentMethodInputField extends StatelessWidget {
   final String label;
   final String hintText;
   final TextEditingController controller;
   final String? Function(String?) validator;
   final bool isObscure;
 
-  const PaymentInputField({
+  const PaymentMethodInputField({
     super.key,
     required this.label,
     required this.hintText,

@@ -42,9 +42,9 @@ class TermsAndConditionsWidget extends StatelessWidget {
                           Icons.check,
                           size: 23.w,
                           color: AppColors
-                              .orange, // Or another color for the checkmark
+                              .orange,
                         )
-                      : null, // No content if not checked
+                      : null,
                 ),
                 40.verticalSpace
               ],
@@ -64,7 +64,7 @@ class TermsAndConditionsWidget extends StatelessWidget {
                     style: TextStyles.font18DeepTealRegular,
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        // Add logic to open terms and conditions
+
                       },
                   ),
                 ],

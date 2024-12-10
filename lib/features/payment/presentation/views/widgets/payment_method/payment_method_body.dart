@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/widgets/app_program_header.dart';
-import 'payment_form.dart';
-import 'payment_step_indicator.dart';
-import 'trip_date_time.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_step_indicator.dart';
 
-class PaymentBody extends StatefulWidget {
-  const PaymentBody({super.key});
-
-  @override
-  State<PaymentBody> createState() => _PaymentBodyState();
-}
-
-class _PaymentBodyState extends State<PaymentBody> {
-  int currentStep = 1;
-
+import 'payment_method_tab_bar.dart';
+class PaymentMethodBody extends StatelessWidget {
+  const PaymentMethodBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +18,9 @@ class _PaymentBodyState extends State<PaymentBody> {
           rating: '4.5',
         ),
         PaymentStepIndicator(
-          currentStep: currentStep,
+          currentStep: 2,
         ),
-        TripDateTimeWidget(
-          tripDate: '2/3/2022',
-          tripTime: '18:00',
-        ),
-        PaymentForm(),
+        PaymentMethodTabBar(),
       ],
     );
   }

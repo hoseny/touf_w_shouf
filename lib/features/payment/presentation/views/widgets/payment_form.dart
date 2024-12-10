@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_total_price.dart';
 import 'payment_buttons.dart';
-import 'payment_method_tab_bar.dart';
 import 'service_selection_tile.dart';
 import 'services_group_card.dart';
 import 'terms_and_conditions.dart';
 
 class PaymentForm extends StatefulWidget {
-  final VoidCallback onPay;
-
-  const PaymentForm({super.key, required this.onPay});
+  const PaymentForm({
+    super.key,
+  });
 
   @override
   State<PaymentForm> createState() => _PaymentFormState();
@@ -18,7 +19,6 @@ class PaymentForm extends StatefulWidget {
 
 class _PaymentFormState extends State<PaymentForm> {
   bool isChecked = false;
-  bool showPaymentMethod = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class _PaymentFormState extends State<PaymentForm> {
                 label: 'Baby',
                 description: '20 EGP from 8 to 13 (year)',
                 count: 2,
-                onIncrease: () {},
-                onDecrease: () {},
+                onIncrease: () {},//TODO
+                onDecrease: () {},//TODO
               ),
               ServiceSelectionTile(
                 label: 'Child',
@@ -78,32 +78,23 @@ class _PaymentFormState extends State<PaymentForm> {
               ),
             ],
           ),
-          PaymentTotalPrice(price: '2,550 EGP'),
+          PaymentTotalPrice(price: '2,550 EGP'), //TODO DYNAMIC TOTAL
           20.verticalSpace,
           TermsAndConditionsWidget(
             isChecked: isChecked,
             onChanged: (bool? value) {
               setState(() {
                 isChecked = value!;
-              });
+              }); //TODO USE NOTIFIER INSTEAD OF setState
             },
           ),
           20.verticalSpace,
           PaymentButtons(
-            onPayPressed: isChecked
-                ? () {
-                    setState(() {
-                      showPaymentMethod = true;
-                    });
-                    widget.onPay();
-                  }
-                : null,
+            onPayPressed: isChecked ? () {
+              context.pushNamed(Routes.paymentMethodView);
+            } : null,
             onAddToCartPressed: isChecked ? () {} : null,
           ),
-          if (showPaymentMethod) ...[
-            20.verticalSpace,
-            const PaymentMethodTabBar(),
-          ],
         ],
       ),
     );

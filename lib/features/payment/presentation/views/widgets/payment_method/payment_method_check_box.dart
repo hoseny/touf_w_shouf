@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-class PaymentSaveDetailsCheckbox extends StatelessWidget {
+class PaymentMethodCheckBox extends StatelessWidget {
   final bool isChecked;
   final ValueChanged<bool> onChanged;
 
-  const PaymentSaveDetailsCheckbox({
+  const PaymentMethodCheckBox({
     super.key,
     required this.isChecked,
     required this.onChanged,
