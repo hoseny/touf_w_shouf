@@ -65,7 +65,6 @@ class TermsAndConditionsWidget extends StatelessWidget {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         // Add logic to open terms and conditions
-                        print('Terms and conditions tapped');
                       },
                   ),
                 ],

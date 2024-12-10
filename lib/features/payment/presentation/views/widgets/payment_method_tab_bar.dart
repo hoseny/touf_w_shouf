@@ -10,10 +10,10 @@ class PaymentMethodTabBar extends StatefulWidget {
   const PaymentMethodTabBar({super.key});
 
   @override
-  _PaymentMethodTabBarState createState() => _PaymentMethodTabBarState();
+  PaymentMethodTabBarState createState() => PaymentMethodTabBarState();
 }
 
-class _PaymentMethodTabBarState extends State<PaymentMethodTabBar> {
+class PaymentMethodTabBarState extends State<PaymentMethodTabBar> {
   int selectedIndex = 0;
 
   final List<Map<String, String>> paymentMethods = [

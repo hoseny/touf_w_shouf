@@ -11,10 +11,10 @@ class PaymentVisaMethodForm extends StatefulWidget {
   const PaymentVisaMethodForm({super.key});
 
   @override
-  _PaymentVisaMethodFormState createState() => _PaymentVisaMethodFormState();
+  PaymentVisaMethodFormState createState() => PaymentVisaMethodFormState();
 }
 
-class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
+class PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
   final TextEditingController cardController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController expirationController = TextEditingController();

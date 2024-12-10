@@ -59,7 +59,7 @@ class PaymentStepIndicator extends StatelessWidget {
   Widget _buildStepLabel(String label) {
     return Padding(
       padding: EdgeInsets.only(left: 5.h),
-      child: Container(
+      child: SizedBox(
         width: 120.w,
         height: 50.h,
         child: Text(
