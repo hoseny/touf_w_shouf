@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
+import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'payment_input_field.dart';
 import 'payment_save_details_check_box.dart';
@@ -30,6 +32,15 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
     super.dispose();
   }
 
+  // Method for form submission
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      //TODO Process the form data here
+    } else {
+      //TODO If the form is invalid, show an error message
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,22 +50,23 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Credit Card input field
             PaymentInputField(
               label: 'Credit Card',
               hintText: '3485 **** **** ***',
               controller: cardController,
-              validator: (value) => value == null || value.isEmpty
-                  ? 'Please enter your card number'
-                  : null,
+              validator: (value) {
+                return Validation.cardNumberValidator(value);
+              },
             ),
             20.verticalSpace,
             PaymentInputField(
               label: 'Name on Card',
               hintText: 'Joe Doe',
               controller: nameController,
-              validator: (value) => value == null || value.isEmpty
-                  ? 'Please enter your name on the card'
-                  : null,
+              validator: (value) {
+                return Validation.cardholderNameValidator(value);
+              },
             ),
             20.verticalSpace,
             Row(
@@ -64,9 +76,9 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                     label: 'Expiration Date',
                     hintText: 'MM/YY',
                     controller: expirationController,
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Please enter expiration date'
-                        : null,
+                    validator: (value) {
+                      return Validation.expirationDateValidator(value);
+                    },
                   ),
                 ),
                 10.horizontalSpace,
@@ -76,9 +88,9 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                     hintText: '123',
                     controller: cvvController,
                     isObscure: true,
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Please enter CVV'
-                        : null,
+                    validator: (value) {
+                      return Validation.cvvValidator(value);
+                    },
                   ),
                 ),
               ],
@@ -94,7 +106,7 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
               children: [
                 Expanded(
                   child: AppButton(
-                    onPressed: () {},
+                    onPressed: _submitForm,
                     text: 'Confirm',
                     width: 171.w,
                     height: 44.h,
@@ -105,7 +117,9 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                 10.horizontalSpace,
                 Expanded(
                   child: AppButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pop();
+                    },
                     text: 'Back',
                     width: 171.w,
                     height: 44.h,
@@ -113,9 +127,9 @@ class _PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                     textColor: AppColors.orange,
                     borderRadius: 5,
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

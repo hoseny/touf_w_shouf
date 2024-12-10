@@ -34,4 +34,24 @@ class RegexValidation {
   static bool hasMinLength(String password) {
     return RegExp(r'^(?=.{8,})').hasMatch(password);
   }
+
+  // Validate Visa Card Number (16 digits starting with 4)
+  static bool isVisaCardNumberValid(String cardNumber) {
+    return RegExp(r'^4[0-9]{15}$').hasMatch(cardNumber);
+  }
+
+  // Validate Expiration Date (MM/YY format)
+  static bool isExpirationDateValid(String expirationDate) {
+    return RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{2})$').hasMatch(expirationDate);
+  }
+
+  // Validate CVV (3 digits)
+  static bool isCvvValid(String cvv) {
+    return RegExp(r'^[0-9]{3}$').hasMatch(cvv);
+  }
+
+  // Validate Cardholder's Name (Only letters and spaces)
+  static bool isCardholderNameValid(String name) {
+    return RegExp(r'^[a-zA-Z\s]+$').hasMatch(name);
+  }
 }

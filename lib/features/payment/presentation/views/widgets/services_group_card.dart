@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-import 'package:touf_w_shouf/features/payment/data/models/service_selection_data.dart';
 import 'service_selection_tile.dart';
 
 class ServicesGroupCard extends StatelessWidget {
   final String title;
-  final List<ServiceSelectionData> services;
+  final List<ServiceSelectionTile> services;
 
   const ServicesGroupCard({
     super.key,
@@ -38,13 +37,7 @@ class ServicesGroupCard extends StatelessWidget {
                 ),
               ],
             ),
-            ...services.map((service) => ServiceSelectionTile(
-                  label: service.label,
-                  description: service.description,
-                  count: service.count,
-                  onIncrease: service.onIncrease,
-                  onDecrease: service.onDecrease,
-                )),
+            ...services
           ],
         ),
       ),
