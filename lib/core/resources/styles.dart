@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/font_weight_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 
-class TextStyles {
+abstract class TextStyles {
   static const String _defaultFontFamily = 'Montserrat';
 
   /// Base method
@@ -106,14 +106,14 @@ class TextStyles {
     fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14FadedGreyMedium = baseStyle(
-      fontSize: 14.sp,
-      color: AppColors.fadedGrey,
-      fontWeight: FontWeightHelper.medium,
+    fontSize: 14.sp,
+    color: AppColors.fadedGrey,
+    fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font14deepTealRegular = baseStyle(
-      fontSize: 14.sp,
-      color: AppColors.deepTeal,
-      fontWeight: FontWeightHelper.regular,
+    fontSize: 14.sp,
+    color: AppColors.deepTeal,
+    fontWeight: FontWeightHelper.regular,
   );
   static TextStyle font20BlackMedium = baseStyle(
     fontSize: 20.sp,
@@ -131,10 +131,10 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
   );
   static TextStyle font18redMedium = baseStyle(
-      fontSize: 16.sp,
-      color: AppColors.error,
-      fontWeight: FontWeightHelper.medium,
-      );
+    fontSize: 16.sp,
+    color: AppColors.error,
+    fontWeight: FontWeightHelper.medium,
+  );
   static TextStyle font16BlackRegular = baseStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
@@ -151,24 +151,21 @@ class TextStyles {
     color: AppColors.black,
   );
   static TextStyle font16MutedGreyRegular = baseStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeightHelper.regular,
-    color: AppColors.mutedGrey
-  );
+      fontSize: 16.sp,
+      fontWeight: FontWeightHelper.regular,
+      color: AppColors.mutedGrey);
   static TextStyle font16FadedGreyRegular = baseStyle(
       fontSize: 16.sp,
       fontWeight: FontWeightHelper.regular,
-      color: AppColors.fadedGrey
-  );
+      color: AppColors.fadedGrey);
   static TextStyle font16CharcoalGreyMedium = baseStyle(
       fontSize: 16.sp,
       fontWeight: FontWeightHelper.medium,
-      color: AppColors.charcoalGrey
-  );
+      color: AppColors.charcoalGrey);
   static TextStyle font16FadedGreyMedium = baseStyle(
-      fontSize: 16.sp,
-      color: AppColors.fadedGrey,
-      fontWeight: FontWeightHelper.medium,
+    fontSize: 16.sp,
+    color: AppColors.fadedGrey,
+    fontWeight: FontWeightHelper.medium,
   );
 
   static TextStyle font18MutedGreyMedium = baseStyle(
@@ -188,6 +185,11 @@ class TextStyles {
   );
   static TextStyle font18BlackMedium = baseStyle(
     fontSize: 18.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColors.black,
+  );
+  static TextStyle font19BlackMedium = baseStyle(
+    fontSize: 19.sp,
     fontWeight: FontWeightHelper.medium,
     color: AppColors.black,
   );
@@ -273,5 +275,4 @@ class TextStyles {
     color: AppColors.darkSlateGrey,
     fontWeight: FontWeightHelper.extraBold,
   );
-
 }

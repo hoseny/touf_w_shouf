@@ -8,12 +8,12 @@ class AppStarRating extends StatelessWidget {
   final String rating;
   final double itemSize;
   final bool ignoreGestures;
-
+  final ValueChanged<double>? onRatingUpdate;
   const AppStarRating({
     super.key,
     required this.rating,
     this.itemSize = 20.0,
-    this.ignoreGestures = true,
+    this.ignoreGestures = true, this.onRatingUpdate,
   });
 
   @override
@@ -35,7 +35,7 @@ class AppStarRating extends StatelessWidget {
         ),
       ),
       initialRating: double.parse(rating),
-      minRating: 1,
+      minRating: 0,
       direction: Axis.horizontal,
       allowHalfRating: true,
       itemCount: 5,
@@ -43,7 +43,7 @@ class AppStarRating extends StatelessWidget {
       updateOnDrag: false,
       tapOnlyMode: false,
       ignoreGestures: ignoreGestures,
-      onRatingUpdate: (double rating) {},
+      onRatingUpdate: onRatingUpdate ?? (double value) {},
     )
         : Text(
       'No Review',
