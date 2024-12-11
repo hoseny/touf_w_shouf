@@ -10,7 +10,7 @@ class SystemUIConfig {
   // the status bar at the top and bottom nav bar colors
   static void setSystemUIStyles() {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
+      const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.light,

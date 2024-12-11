@@ -52,24 +52,24 @@ class _ReviewFormState extends State<ReviewForm> {
                 fillColor: const Color(0xffFAFAFA),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: Colors.transparent),
+                  borderSide: const BorderSide(color: Colors.transparent),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: AppColors.orange),
+                  borderSide: const BorderSide(color: AppColors.orange),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: AppColors.error),
+                  borderSide: const BorderSide(color: AppColors.error),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: AppColors.error),
+                  borderSide: const BorderSide(color: AppColors.error),
                 ),
                 hintText: 'Write your feedback',
                 hintStyle: TextStyle(
                   fontSize: 16.sp,
-                  color: Color(0xff747474),
+                  color: const Color(0xff747474),
                   fontWeight: FontWeightHelper.regular,
                 ),
                 errorStyle: TextStyles.error,

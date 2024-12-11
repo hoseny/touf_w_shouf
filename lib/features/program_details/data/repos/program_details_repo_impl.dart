@@ -6,6 +6,7 @@ import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/photo_gallery_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/policy_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/review_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
 
@@ -32,7 +33,7 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
           (response['items'] != null && response['items'].isNotEmpty)
               ? ProgramDetailsModel.fromJson(response['items'][0])
               : ProgramDetailsModel(
-                  progCode: -1,
+                  progCode: 0,
                   programName: 'Unknown Program',
                   language: 'Not Available',
                   programYear: 0,
@@ -119,8 +120,38 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
           policyType: policyType,
         ),
       );
-      final policy = PolicyModel.fromJson(response['items'][0]);
+      final policy = (response['items'] != null && response['items'].isNotEmpty)
+          ? PolicyModel.fromJson(response['items'][0])
+          : PolicyModel(
+              policy: 'No Policy specified',
+              code: 'No exclusions specified',
+            );
       return Right(policy);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ReviewModel>>> getReviews({
+    required String programCode,
+    required String programYear,
+  }) async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.reviews(
+          programCode: programCode,
+          programYear: programYear,
+        ),
+      );
+      final List<ReviewModel> reviews = [];
+      for (var review in response['items']) {
+        reviews.add(ReviewModel.fromJson(review));
+      }
+      return Right(reviews);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

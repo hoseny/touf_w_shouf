@@ -23,7 +23,7 @@ class PaymentBody extends StatelessWidget {
         return CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            PaymentHeader(),
+            const PaymentHeader(),
             PaymentStepIndicator(
               currentStep: currentStep,
             ),
@@ -37,11 +37,11 @@ class PaymentBody extends StatelessWidget {
   Widget _getStepBody(BuildContext context, int currentStep) {
     switch (currentStep) {
       case 1:
-        return PaymentForm();
+        return const PaymentForm();
       case 2:
-        return PaymentMethodTabBar();
+        return const PaymentMethodTabBar();
       case 3:
-        return SuccessBody();
+        return const SuccessBody();
       default:
         return Container();
     }

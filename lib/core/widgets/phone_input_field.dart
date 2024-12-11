@@ -106,7 +106,7 @@ class CountryPickerIcon extends StatelessWidget {
             SizedBox(width: 2.w),
             Icon(
               Icons.keyboard_arrow_down_rounded,
-              color: Color(0xffB3BECD),
+              color: const Color(0xffB3BECD),
               size: 16.sp,
             ),
             SizedBox(width: 10.w),

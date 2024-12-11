@@ -13,7 +13,7 @@ class ReviewsList extends StatelessWidget {
       height: (92 * 5).h,
       child: ListView.builder(
         itemCount: 5,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
           return ReviewListItem(

@@ -21,11 +21,11 @@ class ProgramInformation extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.w),
             color: Colors.white,
             boxShadow: [
-              BoxShadow(
+              const BoxShadow(
                 color: Colors.black12,
                 spreadRadius: 0,
                 blurRadius: 6,
-                offset: const Offset(2, 2),
+                offset: Offset(2, 2),
               ),
               const BoxShadow(
                 color: Colors.transparent,

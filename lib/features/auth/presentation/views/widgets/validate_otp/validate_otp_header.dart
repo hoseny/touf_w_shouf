@@ -7,7 +7,7 @@ class ValidateOtpHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthHeader(
+    return const AuthHeader(
       imageAsset: Assets.codevalid,
       title: 'Code validation',
       subtitle: 'Please enter the 6 digit code sent to your email',

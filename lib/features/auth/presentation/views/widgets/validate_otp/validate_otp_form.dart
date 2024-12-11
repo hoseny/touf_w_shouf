@@ -67,7 +67,7 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
             },
             builder: (context, state) {
               if (state is ValidateOtpLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               return Container();
             },

@@ -27,7 +27,7 @@ class ProgramDetailsButtons extends StatelessWidget {
                   text: 'Add To Wishlist',
                   onTap: () {},
                 ),
-                Spacer(),
+                const Spacer(),
                 IconTextButton(
                   svgPath: Assets.map,
                   text: 'Map',

@@ -7,7 +7,7 @@ class ResetPasswordHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthHeader(
+    return const AuthHeader(
       imageAsset: Assets.resetpass,
       title: 'Reset password',
       subtitle: '',

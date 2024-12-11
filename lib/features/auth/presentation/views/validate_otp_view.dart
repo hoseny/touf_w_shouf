@@ -20,7 +20,7 @@ class ValidateOtpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AuthAppBar(),
+      appBar: const AuthAppBar(),
       body: MultiBlocProvider(
         providers: [
           BlocProvider<ValidateOtpCubit>(

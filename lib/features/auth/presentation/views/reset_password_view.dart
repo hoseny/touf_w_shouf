@@ -14,7 +14,7 @@ class ResetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AuthAppBar(),
+      appBar: const AuthAppBar(),
       body: BlocProvider(
         create: (context) => ResetPasswordCubit(getIt.get<AuthRepoImpl>()),
         child: ResetPasswordBody(otp: otpCode, transNo: transNo, email: email),

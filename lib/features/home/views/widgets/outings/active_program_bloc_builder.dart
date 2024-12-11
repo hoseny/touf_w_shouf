@@ -15,7 +15,7 @@ class ActiveProgramBlocBuilder extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is ActiveProgramsLoading) {
-          return ActiveProgramLoading();
+          return const ActiveProgramLoading();
         } else if (state is ActiveProgramsSuccess) {
           return ProgramListView(
             programs: state.programs,

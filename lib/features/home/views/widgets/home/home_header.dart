@@ -19,7 +19,7 @@ class HomeHeader extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [
-            HomeCarousel(),
+            const HomeCarousel(),
             Positioned(
               bottom: -20.h,
               left: 0,

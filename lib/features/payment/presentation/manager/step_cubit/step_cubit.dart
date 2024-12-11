@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'step_state.dart';
 
 class StepCubit extends Cubit<StepStates> {
-  StepCubit() : super(StepInitial(currentStep: 1));
+  StepCubit() : super(const StepInitial(currentStep: 1));
 
   // Go to the next step
   void nextStep() {

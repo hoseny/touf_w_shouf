@@ -49,6 +49,13 @@ abstract class ApiEndpoints {
     return '/Images/$programCode/$programYear';
   }
 
+  static String reviews({
+    required String programCode,
+    required String programYear,
+  }) {
+    return '/programReview/$programCode/$programYear';
+  }
+
   static String policy({
     required String programCode,
     required String programYear,

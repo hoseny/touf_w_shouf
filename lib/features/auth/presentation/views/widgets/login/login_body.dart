@@ -24,12 +24,12 @@ class LoginBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return SingleChildScrollView(
+        return const SingleChildScrollView(
           child: Column(
             children: [
-              const LoginHeader(),
-              const LoginForm(),
-              const LoginActions(),
+              LoginHeader(),
+              LoginForm(),
+              LoginActions(),
             ],
           ),
         );

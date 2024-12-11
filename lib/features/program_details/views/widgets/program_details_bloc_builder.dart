@@ -18,7 +18,7 @@ class ProgramDetailsBodyBlocBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is ProgramDetailsSuccess) {
-          return ProgramDetailsBody();
+          return const ProgramDetailsBody();
         } else if (state is ProgramDetailsFailure) {
           return FailureState(
             message: state.errorMessage,

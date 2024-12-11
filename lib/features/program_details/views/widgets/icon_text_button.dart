@@ -32,10 +32,10 @@ class IconTextButton extends StatelessWidget {
                 horizontal: 6.w,
                 vertical: 6.h,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 4,

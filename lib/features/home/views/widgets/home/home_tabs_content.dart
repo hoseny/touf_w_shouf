@@ -10,7 +10,7 @@ class HomeTabContent extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (index) {
       case 0:
-        return OutingsBody();
+        return const OutingsBody();
       case 1:
         return const Text('Hotels Tab Content');
       case 2:

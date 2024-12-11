@@ -11,9 +11,9 @@ class PaymentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => StepCubit(), // Provide StepCubit to the widget tree
-      child: Scaffold(
+      child: const Scaffold(
         appBar: CustomAppBar(title: 'Book Now'),
-        body: const PaymentBody(), // PaymentBody is where the Cubit is used
+        body: PaymentBody(), // PaymentBody is where the Cubit is used
       ),
     );
   }

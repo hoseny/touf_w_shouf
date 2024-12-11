@@ -16,7 +16,7 @@ class SupplementsBlocBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is SupplementsSuccess) {
-          return SupplementTab();
+          return const SupplementTab();
         } else if (state is SupplementsFailure) {
           return FailureState(
             message: state.errorMessage,

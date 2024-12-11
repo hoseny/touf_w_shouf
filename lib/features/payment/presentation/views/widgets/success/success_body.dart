@@ -7,7 +7,7 @@ class SuccessBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
+    return const SliverToBoxAdapter(
       child: Column(
         children: [
           SuccessBox(

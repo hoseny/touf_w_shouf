@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
             create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())..getActivePrograms(),
           ),
         ],
-        child: HomeBody(),
+        child: const HomeBody(),
       ),
     );
   }

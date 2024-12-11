@@ -36,7 +36,7 @@ class CustomHomeTab extends StatelessWidget {
             ),
           ],
         ),
-        Divider(color: Colors.red,)
+        const Divider(color: Colors.red,)
       ],
     );
   }

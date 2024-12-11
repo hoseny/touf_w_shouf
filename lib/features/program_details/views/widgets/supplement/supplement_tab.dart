@@ -20,9 +20,9 @@ class SupplementTab extends StatelessWidget {
             style: TextStyles.font18BlackMedium,
           ),
           4.verticalSpace,
-          SupplementList(),
-          SupplementDivider(),
-          SupplementVAT(),
+          const SupplementList(),
+          const SupplementDivider(),
+          const SupplementVAT(),
         ],
       ),
     );

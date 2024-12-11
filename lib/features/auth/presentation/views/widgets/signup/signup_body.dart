@@ -48,12 +48,12 @@ class _SignupBodyState extends State<SignupBody> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SignupHeader(),
+            const SignupHeader(),
             SignUpForm(
               emailController: emailController,
               phoneController: phoneController,
             ),
-            SignupAction(),
+            const SignupAction(),
           ],
         ),
       ),

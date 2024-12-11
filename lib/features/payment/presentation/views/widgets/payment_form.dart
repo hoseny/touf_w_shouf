@@ -26,7 +26,7 @@ class _PaymentFormState extends State<PaymentForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TripDateTimeWidget(
+          const TripDateTimeWidget(
             tripDate: '2/3/2022',
             tripTime: '18:00',
           ),
@@ -75,7 +75,7 @@ class _PaymentFormState extends State<PaymentForm> {
               ),
             ],
           ),
-          PaymentTotalPrice(price: '2,550 EGP'), //TODO DYNAMIC TOTAL
+          const PaymentTotalPrice(price: '2,550 EGP'), //TODO DYNAMIC TOTAL
           20.verticalSpace,
           TermsAndConditionsWidget(
             isChecked: isChecked,

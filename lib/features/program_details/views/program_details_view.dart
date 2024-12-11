@@ -5,6 +5,7 @@ import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo_impl.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/photo_gallery_cubit/photo_gallery_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/supplements_cubit/supplements_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_bloc_builder.dart';
 
@@ -35,8 +36,14 @@ class ProgramDetailsView extends StatelessWidget {
             program,
           )..getPhotoGallery(),
         ),
+        BlocProvider(
+          create: (context) => ReviewCubit(
+            getIt.get<ProgramDetailsRepoImpl>(),
+            program,
+          )..getReviews(),
+        ),
       ],
-      child: Scaffold(
+      child: const Scaffold(
         body: ProgramDetailsBodyBlocBuilder(),
       ),
     );

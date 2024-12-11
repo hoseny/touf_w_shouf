@@ -38,7 +38,7 @@ class PaymentMethodInputField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.ashGrey, width: 1.w),
             ),
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           ),
           validator: validator,
         ),

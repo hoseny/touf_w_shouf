@@ -21,8 +21,8 @@ class ReviewListItem extends StatelessWidget {
               'Ahmed kamel',
               style: TextStyles.font19BlackMedium,
             ),
-            Spacer(),
-            AppStarRating(rating: '3.5'),
+            const Spacer(),
+            const AppStarRating(rating: '3.5'),
           ],
         ),
         4.verticalSpace,
@@ -33,7 +33,7 @@ class ReviewListItem extends StatelessWidget {
         if (index != 4)
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.h),
-            child: Divider(
+            child: const Divider(
               color: Color(0xffC7C7C7),
             ),
           ),

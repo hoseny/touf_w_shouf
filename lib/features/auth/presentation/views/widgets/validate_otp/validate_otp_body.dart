@@ -70,7 +70,7 @@ class ValidateOtpBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            ValidateOtpHeader(),
+            const ValidateOtpHeader(),
             ValidateOtpForm(
               email: email,
               phone: phone,

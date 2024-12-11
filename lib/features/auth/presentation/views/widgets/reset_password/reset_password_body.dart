@@ -37,7 +37,7 @@ class ResetPasswordBody extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              ResetPasswordHeader(),
+              const ResetPasswordHeader(),
               ResetPasswordForm(
                 otp: otp,
                 transNo: transNo,

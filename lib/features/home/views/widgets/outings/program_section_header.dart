@@ -32,7 +32,7 @@ class OutingsSectionHeader extends StatelessWidget {
             title,
             style: TextStyles.font20BlackMedium,
           ),
-          Spacer(),
+          const Spacer(),
           if (onTap != null)
             GestureDetector(
               onTap: onTap,
