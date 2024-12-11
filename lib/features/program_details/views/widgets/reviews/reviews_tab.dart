@@ -18,13 +18,11 @@ class ReviewsTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ReviewsList(),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            child: Text(
-              'Write your review “The Egyptian Gulf”',
-              style: TextStyles.font18CharcoalGreyRegular,
-            ),
+          Text(
+            'Write your review “The Egyptian Gulf”',
+            style: TextStyles.font18CharcoalGreyRegular,
           ),
+          12.verticalSpace,
           Row(
             children: [
               Text(
