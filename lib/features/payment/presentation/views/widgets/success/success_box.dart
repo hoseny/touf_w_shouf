@@ -35,57 +35,55 @@ class SuccessBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
-        child: Container(
-          width: 358.w,
-          padding: EdgeInsets.all(16.sp),
-          decoration: BoxDecoration(
-            color: AppColors.ultraLightWhite,
-            borderRadius: BorderRadius.circular(12.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.102),
-                spreadRadius: 0,
-                blurRadius: 12,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                Assets.success,
-                width: 80.w,
-                height: 80.h,
-              ),
-              SizedBox(height: 10.h),
-              Text(
-                'Booking Successful',
-                style: TextStyles.font18CharcoalGreyMedium,
-              ),
-              SizedBox(height: 5.h),
-              Text(
-                'Thank you for Choosing Touf w shof',
-                style: TextStyles.font16FadedGreyRegular,
-              ),
-              SizedBox(height: 16.h),
-              TripDetails(
-                tripName: tripName,
-                bookingDate: bookingDate,
-                tripDate: tripDate,
-                egyptiansNumber: egyptiansNumber,
-                childrenNumber: childrenNumber,
-                totalWithoutServices: totalWithoutServices,
-                total: total,
-                vat: vat,
-                totalWithVat: totalWithVat,
-                cancellationDeadline: cancellationDeadline,
-              ),
-            ],
-          ),
+    return Padding(
+      padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+      child: Container(
+        width: 358.w,
+        padding: EdgeInsets.all(16.sp),
+        decoration: BoxDecoration(
+          color: AppColors.ultraLightWhite,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.102),
+              spreadRadius: 0,
+              blurRadius: 12,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              Assets.success,
+              width: 80.w,
+              height: 80.h,
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              'Booking Successful',
+              style: TextStyles.font18CharcoalGreyMedium,
+            ),
+            SizedBox(height: 5.h),
+            Text(
+              'Thank you for Choosing Touf w shof',
+              style: TextStyles.font16FadedGreyRegular,
+            ),
+            SizedBox(height: 16.h),
+            TripDetails(
+              tripName: tripName,
+              bookingDate: bookingDate,
+              tripDate: tripDate,
+              egyptiansNumber: egyptiansNumber,
+              childrenNumber: childrenNumber,
+              totalWithoutServices: totalWithoutServices,
+              total: total,
+              vat: vat,
+              totalWithVat: totalWithVat,
+              cancellationDeadline: cancellationDeadline,
+            ),
+          ],
         ),
       ),
     );

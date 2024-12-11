@@ -12,32 +12,30 @@ class SuccessButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          AppButton(
-            onPressed: () {
-              context.pushNamed(Routes.paymentView);
-            },
-            text: 'Make another booking',
-            width: 358.w,
-            backgroundColor: AppColors.orange,
-            borderRadius: 5.r,
-          ),
-          20.verticalSpace,
-          AppButton(
-            onPressed: () {
-              context.pushNamed(Routes.homeView);
-            },
-            text: 'Return home',
-            width: 358.w,
-            borderRadius: 5.r,
-            backgroundColor: AppColors.orange,
-            variant: ButtonVariant.outlined,
-            textColor: AppColors.orange,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        AppButton(
+          onPressed: () {
+            context.pushNamed(Routes.paymentView);
+          },
+          text: 'Make another booking',
+          width: 358.w,
+          backgroundColor: AppColors.orange,
+          borderRadius: 5.r,
+        ),
+        20.verticalSpace,
+        AppButton(
+          onPressed: () {
+            context.pushNamed(Routes.homeView);
+          },
+          text: 'Return home',
+          width: 358.w,
+          borderRadius: 5.r,
+          backgroundColor: AppColors.orange,
+          variant: ButtonVariant.outlined,
+          textColor: AppColors.orange,
+        ),
+      ],
     );
   }
 }

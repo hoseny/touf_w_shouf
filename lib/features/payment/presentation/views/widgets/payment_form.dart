@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:touf_w_shouf/core/helpers/extensions.dart';
-import 'package:touf_w_shouf/core/routing/routes.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_total_price.dart';
-import 'payment_buttons.dart';
-import 'service_selection_tile.dart';
-import 'services_group_card.dart';
-import 'terms_and_conditions.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_buttons.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/service_selection_tile.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/services_group_card.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/terms_and_conditions.dart';
+
+import 'trip_date_time.dart';
 
 class PaymentForm extends StatefulWidget {
-  const PaymentForm({
-    super.key,
-  });
+  const PaymentForm({super.key});
 
   @override
   State<PaymentForm> createState() => _PaymentFormState();
@@ -26,6 +26,10 @@ class _PaymentFormState extends State<PaymentForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          TripDateTimeWidget(
+            tripDate: '2/3/2022',
+            tripTime: '18:00',
+          ),
           ServicesGroupCard(
             title: 'Number of People',
             services: [
@@ -34,7 +38,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 description: '20 EGP from 8 to 13 (year)',
                 count: 2,
                 onIncrease: () {},//TODO
-                onDecrease: () {},//TODO
+                onDecrease: () {},
               ),
               ServiceSelectionTile(
                 label: 'Child',
@@ -69,13 +73,6 @@ class _PaymentFormState extends State<PaymentForm> {
                 onIncrease: () {},
                 onDecrease: () {},
               ),
-              ServiceSelectionTile(
-                label: 'Adult',
-                description: '50 EGP From 20 to 50 (year)',
-                count: 3,
-                onIncrease: () {},
-                onDecrease: () {},
-              ),
             ],
           ),
           PaymentTotalPrice(price: '2,550 EGP'), //TODO DYNAMIC TOTAL
@@ -85,14 +82,16 @@ class _PaymentFormState extends State<PaymentForm> {
             onChanged: (bool? value) {
               setState(() {
                 isChecked = value!;
-              }); //TODO USE NOTIFIER INSTEAD OF setState
+              });
             },
           ),
           20.verticalSpace,
           PaymentButtons(
-            onPayPressed: isChecked ? () {
-              context.pushNamed(Routes.paymentMethodView);
-            } : null,
+            onPayPressed: isChecked
+                ? () {
+                    context.read<StepCubit>().nextStep();
+                  }
+                : null,
             onAddToCartPressed: isChecked ? () {} : null,
           ),
         ],

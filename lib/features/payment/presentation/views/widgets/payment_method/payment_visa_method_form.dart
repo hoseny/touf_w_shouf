@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:touf_w_shouf/core/helpers/extensions.dart';
-import 'package:touf_w_shouf/core/resources/colors.dart';
-import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
-import 'package:touf_w_shouf/core/widgets/app_button.dart';
-import 'payment_method_check_box.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
+import 'payment_method_actions.dart';
 import 'payment_method_input_field.dart';
 
 class PaymentVisaMethodForm extends StatefulWidget {
@@ -33,17 +31,22 @@ class PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
     super.dispose();
   }
 
-  // Method for form submission
   void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      //TODO Process the form data here
-      context.pushNamed(Routes.successView);
-    } else {
-      // If the form is invalid, show an error message
-      context.pushNamed(Routes.successView);
-    }
+    //TODO if (_formKey.currentState?.validate() ?? false) {
+    //   context.read<StepCubit>().nextStep();
+    // }
+    context.read<StepCubit>().nextStep();
   }
 
+  void _onCheckboxChanged(bool value) {
+    setState(() {
+      isSavePaymentDetails = value;
+    });
+  }
+
+  void _onBack() {
+    context.read<StepCubit>().previousStep();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,23 +56,18 @@ class PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Credit Card input field
             PaymentMethodInputField(
               label: 'Credit Card',
               hintText: '3485 **** **** ***',
               controller: cardController,
-              validator: (value) {
-                return Validation.cardNumberValidator(value);
-              },
+              validator: (value) => Validation.cardNumberValidator(value),
             ),
             20.verticalSpace,
             PaymentMethodInputField(
               label: 'Name on Card',
               hintText: 'Joe Doe',
               controller: nameController,
-              validator: (value) {
-                return Validation.cardholderNameValidator(value);
-              },
+              validator: (value) => Validation.cardholderNameValidator(value),
             ),
             20.verticalSpace,
             Row(
@@ -79,9 +77,7 @@ class PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                     label: 'Expiration Date',
                     hintText: 'MM/YY',
                     controller: expirationController,
-                    validator: (value) {
-                      return Validation.expirationDateValidator(value);
-                    },
+                    validator: (value) => Validation.expirationDateValidator(value),
                   ),
                 ),
                 10.horizontalSpace,
@@ -91,47 +87,17 @@ class PaymentVisaMethodFormState extends State<PaymentVisaMethodForm> {
                     hintText: '123',
                     controller: cvvController,
                     isObscure: true,
-                    validator: (value) {
-                      return Validation.cvvValidator(value);
-                    },
+                    validator: (value) => Validation.cvvValidator(value),
                   ),
                 ),
               ],
             ),
             20.verticalSpace,
-            PaymentMethodCheckBox(
-              isChecked: isSavePaymentDetails,
-              onChanged: (value) =>
-                  setState(() => isSavePaymentDetails = value),
-            ),
-            20.verticalSpace,
-            Row(
-              children: [
-                Expanded(
-                  child: AppButton(
-                    onPressed: _submitForm,
-                    text: 'Confirm',
-                    width: 171.w,
-                    height: 44.h,
-                    backgroundColor: AppColors.orange,
-                    borderRadius: 5,
-                  ),
-                ),
-                10.horizontalSpace,
-                Expanded(
-                  child: AppButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    text: 'Back',
-                    width: 171.w,
-                    height: 44.h,
-                    variant: ButtonVariant.outlined,
-                    textColor: AppColors.orange,
-                    borderRadius: 5,
-                  ),
-                ),
-              ],
+            PaymentMethodActions(
+              isSavePaymentDetails: isSavePaymentDetails,
+              onCheckboxChanged: _onCheckboxChanged,
+              onSubmitForm: _submitForm,
+              onBack: _onBack,
             ),
           ],
         ),
