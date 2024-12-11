@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:touf_w_shouf/core/di/service_locator.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_body.dart';
+import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo_impl.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_bloc_builder.dart';
 
 class ProgramDetailsView extends StatelessWidget {
   const ProgramDetailsView({super.key, required this.program});
@@ -9,8 +13,15 @@ class ProgramDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProgramDetailsBody(),
+    return BlocProvider(
+      create: (context) => ProgramDetailsCubit(
+        getIt.get<ProgramDetailsRepoImpl>(),
+        program,
+      )..getProgramDetails(),
+      child: Scaffold(
+        body: Center(child: ProgramDetailsBlocBuilder()),
+      ),
     );
   }
 }
+

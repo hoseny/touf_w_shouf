@@ -97,7 +97,7 @@ class AppRouter {
           return RouteAnimations.buildPageRoute(
             page: ProgramDetailsView(program: program),
             settings: settings,
-            transitionType: TransitionType.slideFromRight,
+            transitionType: TransitionType.fadeScale,
           );
         } else {
           return null;

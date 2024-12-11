@@ -4,6 +4,8 @@ enum TransitionType {
   slideFromBottom,
   slideFromLeft,
   slideFromRight,
+  fadeThrough,
+  fadeScale,
   none,
 }
 
@@ -43,6 +45,10 @@ class RouteAnimations {
               beginOffset: const Offset(1, 0),
               curve: curve,
             );
+          case TransitionType.fadeThrough:
+            return _buildFadeThroughTransition(animation, child, curve);
+          case TransitionType.fadeScale:
+            return _buildFadeScaleTransition(animation, child, curve);
           case TransitionType.none:
           default:
             return child;
@@ -52,17 +58,45 @@ class RouteAnimations {
   }
 
   static Widget _buildSlideTransition(
-    Animation<double> animation,
-    Widget child, {
-    required Offset beginOffset,
-    Curve curve = Curves.easeInOut,
-  }) {
+      Animation<double> animation,
+      Widget child, {
+        required Offset beginOffset,
+        Curve curve = Curves.easeInOut,
+      }) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: beginOffset,
         end: Offset.zero,
       ).animate(CurvedAnimation(parent: animation, curve: curve)),
       child: child,
+    );
+  }
+
+  static Widget _buildFadeThroughTransition(
+      Animation<double> animation,
+      Widget child,
+      Curve curve,
+      ) {
+    return FadeTransition(
+      opacity: CurvedAnimation(parent: animation, curve: curve),
+      child: child,
+    );
+  }
+
+  static Widget _buildFadeScaleTransition(
+      Animation<double> animation,
+      Widget child,
+      Curve curve,
+      ) {
+    return FadeTransition(
+      opacity: CurvedAnimation(parent: animation, curve: curve),
+      child: ScaleTransition(
+        scale: Tween<double>(
+          begin: 0.8,
+          end: 1.0,
+        ).animate(CurvedAnimation(parent: animation, curve: curve)),
+        child: child,
+      ),
     );
   }
 }

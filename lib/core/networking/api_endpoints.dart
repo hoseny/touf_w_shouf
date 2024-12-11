@@ -25,4 +25,7 @@ abstract class ApiEndpoints {
     return 'forgetPassword/${request.email}?V_OTP=${request.otp}&TransNo=${request.transactionNo}&pass=${request.password}';
   }
   static const String allActivePrograms = 'onlyCurrent/0';
+  static String programDetails({required String programCode,required String programYear,required String lang}) {
+    return 'detailsesProgram/$programCode/$programYear/$lang';
+  }
 }

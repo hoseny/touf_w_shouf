@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_information_tile.dart';
 
 class ProgramInformation extends StatelessWidget {
@@ -10,6 +12,7 @@ class ProgramInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.read<ProgramDetailsCubit>().state as ProgramDetailsSuccess;
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -38,24 +41,29 @@ class ProgramInformation extends StatelessWidget {
               ProgramInformationTile(
                 svg: Assets.location,
                 title: 'Location: ',
-                value: 'Egypt, Cairo',
+                value: state.programDetails.city,
               ),
               ProgramInformationTile(
                 svg: Assets.price,
                 title: 'Price: ',
-                value: '850 EGP',
+                value: state.programDetails.startPrice.toString(),
               ),
               ProgramInformationTile(
                 svg: Assets.clock,
-                title: 'Duration time: ',
-                value: '3 Hour/s',
+                title: 'Start Date: ',
+                value: state.programDetails.startDate,
+              ),
+              ProgramInformationTile(
+                svg: Assets.clock,
+                title: 'End Date: ',
+                value: state.programDetails.endDate,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 4.w),
                 child: ProgramInformationTile(
                   svg: Assets.walking,
-                  title: '',
-                  value: 'Walking Tour',
+                  title: 'Class Trip: ',
+                  value: state.programDetails.classTrip,
                 ),
               ),
             ],

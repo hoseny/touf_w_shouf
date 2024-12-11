@@ -18,6 +18,7 @@ class FailureState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(Icons.error, color: AppColors.error, size: 80.w),
         6.verticalSpace,
