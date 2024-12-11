@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
 
 class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
@@ -12,10 +13,11 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
   ProgramDetailsRepoImpl({required this.apiService});
 
   @override
-  Future<Either<Failure, ProgramDetailsModel>> getProgramDetails(
-      {required String programCode,
-      required String programYear,
-      required String lang}) async {
+  Future<Either<Failure, ProgramDetailsModel>> getProgramDetails({
+    required String programCode,
+    required String programYear,
+    required String lang,
+  }) async {
     try {
       final response = await apiService.get(
         endpoint: ApiEndpoints.programDetails(
@@ -43,6 +45,31 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
                   tourExcluding: 'No exclusions specified',
                 );
       return Right(programDetails);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SupplementsModel>>> getSupplements({
+    required String programCode,
+    required String programYear,
+  }) async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.supplements(
+          programCode: programCode,
+          programYear: programYear,
+        ),
+      );
+      final List<SupplementsModel> supplements = [];
+      for (var supplement in response['items']) {
+        supplements.add(SupplementsModel.fromJson(supplement));
+      }
+      return Right(supplements);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

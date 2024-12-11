@@ -20,8 +20,8 @@ class ProgramDetailsCubit extends Cubit<ProgramDetailsState> {
       lang: program.languageCode.toString(),
     );
     result.fold(
-      (failure) => emit(ProgramDetailsFailure(failure.message)),
-      (programs) => emit(ProgramDetailsSuccess(programs)),
+          (failure) => emit(ProgramDetailsFailure(failure.message)),
+          (programs) => emit(ProgramDetailsSuccess(programs)),
     );
   }
 }

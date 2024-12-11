@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo_impl.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/supplements_cubit/supplements_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_bloc_builder.dart';
 
 class ProgramDetailsView extends StatelessWidget {
@@ -13,15 +14,26 @@ class ProgramDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProgramDetailsCubit(
-        getIt.get<ProgramDetailsRepoImpl>(),
-        program,
-      )..getProgramDetails(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProgramDetailsCubit(
+            getIt.get<ProgramDetailsRepoImpl>(),
+            program,
+          )..getProgramDetails(),
+        ),
+        BlocProvider(
+          create: (context) => SupplementsCubit(
+            getIt.get<ProgramDetailsRepoImpl>(),
+            program,
+          ),
+        ),
+      ],
       child: Scaffold(
-        body: Center(child: ProgramDetailsBlocBuilder()),
+        body: Center(
+          child: ProgramDetailsBodyBlocBuilder(),
+        ),
       ),
     );
   }
 }
-
