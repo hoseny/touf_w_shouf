@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/widgets/app_cached_network_image.dart';
 import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 
@@ -20,23 +21,10 @@ class ProgramListViewItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.r),
-          child: CachedNetworkImage(
-            imageUrl: program.imgPath,
+          child: AppCachedNetworkImage(
+            imgUrl: program.imgPath,
             width: 265.w,
             height: double.infinity,
-            fit: BoxFit.cover,
-            maxHeightDiskCache: 1200,
-            maxWidthDiskCache: 800,
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primaryBlue,
-              ),
-            ),
-            errorWidget: (context, url, error) => Icon(
-              Icons.error,
-              color: AppColors.error,
-              size: 45.w,
-            ),
           ),
         ),
         Container(
@@ -99,3 +87,4 @@ class ProgramListViewItem extends StatelessWidget {
     );
   }
 }
+

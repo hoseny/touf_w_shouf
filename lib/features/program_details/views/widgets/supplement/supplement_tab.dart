@@ -5,8 +5,8 @@ import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/s
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_list.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_vat.dart';
 
-class Supplement extends StatelessWidget {
-  const Supplement({super.key});
+class SupplementTab extends StatelessWidget {
+  const SupplementTab({super.key});
 
   @override
   Widget build(BuildContext context) {
