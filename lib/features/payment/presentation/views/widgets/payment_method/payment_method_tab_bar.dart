@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-
 import 'payment_visa_method_form.dart';
 
 class PaymentMethodTabBar extends StatefulWidget {
@@ -54,14 +53,15 @@ class PaymentMethodTabBarState extends State<PaymentMethodTabBar> {
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       border: Border.all(
-                        color: selectedIndex == index ? AppColors.orange : AppColors.white,
+                        color: selectedIndex == index
+                            ? AppColors.orange
+                            : AppColors.white,
                         width: 1.w,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Image.asset(
                       paymentMethods[index]['image']!,
-        
                     ),
                   ),
                 );

@@ -17,24 +17,22 @@ class TripDateTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          20.verticalSpace,
-          _buildDateInfoContainer(
-            iconPath: Assets.date,
-            label: "Trip Date:",
-            value: tripDate,
-          ),
-          20.verticalSpace,
-          _buildDateInfoContainer(
-            iconPath: Assets.clock,
-            label: "Trip Time:",
-            value: tripTime,
-          ),
-          20.verticalSpace,
-        ],
-      ),
+    return Column(
+      children: [
+        20.verticalSpace,
+        _buildDateInfoContainer(
+          iconPath: Assets.date,
+          label: "Trip Date:",
+          value: tripDate,
+        ),
+        20.verticalSpace,
+        _buildDateInfoContainer(
+          iconPath: Assets.clock,
+          label: "Trip Time:",
+          value: tripTime,
+        ),
+        20.verticalSpace,
+      ],
     );
   }
 
