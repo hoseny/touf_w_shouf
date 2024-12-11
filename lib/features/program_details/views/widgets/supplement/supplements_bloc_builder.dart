@@ -4,19 +4,8 @@ import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/supplements_cubit/supplements_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_tab.dart';
 
-class SupplementsBlocBuilder extends StatefulWidget {
+class SupplementsBlocBuilder extends StatelessWidget {
   const SupplementsBlocBuilder({super.key});
-
-  @override
-  State<SupplementsBlocBuilder> createState() => _SupplementsBlocBuilderState();
-}
-
-class _SupplementsBlocBuilderState extends State<SupplementsBlocBuilder> {
-  @override
-  void initState() {
-    context.read<SupplementsCubit>().getSupplements();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +15,9 @@ class _SupplementsBlocBuilderState extends State<SupplementsBlocBuilder> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        }
-
-        if (state is SupplementsSuccess) {
+        } else if (state is SupplementsSuccess) {
           return SupplementTab();
-        }
-
-        if (state is SupplementsFailure) {
+        } else if (state is SupplementsFailure) {
           return FailureState(
             message: state.errorMessage,
             onRetry: () => context.read<SupplementsCubit>().getSupplements(),

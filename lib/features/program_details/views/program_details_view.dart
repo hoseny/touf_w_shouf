@@ -26,7 +26,7 @@ class ProgramDetailsView extends StatelessWidget {
           create: (context) => SupplementsCubit(
             getIt.get<ProgramDetailsRepoImpl>(),
             program,
-          ),
+          )..getSupplements(),
         ),
       ],
       child: Scaffold(

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/photo_gallery_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
@@ -70,6 +71,29 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
         supplements.add(SupplementsModel.fromJson(supplement));
       }
       return Right(supplements);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }@override
+  Future<Either<Failure, List<PhotoGalleryModel>>> getPhotoGallery({
+    required String programCode,
+    required String programYear,
+  }) async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.supplements(
+          programCode: programCode,
+          programYear: programYear,
+        ),
+      );
+      final List<PhotoGalleryModel> photoGallery = [];
+      for (var photo in response['items']) {
+        photoGallery.add(PhotoGalleryModel.fromJson(photo));
+      }
+      return Right(photoGallery);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

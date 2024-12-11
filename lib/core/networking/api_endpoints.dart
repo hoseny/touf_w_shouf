@@ -28,11 +28,19 @@ abstract class ApiEndpoints {
 
   static const String allActivePrograms = 'onlyCurrent/0';
 
-  static String programDetails({required String programCode, required String programYear, required String lang}) {
+  static String programDetails(
+      {required String programCode,
+      required String programYear,
+      required String lang}) {
     return 'detailsesProgram/$programCode/$programYear/$lang';
   }
 
   static String supplements({required String programCode, required String programYear}) {
     return '/ProgramIncluding/$programCode/$programYear';
+  }
+
+  static String photoGallery(
+      {required String programCode, required String programYear}) {
+    return '/Images/$programCode/$programYear';
   }
 }
