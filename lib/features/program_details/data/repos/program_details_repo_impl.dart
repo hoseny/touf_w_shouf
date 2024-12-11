@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/photo_gallery_model.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/policy_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
@@ -77,7 +78,9 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
       }
       return Left(ServerFailure(e.toString()));
     }
-  }@override
+  }
+
+  @override
   Future<Either<Failure, List<PhotoGalleryModel>>> getPhotoGallery({
     required String programCode,
     required String programYear,
@@ -94,6 +97,30 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
         photoGallery.add(PhotoGalleryModel.fromJson(photo));
       }
       return Right(photoGallery);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PolicyModel>> getPolicy({
+    required String programCode,
+    required String programYear,
+    required String policyType,
+  }) async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.policy(
+          programCode: programCode,
+          programYear: programYear,
+          policyType: policyType,
+        ),
+      );
+      final policy = PolicyModel.fromJson(response['items'][0]);
+      return Right(policy);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

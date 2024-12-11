@@ -2,8 +2,7 @@ import 'package:touf_w_shouf/features/auth/data/models/login_models/login_reques
 import 'package:touf_w_shouf/features/auth/data/models/reset_password_models/reset_password_request.dart';
 
 abstract class ApiEndpoints {
-  static const String baseUrl =
-      'https://app.misrtravelco.net:4444/ords/invoice/programes/';
+  static const String baseUrl = 'https://app.misrtravelco.net:4444/ords/invoice/programes/';
   static const String signUp = 'client/';
 
   static String login({required LoginRequest loginRequest}) {
@@ -28,19 +27,33 @@ abstract class ApiEndpoints {
 
   static const String allActivePrograms = 'onlyCurrent/0';
 
-  static String programDetails(
-      {required String programCode,
-      required String programYear,
-      required String lang}) {
+  static String programDetails({
+    required String programCode,
+    required String programYear,
+    required String lang,
+  }) {
     return 'detailsesProgram/$programCode/$programYear/$lang';
   }
 
-  static String supplements({required String programCode, required String programYear}) {
+  static String supplements({
+    required String programCode,
+    required String programYear,
+  }) {
     return '/ProgramIncluding/$programCode/$programYear';
   }
 
-  static String photoGallery(
-      {required String programCode, required String programYear}) {
+  static String photoGallery({
+    required String programCode,
+    required String programYear,
+  }) {
     return '/Images/$programCode/$programYear';
+  }
+
+  static String policy({
+    required String programCode,
+    required String programYear,
+    required String policyType,
+  }) {
+    return 'programpolicy/$programCode/$programYear/Cancel';
   }
 }

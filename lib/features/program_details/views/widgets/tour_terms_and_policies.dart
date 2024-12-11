@@ -28,7 +28,7 @@ class TourTermsAndPolicies extends StatelessWidget {
           16.verticalSpace,
           ExpandableContainer(
             title: 'Cancellation policy',
-            description: '',
+            description: state.policyModel.policy,
           ),
         ],
       ),

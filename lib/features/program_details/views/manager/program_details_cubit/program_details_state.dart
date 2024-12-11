@@ -9,8 +9,9 @@ final class ProgramDetailsLoading extends ProgramDetailsState {}
 
 final class ProgramDetailsSuccess extends ProgramDetailsState {
   final ProgramDetailsModel programDetails;
+  final PolicyModel policyModel;
 
-  ProgramDetailsSuccess(this.programDetails);
+  ProgramDetailsSuccess(this.programDetails, this.policyModel);
 }
 
 final class ProgramDetailsFailure extends ProgramDetailsState {
