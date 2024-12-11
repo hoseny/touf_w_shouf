@@ -84,7 +84,7 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
   }) async {
     try {
       final response = await apiService.get(
-        endpoint: ApiEndpoints.supplements(
+        endpoint: ApiEndpoints.photoGallery(
           programCode: programCode,
           programYear: programYear,
         ),
