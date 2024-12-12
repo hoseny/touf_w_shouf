@@ -19,35 +19,18 @@ class TermsAndConditionsWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () {
-              onChanged(!isChecked);
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 23.w,
-                  height: 23.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.fadedGrey,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(1.r)),
-                  child: isChecked
-                      ? Icon(
-                          Icons.check,
-                          size: 23.w,
-                          color: AppColors
-                              .orange,
-                        )
-                      : null,
-                ),
-                40.verticalSpace
-              ],
+          Checkbox(
+            value: isChecked,
+            onChanged: onChanged,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: VisualDensity.compact,
+            activeColor: AppColors.orange,
+            splashRadius: 0,
+            side: const BorderSide(color: AppColors.fadedGrey),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.r),
             ),
           ),
           10.horizontalSpace,
@@ -62,10 +45,7 @@ class TermsAndConditionsWidget extends StatelessWidget {
                   TextSpan(
                     text: 'Read Terms and conditions',
                     style: TextStyles.font18DeepTealRegular,
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-
-                      },
+                    recognizer: TapGestureRecognizer()..onTap = () {},
                   ),
                 ],
               ),

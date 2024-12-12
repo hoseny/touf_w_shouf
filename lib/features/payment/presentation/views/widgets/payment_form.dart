@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
+import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/payment_cubit/payment_cubit.dart';
-import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_total_price.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_buttons.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/service_selection_tile.dart';
@@ -42,6 +45,10 @@ class _PaymentFormState extends State<PaymentForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           BlocBuilder<PaymentCubit, PaymentState>(
+            buildWhen: (previous, current) =>
+                current is GroupPriceSuccess ||
+                current is GroupPriceLoading ||
+                current is GroupPriceFailure,
             builder: (context, state) {
               if (state is GroupPriceSuccess) {
                 final groupPrice = state.groupPrice;
@@ -124,9 +131,12 @@ class _PaymentFormState extends State<PaymentForm> {
               if (state is GroupPriceSuccess) {
                 final totalPrice =
                     context.read<PaymentCubit>().calculateTotalPrice();
+                context.read<PaymentCubit>().totalPrice = totalPrice;
                 return PaymentTotalPrice(price: '$totalPrice EGP');
               }
-              return const PaymentTotalPrice(price: '0 EGP');
+              return PaymentTotalPrice(
+                price: '${context.read<PaymentCubit>().totalPrice} EGP',
+              );
             },
           ),
           20.verticalSpace,
@@ -142,9 +152,26 @@ class _PaymentFormState extends State<PaymentForm> {
           PaymentButtons(
             onPayPressed: isChecked
                 ? () {
-                    context.read<StepCubit>().nextStep();
+                    //context.read<StepCubit>().nextStep();
+                    context.read<PaymentCubit>().insertDetailsReservation(
+                          detailsReservationRequest: DetailsReservationRequest(
+                            custRef: SharedPref.getInt(
+                              key: SharedPrefKeys.custCode,
+                            ).toString(),
+                            telephone: SharedPref.getString(
+                              key: SharedPrefKeys.telephone,
+                            ),
+                            progGrpNo: '1',
+                            progCode: widget.program.code.toString(),
+                            progYear: widget.program.programYear,
+                            paxType: 'CHILD FROM 6 TO 12',
+                            paxCount: 2,
+                          ),
+                        );
                   }
-                : null,
+                : () {
+                    ToastHelper.showErrorToast('Agree to terms and conditions');
+                  },
             onAddToCartPressed: isChecked ? () {} : null,
           ),
         ],

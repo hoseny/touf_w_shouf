@@ -18,3 +18,14 @@ final class GroupPriceFailure extends PaymentState {
 
   GroupPriceFailure(this.errorMessage);
 }
+final class InsertDetailsReservationLoading extends PaymentState {}
+final class InsertDetailsReservationSuccess extends PaymentState {
+  final DetailsReservationResponse response;
+
+  InsertDetailsReservationSuccess(this.response);
+}
+final class InsertDetailsReservationFailure extends PaymentState {
+  final String errorMessage;
+
+  InsertDetailsReservationFailure(this.errorMessage);
+}

@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
+import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
+import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo.dart';
 
@@ -30,6 +32,25 @@ class PaymentRepoImpl extends PaymentRepo {
         groupPrice.add(GroupPrice.fromJson(pax));
       }
       return Right(groupPrice);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, DetailsReservationResponse>> insertDetailsReservation({
+    required DetailsReservationRequest request,
+  }) async {
+    try {
+      final response = await apiService.post(
+        endpoint: ApiEndpoints.insertDetailsReservation,
+        data: request.toJson(),
+      );
+      final detailsReservationResponse = DetailsReservationResponse.fromJson(response);
+      return Right(detailsReservationResponse);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

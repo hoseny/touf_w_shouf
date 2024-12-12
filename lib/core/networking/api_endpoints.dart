@@ -79,4 +79,6 @@ abstract class ApiEndpoints {
   }) {
     return 'GroupPrice/$programCode/$programYear/$groupNumber';
   }
+
+  static const String insertDetailsReservation = 'DetailsesRev/';
 }
