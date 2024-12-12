@@ -6,10 +6,14 @@ import 'package:touf_w_shouf/features/program_details/data/models/review_model.d
 
 class ReviewListItem extends StatelessWidget {
   const ReviewListItem({
-    super.key, required this.index, required this.review,
+    super.key,
+    required this.index,
+    required this.review, required this.length,
   });
+
   final int index;
   final ReviewModel review;
+  final int length;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,15 +28,15 @@ class ReviewListItem extends StatelessWidget {
               style: TextStyles.font19BlackMedium,
             ),
             const Spacer(),
-            const AppStarRating(rating: '3.5'),
+            AppStarRating(rating: review.rate.toString()),
           ],
         ),
         4.verticalSpace,
         Text(
-          'Lorem ipsum dolor sit amet, cum ',
+          review.review,
           style: TextStyles.font16BlackRegular,
         ),
-        if (index != 4)
+        if (index != length - 1)
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.h),
             child: const Divider(

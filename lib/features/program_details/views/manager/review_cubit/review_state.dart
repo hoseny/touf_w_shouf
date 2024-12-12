@@ -18,3 +18,18 @@ final class ReviewFailure extends ReviewState {
 
   ReviewFailure(this.errorMessage);
 }
+
+final class InsertReviewLoading extends ReviewState {}
+
+final class InsertReviewSuccess extends ReviewState {
+  final String message;
+
+  InsertReviewSuccess(this.message);
+}
+
+final class InsertReviewFailure extends ReviewState {
+  final String errorMessage;
+
+  InsertReviewFailure(this.errorMessage);
+}
+final class AutoValidateUpdated extends ReviewState {}

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/review_form.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_list.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_bloc_builder.dart';
 
 class ReviewsTab extends StatelessWidget {
   const ReviewsTab({super.key});
@@ -17,7 +19,7 @@ class ReviewsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         const ReviewsList(),
+          const ReviewsListBlocBuilder(),
           Text(
             'Write your review “The Egyptian Gulf”',
             style: TextStyles.font18CharcoalGreyRegular,
@@ -31,10 +33,12 @@ class ReviewsTab extends StatelessWidget {
               ),
               const Spacer(),
               AppStarRating(
-                rating: '4',
+                rating: context.read<ReviewCubit>().userRating.toString(),
                 ignoreGestures: false,
                 itemSize: 26,
-                onRatingUpdate: (double rating) {},
+                onRatingUpdate: (double rating) {
+                  context.read<ReviewCubit>().userRating = rating;
+                },
               )
             ],
           ),

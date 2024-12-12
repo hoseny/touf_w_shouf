@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/overview/overview_tab.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/photo_gallery/photo_gallery_bloc_builder.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_bloc_builder.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_tab.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplements_bloc_builder.dart';
 
 class ProgramDetailsTabsContent extends StatelessWidget {
@@ -19,7 +19,7 @@ class ProgramDetailsTabsContent extends StatelessWidget {
       case 2:
         return const PhotoGalleryBlocBuilder();
       case 3:
-        return const ReviewsBlocBuilder();
+        return const ReviewsTab();
       default:
         return const SizedBox.shrink();
     }

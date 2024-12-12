@@ -3,10 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/insert_review/insert_review_success.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/photo_gallery_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/policy_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/review_model.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/insert_review/insert_review_request.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
 
@@ -152,6 +154,30 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
         reviews.add(ReviewModel.fromJson(review));
       }
       return Right(reviews);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, InsertReviewResponse>> postCustReview({
+    required String programCode,
+    required String programYear,
+    required InsertReviewRequest reviewRequest,
+  }) async {
+    try {
+      final response = await apiService.post(
+        endpoint: ApiEndpoints.insertReview(
+          programCode: programCode,
+          programYear: programYear,
+        ),
+        data: reviewRequest.toJson(),
+      );
+      final review = InsertReviewResponse.fromJson(response);
+      return Right(review);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

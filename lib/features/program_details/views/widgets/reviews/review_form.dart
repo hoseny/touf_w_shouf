@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/font_weight_helper.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/insert_review/insert_review_request.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
 
 class ReviewForm extends StatefulWidget {
   const ReviewForm({super.key});
@@ -13,13 +19,12 @@ class ReviewForm extends StatefulWidget {
 }
 
 class _ReviewFormState extends State<ReviewForm> {
-  late final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late final TextEditingController reviewController;
   AutovalidateMode? autoValidateMode;
 
   @override
   void initState() {
-    formKey = GlobalKey<FormState>();
     reviewController = TextEditingController();
     autoValidateMode = AutovalidateMode.disabled;
     super.initState();
@@ -85,24 +90,48 @@ class _ReviewFormState extends State<ReviewForm> {
             ),
           ),
           16.verticalSpace,
-          AppButton(
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              if (formKey.currentState!.validate()) {
-
-              } else {
-                setState(() {
-                  autoValidateMode = AutovalidateMode.always;
-                });
+          BlocConsumer<ReviewCubit, ReviewState>(
+            listener: (context, state) {
+              if (state is InsertReviewSuccess) {
+                context.read<ReviewCubit>().getReviews();
+                ToastHelper.showSuccessToast(state.message);
+              } else if (state is InsertReviewFailure) {
+                ToastHelper.showErrorToast(state.errorMessage);
               }
             },
-            text: 'Submit',
-            backgroundColor: AppColors.orange,
-            borderRadius: 4.r,
-            width: 160.w,
+            builder: (context, state) {
+              return AppButton(
+                isLoading: state is InsertReviewLoading,
+                onPressed: onPressed,
+                text: 'Submit',
+                backgroundColor: AppColors.orange,
+                borderRadius: 4.r,
+                width: 160.w,
+              );
+            },
           )
         ],
       ),
     );
+  }
+
+  onPressed() {
+    FocusScope.of(context).unfocus();
+    if (formKey.currentState!.validate() && context.read<ReviewCubit>().userRating != 0) {
+      autoValidateMode = AutovalidateMode.disabled;
+      context.read<ReviewCubit>().insertReview(
+            InsertReviewRequest(
+              review: reviewController.text.trim(),
+              rate: context.read<ReviewCubit>().userRating.toString(),
+              cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
+            ),
+          );
+    } else if (context.read<ReviewCubit>().userRating == 0) {
+      ToastHelper.showErrorToast('Please select rating');
+    } else {
+      setState(() {
+        autoValidateMode = AutovalidateMode.always;
+      });
+    }
   }
 }

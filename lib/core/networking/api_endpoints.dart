@@ -56,6 +56,13 @@ abstract class ApiEndpoints {
     return '/programReview/$programCode/$programYear';
   }
 
+  static String insertReview({
+    required String programCode,
+    required String programYear,
+  }) {
+    return '/programReview/$programCode/$programYear';
+  }
+
   static String policy({
     required String programCode,
     required String programYear,
