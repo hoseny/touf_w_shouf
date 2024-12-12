@@ -24,7 +24,6 @@ class AuthRepoImpl extends AuthRepo {
 
   AuthRepoImpl({required this.apiService});
 
-
   @override
   Future<Either<Failure, LoginResponse>> loginRequest({
     required LoginRequest loginRequest,
@@ -36,6 +35,7 @@ class AuthRepoImpl extends AuthRepo {
       final loginResponse = LoginResponse.fromJson(response['item'][0]);
       final token = loginResponse.token;
       final custCode = loginResponse.custCode;
+      final telephone = loginResponse.telephone;
       if (token.isNotEmpty) {
         await SharedPref.setData(
           key: SharedPrefKeys.token,
@@ -44,6 +44,10 @@ class AuthRepoImpl extends AuthRepo {
         await SharedPref.setData(
           key: SharedPrefKeys.custCode,
           value: custCode,
+        );
+        await SharedPref.setData(
+          key: SharedPrefKeys.telephone,
+          value: telephone,
         );
         DioFactory.setTokenIntoHeaderAfterLogin(token);
       } else {
@@ -128,7 +132,7 @@ class AuthRepoImpl extends AuthRepo {
         data: request.toJson(),
       );
       final validateOtpForgetResponse =
-      ValidateOtpForgetResponse.fromJson(response);
+          ValidateOtpForgetResponse.fromJson(response);
       return Right(validateOtpForgetResponse);
     } catch (e) {
       if (e is DioException) {

@@ -2,7 +2,8 @@ import 'package:touf_w_shouf/features/auth/data/models/login_models/login_reques
 import 'package:touf_w_shouf/features/auth/data/models/reset_password_models/reset_password_request.dart';
 
 abstract class ApiEndpoints {
-  static const String baseUrl = 'https://app.misrtravelco.net:4444/ords/invoice/programes/';
+  static const String baseUrl =
+      'https://app.misrtravelco.net:4444/ords/invoice/programes/';
   static const String signUp = 'client/';
 
   static String login({required LoginRequest loginRequest}) {
@@ -69,5 +70,13 @@ abstract class ApiEndpoints {
     required String policyType,
   }) {
     return 'programpolicy/$programCode/$programYear/Cancel';
+  }
+
+  static String groupPrice({
+    required String programCode,
+    required String programYear,
+    required String groupNumber,
+  }) {
+    return 'GroupPrice/$programCode/$programYear/$groupNumber';
   }
 }

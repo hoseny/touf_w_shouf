@@ -103,11 +103,16 @@ class AppRouter {
           return null;
         }
       case Routes.paymentView:
-        return RouteAnimations.buildPageRoute(
-          page: const PaymentView(),
-          settings: settings,
-          transitionType: TransitionType.slideFromRight,
-        );
+        if (arguments is ProgramModel) {
+          final program = arguments;
+          return RouteAnimations.buildPageRoute(
+            page: PaymentView(program: program),
+            settings: settings,
+            transitionType: TransitionType.fadeScale,
+          );
+        } else {
+          return null;
+        }
       default:
         //Exit app
         return null;

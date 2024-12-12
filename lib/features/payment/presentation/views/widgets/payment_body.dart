@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 import 'payment_form.dart';
 import 'payment_header.dart';
@@ -8,7 +9,8 @@ import 'payment_step_indicator.dart';
 import 'success/success_body.dart';
 
 class PaymentBody extends StatelessWidget {
-  const PaymentBody({super.key});
+  const PaymentBody({super.key, required this.program});
+  final ProgramModel program;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class PaymentBody extends StatelessWidget {
         return CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            const PaymentHeader(),
+             PaymentHeader(program: program,),
             PaymentStepIndicator(
               currentStep: currentStep,
             ),
@@ -37,7 +39,7 @@ class PaymentBody extends StatelessWidget {
   Widget _getStepBody(BuildContext context, int currentStep) {
     switch (currentStep) {
       case 1:
-        return const PaymentForm();
+        return  PaymentForm(program: program,);
       case 2:
         return const PaymentMethodTabBar();
       case 3:
