@@ -18,7 +18,7 @@ class ToufWShouf extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRouter,
-        initialRoute: Routes.homeView,
+        initialRoute: Routes.onboardingView,
         theme: AppTheme.theme,
       ),
     );

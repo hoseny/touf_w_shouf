@@ -7,34 +7,29 @@ class OnboardingButton extends StatelessWidget {
     super.key,
     required this.color,
     required this.text,
-    required this.onTap,
-    this.textStyle,
-    this.width,
-    this.height,
+    required this.onTap, this.style,
   });
 
   final Color color;
   final String text;
+  final TextStyle? style;
   final void Function() onTap;
-  final TextStyle? textStyle;
-  final double? width;
-  final double? height;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width ?? 140.w,
-        height: height ?? 37.h,
+        width: 140.w,
+        height: 40.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(20),
           color: color,
         ),
         child: Center(
           child: Text(
             text,
-            style: textStyle ?? TextStyles.font16BlackRegular,
+            style: style ?? TextStyles.font16BlackRegular,
           ),
         ),
       ),

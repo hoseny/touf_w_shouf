@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
+import 'package:touf_w_shouf/features/program_details/data/models/review_model.dart';
 
 class ReviewListItem extends StatelessWidget {
   const ReviewListItem({
-    super.key, required this.index,
+    super.key, required this.index, required this.review,
   });
   final int index;
+  final ReviewModel review;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +20,7 @@ class ReviewListItem extends StatelessWidget {
         Row(
           children: [
             Text(
-              'Ahmed kamel',
+              review.customer,
               style: TextStyles.font19BlackMedium,
             ),
             const Spacer(),

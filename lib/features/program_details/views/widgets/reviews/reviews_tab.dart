@@ -17,7 +17,7 @@ class ReviewsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ReviewsList(),
+         const ReviewsList(),
           Text(
             'Write your review “The Egyptian Gulf”',
             style: TextStyles.font18CharcoalGreyRegular,

@@ -21,7 +21,7 @@ class AppRouter {
         return RouteAnimations.buildPageRoute(
           page: const OnboardingView(),
           settings: settings,
-          transitionType: TransitionType.slideFromBottom,
+          transitionType: TransitionType.fadeScale,
         );
       case Routes.loginView:
         return RouteAnimations.buildPageRoute(

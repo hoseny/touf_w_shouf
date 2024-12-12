@@ -10,23 +10,23 @@ class OnboardingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 620.h,
-      left: 35.w,
-      right: 35.w,
+      bottom: 110.h,
+      left: 20.w,
+      right: 20.w,
       child: Column(
         children: [
           Text(
             'Embark On Your Simple Travel Experience',
-            style: TextStyles.onboardingTitleStyle,
+            style: TextStyles.font24WhiteSemiBold,
+            textAlign: TextAlign.center,
+          ),
+          6.verticalSpace,
+          Text(
+            'Enjoy a Smooth, stress-free travel Journey with ease and simplicity every step.',
+            style: TextStyles.font16WhiteRegular,
             textAlign: TextAlign.center,
           ),
           10.verticalSpace,
-          Text(
-            'Enjoy a Smooth, stress-free travel Journey with ease and simplicity every step.',
-            style: TextStyles.onboardingDescriptionStyle,
-            textAlign: TextAlign.center,
-          ),
-
         ],
       ),
     );

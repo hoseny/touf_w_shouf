@@ -11,9 +11,9 @@ class SystemUIConfig {
   static void setSystemUIStyles() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.white,
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
     );
   }
