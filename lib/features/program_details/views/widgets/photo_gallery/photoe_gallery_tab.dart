@@ -34,10 +34,13 @@ class PhotoGalleryTab extends StatelessWidget {
               },
             ),
           )
-        : Center(
-            child: Text(
-              'No Images',
-              style: TextStyles.font18OrangeMedium,
+        : SizedBox(
+            height: 100.w,
+            child: Center(
+              child: Text(
+                'No Images',
+                style: TextStyles.font18OrangeMedium,
+              ),
             ),
           );
   }

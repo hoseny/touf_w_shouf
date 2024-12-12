@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/supplements_cubit/supplements_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_list_item.dart';
@@ -24,10 +25,13 @@ class SupplementList extends StatelessWidget {
               );
             },
           )
-        : Center(
-            child: Text(
-              'No Supplements',
-              style: TextStyles.font18OrangeMedium,
+        : SizedBox(
+            height: 100.w,
+            child: Center(
+              child: Text(
+                'No Supplements',
+                style: TextStyles.font18OrangeMedium,
+              ),
             ),
           );
   }
