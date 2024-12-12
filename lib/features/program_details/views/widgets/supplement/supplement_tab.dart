@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_divider.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_list.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplement_vat.dart';
+import 'package:touf_w_shouf/features/program_details/views/widgets/supplement/supplements_bloc_builder.dart';
 
 class SupplementTab extends StatelessWidget {
   const SupplementTab({super.key});
@@ -20,7 +20,7 @@ class SupplementTab extends StatelessWidget {
             style: TextStyles.font18BlackMedium,
           ),
           4.verticalSpace,
-          const SupplementList(),
+          const SupplementsListBlocBuilder(),
           const SupplementDivider(),
           const SupplementVAT(),
         ],

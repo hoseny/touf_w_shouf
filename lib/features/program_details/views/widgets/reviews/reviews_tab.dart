@@ -20,6 +20,7 @@ class ReviewsTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const ReviewsListBlocBuilder(),
+          10.verticalSpace,
           Text(
             'Write your review “The Egyptian Gulf”',
             style: TextStyles.font18CharcoalGreyRegular,

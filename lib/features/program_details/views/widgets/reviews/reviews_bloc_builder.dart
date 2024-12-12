@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_list.dart';
@@ -16,8 +18,13 @@ class ReviewsListBlocBuilder extends StatelessWidget {
           current is ReviewFailure,
       builder: (context, state) {
         if (state is ReviewLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return SizedBox(
+            height: 380.h,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryBlue,
+              ),
+            ),
           );
         } else if (state is ReviewSuccess) {
           return ReviewsList(

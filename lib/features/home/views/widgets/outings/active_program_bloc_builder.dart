@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/active_program_loading.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/program_list_view.dart';
 
 class ActiveProgramBlocBuilder extends StatelessWidget {
@@ -15,7 +16,14 @@ class ActiveProgramBlocBuilder extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is ActiveProgramsLoading) {
-          return const ActiveProgramLoading();
+          return SizedBox(
+            height: 214.h,
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primaryBlue,
+              ),
+            ),
+          );
         } else if (state is ActiveProgramsSuccess) {
           return ProgramListView(
             programs: state.programs,
