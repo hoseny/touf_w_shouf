@@ -9,6 +9,7 @@ import 'package:touf_w_shouf/features/auth/presentation/views/validate_otp_view.
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/views/home_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
 import 'package:touf_w_shouf/features/program_details/views/program_details_view.dart';
 
@@ -17,6 +18,10 @@ class AppRouter {
     final arguments = settings.arguments;
 
     switch (settings.name) {
+      case Routes.splashView:
+        return MaterialPageRoute(
+          builder: (context) => const SplashView(),
+        );
       case Routes.onboardingView:
         return RouteAnimations.buildPageRoute(
           page: const OnboardingView(),

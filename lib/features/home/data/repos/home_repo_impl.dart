@@ -14,6 +14,7 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<ProgramModel>>> getActivePrograms() async {
     try {
+
       final response = await apiService.get(
         endpoint: ApiEndpoints.allActivePrograms,
       );

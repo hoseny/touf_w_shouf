@@ -22,7 +22,7 @@ class ReviewsTab extends StatelessWidget {
           const ReviewsListBlocBuilder(),
           10.verticalSpace,
           Text(
-            'Write your review “The Egyptian Gulf”',
+            'Write your review for ${context.read<ReviewCubit>().program.programName}',
             style: TextStyles.font18CharcoalGreyRegular,
           ),
           12.verticalSpace,
