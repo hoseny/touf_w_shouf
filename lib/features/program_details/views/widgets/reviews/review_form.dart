@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/helpers/font_weight_helper.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
@@ -117,21 +119,35 @@ class _ReviewFormState extends State<ReviewForm> {
 
   onPressed() {
     FocusScope.of(context).unfocus();
-    if (formKey.currentState!.validate() && context.read<ReviewCubit>().userRating != 0) {
-      autoValidateMode = AutovalidateMode.disabled;
-      context.read<ReviewCubit>().insertReview(
-            InsertReviewRequest(
-              review: reviewController.text.trim(),
-              rate: context.read<ReviewCubit>().userRating.toString(),
-              cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
-            ),
-          );
-    } else if (context.read<ReviewCubit>().userRating == 0) {
-      ToastHelper.showErrorToast('Please select rating');
-    } else {
+
+    final token = SharedPref.getString(key: SharedPrefKeys.token);
+    final userRating = context.read<ReviewCubit>().userRating;
+
+    if (token.isEmpty) {
+      context.pushNamed(Routes.loginView);
+      return;
+    }
+
+    if (userRating == 0) {
+      ToastHelper.showErrorToast('Please select a rating');
+      return;
+    }
+    final isFormValid = formKey.currentState?.validate() ?? false;
+
+    if (!isFormValid) {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
       });
+      return;
     }
+
+    autoValidateMode = AutovalidateMode.disabled;
+    context.read<ReviewCubit>().insertReview(
+          InsertReviewRequest(
+            review: reviewController.text.trim(),
+            rate: userRating.toString(),
+            cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
+          ),
+        );
   }
 }

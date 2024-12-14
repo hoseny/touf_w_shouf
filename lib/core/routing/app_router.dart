@@ -32,7 +32,7 @@ class AppRouter {
         return RouteAnimations.buildPageRoute(
           page: const LoginView(),
           settings: settings,
-          transitionType: TransitionType.slideFromBottom,
+          transitionType: TransitionType.fadeScale,
         );
       case Routes.signUpView:
         return RouteAnimations.buildPageRoute(

@@ -12,7 +12,7 @@ class FailureState extends StatelessWidget {
   });
 
   final String message;
-  final VoidCallback onRetry;
+  final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,15 @@ class FailureState extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         12.verticalSpace,
-        AppButton(
-          onPressed: onRetry,
-          text: 'Retry',
-          backgroundColor: AppColors.error,
-          width: 100.w,
-          borderRadius: 6.r,
-          style: TextStyles.font18WhiteSemiBold,
-        ),
+        if (onRetry != null)
+          AppButton(
+            onPressed: onRetry ?? () {},
+            text: 'Retry',
+            backgroundColor: AppColors.error,
+            width: 100.w,
+            borderRadius: 6.r,
+            style: TextStyles.font18WhiteSemiBold,
+          ),
       ],
     );
   }

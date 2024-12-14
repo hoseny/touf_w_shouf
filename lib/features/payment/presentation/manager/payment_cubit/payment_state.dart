@@ -5,27 +5,28 @@ sealed class PaymentState {}
 
 final class PaymentInitial extends PaymentState {}
 
-final class GroupPriceLoading extends PaymentState {}
+final class GroupLoading extends PaymentState {}
 
-final class GroupPriceSuccess extends PaymentState {
+final class GroupSuccess extends PaymentState {
+  final ProgramGroup programGroup;
   final List<GroupPrice> groupPrice;
 
-  GroupPriceSuccess(this.groupPrice);
+  GroupSuccess({required this.programGroup, required this.groupPrice});
 }
 
-final class GroupPriceFailure extends PaymentState {
+final class GroupFailure extends PaymentState {
   final String errorMessage;
 
-  GroupPriceFailure(this.errorMessage);
+  GroupFailure(this.errorMessage);
 }
-final class InsertDetailsReservationLoading extends PaymentState {}
-final class InsertDetailsReservationSuccess extends PaymentState {
-  final DetailsReservationResponse response;
+final class ReservationLoading extends PaymentState {}
+final class ReservationSuccess extends PaymentState {
+  final ReservationResponse response;
 
-  InsertDetailsReservationSuccess(this.response);
+  ReservationSuccess(this.response);
 }
-final class InsertDetailsReservationFailure extends PaymentState {
+final class ReservationFailure extends PaymentState {
   final String errorMessage;
 
-  InsertDetailsReservationFailure(this.errorMessage);
+  ReservationFailure(this.errorMessage);
 }

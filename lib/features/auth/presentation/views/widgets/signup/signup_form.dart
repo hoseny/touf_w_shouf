@@ -103,24 +103,23 @@ class _SignUpFormState extends State<SignUpForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate() && _isChecked) {
                     context.read<SignUpCubit>().signUp(
-                      signUpRequest: SignUpRequest(
-                        phone: widget.phoneController.text.trim(),
-                        email: widget.emailController.text.trim(),
-                        userName:
-                        "${_firstnameController.text
-                            .trim()} ${_lastnameController.text.trim()}",
-                        password: _passwordController.text.trim(),
-                        nat: "1",
-                        address: "address",
-                      ),
-                    );
+                          signUpRequest: SignUpRequest(
+                            phone: widget.phoneController.text.trim(),
+                            email: widget.emailController.text.trim(),
+                            userName: "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
+                            password: _passwordController.text.trim(),
+                            nat: "1",
+                            address: "address",
+                          ),
+                        );
                   } else {
                     setState(() {
                       _autoValidateMode = AutovalidateMode.always;
                     });
                     if (!_isChecked) {
                       ToastHelper.showErrorToast(
-                          'You must agree to the terms to create an account');
+                        'You must agree to the terms to create an account',
+                      );
                     }
                   }
                 },

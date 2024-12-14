@@ -23,10 +23,11 @@ abstract class ApiEndpoints {
   }
 
   static String resetPassword({required ResetPasswordRequest request}) {
-    return 'forgetPassword/${request.email}?V_OTP=${request.otp}&TransNo=${request.transactionNo}&pass=${request.password}';
+    return 'forgetPassword/${request.email}?V_OTP=${request
+        .otp}&TransNo=${request.transactionNo}&pass=${request.password}';
   }
 
-  static const String allActivePrograms = 'onlyCurrent/0';
+  static const String packages = 'Packages';
 
   static String programDetails({
     required String programCode,
@@ -72,6 +73,13 @@ abstract class ApiEndpoints {
     return 'programpolicy/$programCode/$programYear/Cancel';
   }
 
+  static String programGroup({
+    required String programCode,
+    required String programYear,
+  }) {
+    return 'ProgramGroups/$programCode/$programYear';
+  }
+
   static String groupPrice({
     required String programCode,
     required String programYear,
@@ -80,5 +88,5 @@ abstract class ApiEndpoints {
     return 'GroupPrice/$programCode/$programYear/$groupNumber';
   }
 
-  static const String insertDetailsReservation = 'DetailsesRev/';
+  static const String reservation = 'Reservation/';
 }

@@ -20,7 +20,7 @@ class ProgramBookButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
         child: AppButton(
           onPressed: () {
-            SharedPref.getString(key: SharedPrefKeys.token).isNotNullOrEmpty()
+            SharedPref.getString(key: SharedPrefKeys.token).isNotEmpty
                 ? context.pushNamed(
                     Routes.paymentView,
                     arguments: context.read<ProgramDetailsCubit>().program,

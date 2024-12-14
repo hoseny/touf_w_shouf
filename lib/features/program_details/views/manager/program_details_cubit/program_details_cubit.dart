@@ -18,7 +18,7 @@ class ProgramDetailsCubit extends Cubit<ProgramDetailsState> {
     final result = await programDetailsRepo.getProgramDetails(
       programCode: program.code.toString(),
       programYear: program.programYear.toString(),
-      lang: program.languageCode.toString(),
+      lang: '1',
     );
 
     final policyResult = await programDetailsRepo.getPolicy(

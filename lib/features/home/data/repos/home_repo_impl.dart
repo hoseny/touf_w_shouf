@@ -16,10 +16,10 @@ class HomeRepoImpl extends HomeRepo {
     try {
 
       final response = await apiService.get(
-        endpoint: ApiEndpoints.allActivePrograms,
+        endpoint: ApiEndpoints.packages,
       );
       final List<ProgramModel> programs = [];
-      for (var program in response['items']) {
+      for (var program in response['packages']) {
         programs.add(ProgramModel.fromJson(program));
       }
       return Right(programs);
