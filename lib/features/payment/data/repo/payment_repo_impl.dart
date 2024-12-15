@@ -64,7 +64,7 @@ class PaymentRepoImpl extends PaymentRepo {
   }
 
   @override
-  Future<Either<Failure, ReservationResponse>> insertDetailsReservation({
+  Future<Either<Failure, ReservationResponse>> postReservation({
     required ReservationRequest request,
   }) async {
     try {
@@ -72,8 +72,8 @@ class PaymentRepoImpl extends PaymentRepo {
         endpoint: ApiEndpoints.reservation,
         data: request.toJson(),
       );
-      final detailsReservationResponse = ReservationResponse.fromJson(response);
-      return Right(detailsReservationResponse);
+      final reservationResponse = ReservationResponse.fromJson(response);
+      return Right(reservationResponse);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

@@ -8,13 +8,15 @@ import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
 part 'program_group_state.dart';
 
 class ProgramGroupCubit extends Cubit<ProgramGroupState> {
-  ProgramGroupCubit(this.paymentRepoImpl, this.program) : super(ProgramGroupInitial());
+  ProgramGroupCubit(this.paymentRepoImpl, this.program)
+      : super(ProgramGroupInitial());
   final PaymentRepoImpl paymentRepoImpl;
   final ProgramModel program;
   List<GroupPrice> groupPrices = [];
   int totalPrice = 0;
   int totalCount = 0;
   bool isTermsAccepted = false;
+  late ProgramGroup programGroup;
 
   // Fetch Program Group and Group Prices
   Future<void> getGroup({
@@ -37,7 +39,7 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     );
 
     if (programGroup == null) return;
-
+    this.programGroup = programGroup;
     final groupPriceResult = await paymentRepoImpl.getGroupPrice(
       programCode: programCode,
       programYear: programYear,
@@ -59,7 +61,8 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
   }
 
   // Helper to emit ProgramGroupSuccess
-  void emitProgramGroupSuccess(ProgramGroup programGroup, List<GroupPrice> groupPrices) {
+  void emitProgramGroupSuccess(
+      ProgramGroup programGroup, List<GroupPrice> groupPrices) {
     emit(
       ProgramGroupSuccess(
         programGroup: programGroup,
@@ -92,7 +95,8 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
 
   // Calculate the total price for the selected group
   int calculateTotalPrice() {
-    totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
+    totalPrice =
+        groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
     return totalPrice;
   }
 

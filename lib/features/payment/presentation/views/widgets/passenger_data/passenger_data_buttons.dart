@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
+import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/reservation/reservation_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 
 class PassengerDataButtons extends StatelessWidget {
@@ -16,13 +20,26 @@ class PassengerDataButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppButton(
-          onPressed: () => onPayPressed(context),
-          text: 'Pay',
-          width: 358.w,
-          height: 42.h,
-          backgroundColor: AppColors.orange,
-          borderRadius: 12.r,
+        BlocConsumer<ReservationCubit, ReservationState>(
+          listener: (context, state) {
+            if (state is ReservationSuccess) {
+              final step = context.read<StepCubit>();
+              step.nextStep();
+            } else if (state is ReservationFailure) {
+              ToastHelper.showErrorToast(state.errorMessage);
+            }
+          },
+          builder: (context, state) {
+            return AppButton(
+              onPressed: () => onPayPressed(context),
+              isLoading: state is ReservationLoading,
+              text: 'Pay',
+              width: 358.w,
+              height: 42.h,
+              backgroundColor: AppColors.orange,
+              borderRadius: 12.r,
+            );
+          },
         ),
         20.verticalSpace,
         AppButton(
@@ -40,18 +57,27 @@ class PassengerDataButtons extends StatelessWidget {
   }
 
   void onPayPressed(BuildContext context) {
-    final cubit = context.read<ProgramGroupCubit>();
-    if (cubit.calculateTotalCount() == 0) {
+    final groupCubit = context.read<ProgramGroupCubit>();
+    if (groupCubit.calculateTotalCount() == 0) {
       ToastHelper.showErrorToast(
         'Please add at least one passenger',
       );
-    } else if (cubit.isTermsAccepted == false) {
+    } else if (groupCubit.isTermsAccepted == false) {
       ToastHelper.showErrorToast(
         'Please accept terms and conditions',
       );
     } else {
-      final step = context.read<StepCubit>();
-      step.nextStep();
+      final reservationCubit = context.read<ReservationCubit>();
+      reservationCubit.postReservation(
+        request: ReservationRequest(
+          custRef: SharedPref.getInt(key: SharedPrefKeys.custCode).toString(),
+          telephone: SharedPref.getString(key: SharedPrefKeys.telephone),
+          progGrpNo: groupCubit.programGroup.progGrpNo.toString(),
+          progCode: groupCubit.program.code.toString(),
+          progYear: groupCubit.program.programYear.toString(),
+          lang: '1',
+        ),
+      );
     }
   }
 }

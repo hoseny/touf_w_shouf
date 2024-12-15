@@ -17,7 +17,7 @@ abstract class PaymentRepo {
     required String groupNumber,
   });
 
-  Future<Either<Failure, ReservationResponse>> insertDetailsReservation({
+  Future<Either<Failure, ReservationResponse>> postReservation({
     required ReservationRequest request,
   });
 }

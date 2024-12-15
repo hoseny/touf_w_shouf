@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/di/service_locator.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/reservation/reservation_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_body.dart';
 
@@ -25,6 +26,11 @@ class PaymentView extends StatelessWidget {
               programCode: program.code.toString(),
               programYear: program.programYear.toString(),
             ),
+        ),
+        BlocProvider(
+          create: (context) => ReservationCubit(
+            getIt.get<PaymentRepoImpl>(),
+          ),
         ),
       ],
       child: const Scaffold(
