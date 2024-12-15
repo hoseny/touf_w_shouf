@@ -11,8 +11,16 @@ class PassengerDataList extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       decoration: BoxDecoration(
-        color: AppColors.softWhite,
+        color: AppColors.ultraLightWhite,
         borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          const BoxShadow(
+            color: AppColors.ultraLightGrey,
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: Offset(2, 2),
+          ),
+        ],
       ),
       child: ListView.builder(
         itemCount: 2,

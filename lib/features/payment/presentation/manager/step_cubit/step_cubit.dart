@@ -2,7 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StepCubit extends Cubit<int> {
-  StepCubit() : super(0);
+  StepCubit() : super(1);
 
   void goToStep(int step) => emit(step);
 

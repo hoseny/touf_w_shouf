@@ -165,6 +165,11 @@ abstract class TextStyles {
     fontWeight: FontWeightHelper.medium,
     color: AppColors.charcoalGrey,
   );
+  static TextStyle font16fadedGreyMedium = baseStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: AppColors.fadedGrey,
+  );
   static TextStyle font16FadedGreyMedium = baseStyle(
     fontSize: 16.sp,
     color: AppColors.fadedGrey,
@@ -252,7 +257,8 @@ abstract class TextStyles {
     fontSize: 18.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
-  );static TextStyle font14WhiteMedium = baseStyle(
+  );
+  static TextStyle font14WhiteMedium = baseStyle(
     fontSize: 14.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,

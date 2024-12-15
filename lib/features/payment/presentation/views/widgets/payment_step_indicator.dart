@@ -52,23 +52,29 @@ class PaymentStepIndicator extends StatelessWidget {
   }
 
   Widget _buildStepLabels() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildStepLabel("Passenger data"),
-        _buildStepLabel("Payment and Confirm"),
-        _buildStepLabel("Success"),
-      ],
+    return BlocBuilder<StepCubit, int>(
+      builder: (context, currentStep) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildStepLabel(label: "Passenger data", isActive: currentStep >= 0),
+            _buildStepLabel(label: "Payment and Confirm", isActive: currentStep >= 1),
+            _buildStepLabel(label: "Success", isActive: currentStep >= 2),
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildStepLabel(String label) {
+  Widget _buildStepLabel({required String label, required bool isActive}) {
     return SizedBox(
       width: 98.w,
       child: Text(
         label,
-        style: TextStyles.font16CharcoalGreyMedium,
+        style: isActive
+            ? TextStyles.font16CharcoalGreyMedium
+            : TextStyles.font16fadedGreyMedium,
         textAlign: TextAlign.center,
       ),
     );
