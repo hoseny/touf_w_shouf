@@ -13,6 +13,7 @@ part 'reservation_state.dart';
 class ReservationCubit extends Cubit<ReservationState> {
   ReservationCubit(this.repo) : super(ReservationInitial());
   final PaymentRepoImpl repo;
+  late ReservationResponse reservationResponse;
 
   Future<void> postReservation({
     required ReservationRequest request,
@@ -30,6 +31,7 @@ class ReservationCubit extends Cubit<ReservationState> {
       (reservation) => reservation,
     );
     if (reservation == null) return;
+    reservationResponse = reservation;
     final detailsReservationResult = await repo.postDetailsReservation(
       request: DetailsReservationRequest(
         ressp: reservation.resSp.toString(),
