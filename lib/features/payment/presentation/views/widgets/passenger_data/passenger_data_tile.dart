@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/increment_decrement_buttons.dart';
 
 class PassengerDataTile extends StatelessWidget {
   const PassengerDataTile({
     super.key,
+    required this.groupPrice,
+    required this.index,
   });
+
+  final int index;
+  final GroupPrice groupPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +23,16 @@ class PassengerDataTile extends StatelessWidget {
         vertical: 0,
       ),
       title: Text(
-        'Adult',
+        groupPrice.paxType,
         style: TextStyles.font16BlackMedium,
       ),
       subtitle: Text(
-        '50 EGP From 20 to 50 (year)',
+        groupPrice.pPrice.toString(),
         style: TextStyles.font14deepTealRegular,
       ),
-      trailing: const IncrementDecrementButtons(),
+      trailing: IncrementDecrementButtons(
+        index: index,
+      ),
     );
   }
 }

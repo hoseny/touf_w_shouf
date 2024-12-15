@@ -7,8 +7,7 @@ import 'package:touf_w_shouf/core/widgets/app_button.dart';
 class FailureState extends StatelessWidget {
   const FailureState({
     super.key,
-    required this.message,
-    required this.onRetry,
+    required this.message, this.onRetry,
   });
 
   final String message;

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
@@ -15,8 +14,13 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
   List<GroupPrice> groupPrices = [];
   int totalPrice = 0;
   int totalCount = 0;
+  bool isTermsAccepted = false;
 
-  Future<void> getGroup({required String programCode, required String programYear,}) async {
+  // Fetch Program Group and Group Prices
+  Future<void> getGroup({
+    required String programCode,
+    required String programYear,
+  }) async {
     emit(ProgramGroupLoading());
 
     final programGroupResult = await paymentRepoImpl.getProgramGroup(
@@ -25,11 +29,11 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     );
 
     final programGroup = programGroupResult.fold(
-          (failure) {
+      (failure) {
         emit(ProgramGroupFailure(failure.message));
         return null;
       },
-          (group) => group,
+      (group) => group,
     );
 
     if (programGroup == null) return;
@@ -41,59 +45,69 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     );
 
     final groupPrices = groupPriceResult.fold(
-          (failure) {
+      (failure) {
         emit(ProgramGroupFailure(failure.message));
         return null;
       },
-          (price) => price,
+      (price) => price,
     );
 
     if (groupPrices == null) return;
 
     this.groupPrices = groupPrices;
+    emitProgramGroupSuccess(programGroup, groupPrices);
+  }
+
+  // Helper to emit ProgramGroupSuccess
+  void emitProgramGroupSuccess(ProgramGroup programGroup, List<GroupPrice> groupPrices) {
     emit(
       ProgramGroupSuccess(
         programGroup: programGroup,
-        groupPrice: groupPrices,
+        groupPrice: List.unmodifiable(groupPrices), // Prevent external mutation
       ),
     );
   }
 
+  // Increase count for a specific group
   void increaseCount(int index) {
     if (groupPrices[index].count < 10) {
       groupPrices[index].count++;
-      emit(
-        ProgramGroupSuccess(
-          programGroup: (state as ProgramGroupSuccess).programGroup,
-          groupPrice: List.from(groupPrices),
-        ),
+      emitProgramGroupSuccess(
+        (state as ProgramGroupSuccess).programGroup,
+        groupPrices,
       );
     }
   }
 
+  // Decrease count for a specific group
   void decreaseCount(int index) {
     if (groupPrices[index].count > 0) {
       groupPrices[index].count--;
-      emit(
-        ProgramGroupSuccess(
-          programGroup: (state as ProgramGroupSuccess).programGroup,
-          groupPrice: List.from(groupPrices),
-        ),
+      emitProgramGroupSuccess(
+        (state as ProgramGroupSuccess).programGroup,
+        groupPrices,
       );
     }
   }
 
+  // Calculate the total price for the selected group
   int calculateTotalPrice() {
-    int totalPrice = 0;
-    for (var pax in groupPrices) {
-      totalPrice += pax.pPrice * pax.count;
-    }
+    totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
     return totalPrice;
   }
 
-  void calculateTotalCount() {
-    for (var pax in groupPrices) {
-      totalCount += pax.count;
-    }
+  // Calculate the total count of all groups
+  int calculateTotalCount() {
+    totalCount = groupPrices.fold(0, (sum, pax) => sum + pax.count);
+    return totalCount;
+  }
+
+  // Toggle the acceptance of terms
+  void toggleTerms() {
+    isTermsAccepted = !isTermsAccepted;
+    emitProgramGroupSuccess(
+      (state as ProgramGroupSuccess).programGroup,
+      groupPrices,
+    );
   }
 }

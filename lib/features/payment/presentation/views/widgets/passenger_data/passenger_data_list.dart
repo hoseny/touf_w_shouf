@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
+import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/passenger_data_tile.dart';
 
 class PassengerDataList extends StatelessWidget {
-  const PassengerDataList({super.key});
+  const PassengerDataList({super.key, required this.groupPrice});
+
+  final List<GroupPrice> groupPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,10 @@ class PassengerDataList extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          return const PassengerDataTile();
+          return PassengerDataTile(
+            groupPrice: groupPrice[index],
+            index: index,
+          );
         },
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 
 class TermsAndConditions extends StatelessWidget {
   const TermsAndConditions({
@@ -15,13 +17,20 @@ class TermsAndConditions extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Row(
         children: [
-          Checkbox(
-            value: true,
-            onChanged: (bool? isChecked) {},
-            activeColor: AppColors.orange,
-            side: const BorderSide(
-              color: AppColors.fadedGrey,
-            ),
+          BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
+            builder: (context, state) {
+              final cubit = context.read<ProgramGroupCubit>();
+              return Checkbox(
+                value: cubit.isTermsAccepted,
+                onChanged: (bool? isChecked) {
+                  cubit.toggleTerms();
+                },
+                activeColor: AppColors.orange,
+                side: const BorderSide(
+                  color: AppColors.fadedGrey,
+                ),
+              );
+            },
           ),
           Expanded(
             child: RichText(

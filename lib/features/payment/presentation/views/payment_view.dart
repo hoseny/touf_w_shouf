@@ -21,7 +21,10 @@ class PaymentView extends StatelessWidget {
           create: (context) => ProgramGroupCubit(
             getIt.get<PaymentRepoImpl>(),
             program,
-          ),
+          )..getGroup(
+              programCode: program.code.toString(),
+              programYear: program.programYear.toString(),
+            ),
         ),
       ],
       child: const Scaffold(

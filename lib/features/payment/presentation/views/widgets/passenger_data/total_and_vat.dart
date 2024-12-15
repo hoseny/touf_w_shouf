@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 
 class TotalAndVat extends StatelessWidget {
   const TotalAndVat({
@@ -21,9 +23,14 @@ class TotalAndVat extends StatelessWidget {
                 'Total',
                 style: TextStyles.font24BlackMedium,
               ),
-              Text(
-                '0',
-                style: TextStyles.font24BlackMedium,
+              BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
+                builder: (context, state) {
+                  final cubit = context.read<ProgramGroupCubit>();
+                  return Text(
+                    cubit.calculateTotalPrice().toString(),
+                    style: TextStyles.font24BlackMedium,
+                  );
+                },
               )
             ],
           ),
