@@ -252,6 +252,10 @@ abstract class TextStyles {
     fontSize: 18.sp,
     color: AppColors.white,
     fontWeight: FontWeightHelper.medium,
+  );static TextStyle font14WhiteMedium = baseStyle(
+    fontSize: 14.sp,
+    color: AppColors.white,
+    fontWeight: FontWeightHelper.medium,
   );
   static TextStyle font18WhiteSemiBold = baseStyle(
     fontSize: 18.sp,

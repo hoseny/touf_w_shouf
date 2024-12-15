@@ -5,17 +5,23 @@ import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class PaymentStepIndicator extends StatelessWidget {
-  final int currentStep;
-
-  const PaymentStepIndicator({super.key, required this.currentStep});
+  const PaymentStepIndicator({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Column(
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
           _buildStepper(),
-          _buildStepLabels(),
+          Positioned(
+            bottom: -30.h,
+            left: 0,
+            right: 0,
+            child: _buildStepLabels(),
+          ),
         ],
       ),
     );
@@ -23,7 +29,7 @@ class PaymentStepIndicator extends StatelessWidget {
 
   Widget _buildStepper() {
     return SmartStepper(
-      currentStep: currentStep,
+      currentStep: 1,
       totalSteps: 3,
       completeStepColor: AppColors.orange,
       currentStepColor: AppColors.orange,
@@ -38,9 +44,6 @@ class PaymentStepIndicator extends StatelessWidget {
       stepHeight: 24.h,
       lineWidth: 125.w,
       lineHeight: 2.h,
-      borderWidth: 2.w,
-      lineBorderRadius: 10.r,
-      isTextShowing: true,
       onStepperTap: (step) {},
     );
   }
@@ -48,6 +51,7 @@ class PaymentStepIndicator extends StatelessWidget {
   Widget _buildStepLabels() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildStepLabel("Passenger data"),
         _buildStepLabel("Payment and Confirm"),
@@ -57,18 +61,12 @@ class PaymentStepIndicator extends StatelessWidget {
   }
 
   Widget _buildStepLabel(String label) {
-    return Padding(
-      padding: EdgeInsets.only(left: 5.h),
-      child: SizedBox(
-        width: 120.w,
-        height: 50.h,
-        child: Text(
-          label,
-          style: TextStyles.font16CharcoalGreyMedium,
-          textAlign: TextAlign.center,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
+    return SizedBox(
+      width: 98.w,
+      child: Text(
+        label,
+        style: TextStyles.font16CharcoalGreyMedium,
+        textAlign: TextAlign.center,
       ),
     );
   }
