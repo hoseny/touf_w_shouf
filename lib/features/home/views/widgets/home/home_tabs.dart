@@ -27,23 +27,20 @@ class HomeTabs extends StatelessWidget {
             Assets.hotel,
             Assets.transportation,
           ];
-          return BlocBuilder<HomeTabCubit, HomeTabState>(
-            builder: (context, state) {
+          return BlocBuilder<HomeTabCubit, int>(
+            builder: (context, currentTab) {
               final cubit = context.read<HomeTabCubit>();
-              if (state is HomeTabIndexUpdated) {
-                return GestureDetector(
-                  onTap: () => cubit.updateIndex(index),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    child: CustomHomeTab(
-                      iconPath: tabIcons[index],
-                      text: tabNames[index],
-                      isActive: state.index == index,
-                    ),
+              return GestureDetector(
+                onTap: () => cubit.updateTab(index),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: CustomHomeTab(
+                    iconPath: tabIcons[index],
+                    text: tabNames[index],
+                    isActive: currentTab == index,
                   ),
-                );
-              }
-              return Container();
+                ),
+              );
             },
           );
         },

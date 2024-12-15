@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/home/home_header.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/home_tab_content_section.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/home/home_tabs_content.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -11,7 +11,7 @@ class HomeBody extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       slivers: [
         HomeHeader(),
-        HomeTabContentSection(),
+        HomeTabContent(),
       ],
     );
   }
