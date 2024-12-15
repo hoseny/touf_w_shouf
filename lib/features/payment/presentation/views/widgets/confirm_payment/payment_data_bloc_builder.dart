@@ -3,32 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
-import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
-import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/passenger_data_list.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/display_payment/display_payment_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/confirm_payment/confirm_payment_data_box.dart';
 
-class PassengerDataListBlocBuilder extends StatelessWidget {
-  const PassengerDataListBlocBuilder({super.key});
+class PaymentDataBlocBuilder extends StatelessWidget {
+  const PaymentDataBlocBuilder({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
+    return BlocBuilder<DisplayPaymentCubit, DisplayPaymentState>(
       builder: (context, state) {
-        if (state is ProgramGroupSuccess) {
-          return PassengerDataList(
-            groupPrice: state.groupPrice,
+        if (state is DisplayPaymentSuccess) {
+          return ConfirmPaymentDataBox(
+            payment: state.paymentModel,
           );
-        } else if (state is ProgramGroupLoading) {
+        } else if (state is DisplayPaymentLoading) {
           return SizedBox(
-            height: 120.h,
+            height: 250.h,
             child: const Center(
               child: CircularProgressIndicator(
                 color: AppColors.primaryBlue,
               ),
             ),
           );
-        } else if (state is ProgramGroupFailure) {
+        } else if (state is DisplayPaymentFailure) {
           return SizedBox(
-            height: 120.h,
+            height: 250.h,
             child: Center(
               child: FailureState(
                 message: state.errorMessage,
@@ -37,7 +39,7 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
           );
         } else {
           return SizedBox(
-            height: 120.h,
+            height: 250.h,
             child: const Center(
               child: FailureState(
                 message: 'Something went wrong',

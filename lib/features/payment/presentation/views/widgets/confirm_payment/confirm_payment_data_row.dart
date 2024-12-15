@@ -16,9 +16,11 @@ class ConfirmPaymentDataRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyles.font18FadedGreyMedium,
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyles.font18FadedGreyMedium,
+          ),
         ),
         Text(
           value,

@@ -23,8 +23,7 @@ abstract class ApiEndpoints {
   }
 
   static String resetPassword({required ResetPasswordRequest request}) {
-    return 'forgetPassword/${request.email}?V_OTP=${request
-        .otp}&TransNo=${request.transactionNo}&pass=${request.password}';
+    return 'forgetPassword/${request.email}?V_OTP=${request.otp}&TransNo=${request.transactionNo}&pass=${request.password}';
   }
 
   static const String packages = 'Packages';
@@ -89,4 +88,12 @@ abstract class ApiEndpoints {
   }
 
   static const String reservation = 'Reservation/';
+  static const String detailsReservation = 'DetailsesRev//';
+
+  static String displayPayment({
+    required String refNo,
+    required String ressp,
+  }) {
+    return 'payment/$refNo/$ressp';
+  }
 }

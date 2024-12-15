@@ -26,7 +26,7 @@ class PassengerDataList extends StatelessWidget {
         ],
       ),
       child: ListView.builder(
-        itemCount: 2,
+        itemCount: groupPrice.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,

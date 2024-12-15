@@ -4,12 +4,19 @@ part of 'reservation_cubit.dart';
 sealed class ReservationState {}
 
 final class ReservationInitial extends ReservationState {}
+
 final class ReservationLoading extends ReservationState {}
+
 final class ReservationSuccess extends ReservationState {
   final ReservationResponse reservationResponse;
+  final DetailsReservationResponse detailsReservationResponse;
 
-  ReservationSuccess(this.reservationResponse);
+  ReservationSuccess({
+    required this.reservationResponse,
+    required this.detailsReservationResponse,
+  });
 }
+
 final class ReservationFailure extends ReservationState {
   final String errorMessage;
 

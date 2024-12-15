@@ -7,6 +7,7 @@ import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/display_payment/display_payment_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/reservation/reservation_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
@@ -23,6 +24,13 @@ class PassengerDataButtons extends StatelessWidget {
         BlocConsumer<ReservationCubit, ReservationState>(
           listener: (context, state) {
             if (state is ReservationSuccess) {
+              final displayPayment = context.read<DisplayPaymentCubit>();
+              final String refNo = state.reservationResponse.refNo.toString();
+              final String ressp = state.reservationResponse.resSp.toString();
+              displayPayment.getPayment(
+                refNo: refNo,
+                ressp: ressp,
+              );
               final step = context.read<StepCubit>();
               step.nextStep();
             } else if (state is ReservationFailure) {
@@ -77,6 +85,9 @@ class PassengerDataButtons extends StatelessWidget {
           progYear: groupCubit.program.programYear.toString(),
           lang: '1',
         ),
+        paxType: 'A',
+        paxCount: groupCubit.calculateTotalCount().toString(),
+        progGrpNo: groupCubit.programGroup.progGrpNo.toString(),
       );
     }
   }

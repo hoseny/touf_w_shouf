@@ -1,48 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/data/models/display_payment.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/confirm_payment/confirm_payment_data_row.dart';
 
 class ConfirmPaymentData extends StatelessWidget {
-  const ConfirmPaymentData({super.key,});
+  const ConfirmPaymentData({
+    super.key,
+    required this.payment,
+  });
 
+  final DisplayPaymentModel payment;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ProgramGroupCubit>();
     return Column(
       spacing: 8.h,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          cubit.program.programName,
+          payment.programName,
           style: TextStyles.font20BlackMedium,
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Trip Date',
-          value: '01/11/2024',
+          value: payment.tripDate,
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Program Year',
-          value: '2024',
+          value: payment.programYear.toString(),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Customer Ref',
-          value: '28',
+          value: payment.customerRef.toString(),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Reservation Ref',
-          value: '600967',
+          value: payment.reservationRef.toString(),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Reservation SP',
-          value: '110',
+          value: payment.reservationSp.toString(),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Number of Adults',
-          value: '1',
+          value: payment.numberOfAdults.toString(),
         ),
         const ConfirmPaymentDataRow(
           title: 'Number of Children (1-6)',
@@ -52,25 +54,25 @@ class ConfirmPaymentData extends StatelessWidget {
           title: 'Number of Children (6-12)',
           value: '0',
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Total Without Additional Services',
-          value: '850',
+          value: payment.totalWithoutAdditionalService.toStringAsFixed(0),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Additional Service Total',
-          value: '0',
+          value: (payment.totalAdditionalService ?? 0).toStringAsFixed(0),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Total',
-          value: '850',
+          value: payment.total.toStringAsFixed(0),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'VAT',
-          value: '0',
+          value: payment.vat.toStringAsFixed(0),
         ),
-        const ConfirmPaymentDataRow(
+        ConfirmPaymentDataRow(
           title: 'Total with VAT',
-          value: '850',
+          value: payment.totalIncludesVat.toStringAsFixed(0),
         ),
       ],
     );

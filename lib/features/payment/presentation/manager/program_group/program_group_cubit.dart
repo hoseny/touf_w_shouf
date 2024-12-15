@@ -8,13 +8,10 @@ import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
 part 'program_group_state.dart';
 
 class ProgramGroupCubit extends Cubit<ProgramGroupState> {
-  ProgramGroupCubit(this.paymentRepoImpl, this.program)
-      : super(ProgramGroupInitial());
+  ProgramGroupCubit(this.paymentRepoImpl, this.program) : super(ProgramGroupInitial());
   final PaymentRepoImpl paymentRepoImpl;
   final ProgramModel program;
   List<GroupPrice> groupPrices = [];
-  int totalPrice = 0;
-  int totalCount = 0;
   bool isTermsAccepted = false;
   late ProgramGroup programGroup;
 
@@ -95,14 +92,13 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
 
   // Calculate the total price for the selected group
   int calculateTotalPrice() {
-    totalPrice =
-        groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
+    int totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
     return totalPrice;
   }
 
   // Calculate the total count of all groups
   int calculateTotalCount() {
-    totalCount = groupPrices.fold(0, (sum, pax) => sum + pax.count);
+    int totalCount = groupPrices.fold(0, (sum, pax) => sum + pax.count);
     return totalCount;
   }
 
