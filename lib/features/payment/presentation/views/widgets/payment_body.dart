@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_steps.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/program_header.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/payment_step_indicator.dart';
 
@@ -12,6 +13,7 @@ class PaymentBody extends StatelessWidget {
       slivers: [
         ProgramHeader(),
         PaymentStepIndicator(),
+        PaymentSteps(),
       ],
     );
   }

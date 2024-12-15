@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_stepper/smart_stepper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 
 class PaymentStepIndicator extends StatelessWidget {
   const PaymentStepIndicator({
@@ -12,39 +14,40 @@ class PaymentStepIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Stack(
-        clipBehavior: Clip.none,
+      child: Column(
         children: [
           _buildStepper(),
-          Positioned(
-            bottom: -30.h,
-            left: 0,
-            right: 0,
-            child: _buildStepLabels(),
-          ),
+          _buildStepLabels(),
         ],
       ),
     );
   }
 
   Widget _buildStepper() {
-    return SmartStepper(
-      currentStep: 1,
-      totalSteps: 3,
-      completeStepColor: AppColors.orange,
-      currentStepColor: AppColors.orange,
-      inactiveStepColor: AppColors.fadedGrey,
-      completeTextColor: AppColors.white,
-      currentTextColor: AppColors.white,
-      inactiveTextColor: AppColors.white,
-      completeLineColor: AppColors.orange,
-      currentLineColor: AppColors.fadedGrey,
-      inactiveLineColor: AppColors.fadedGrey,
-      stepWidth: 24.w,
-      stepHeight: 24.h,
-      lineWidth: 125.w,
-      lineHeight: 2.h,
-      onStepperTap: (step) {},
+    return BlocBuilder<StepCubit, int>(
+      builder: (context, currentStep) {
+        return SmartStepper(
+          currentStep: currentStep + 1,
+          totalSteps: 3,
+          completeStepColor: AppColors.orange,
+          currentStepColor: AppColors.orange,
+          inactiveStepColor: AppColors.fadedGrey,
+          completeTextColor: AppColors.white,
+          currentTextColor: AppColors.white,
+          inactiveTextColor: AppColors.white,
+          completeLineColor: AppColors.orange,
+          currentLineColor: AppColors.fadedGrey,
+          inactiveLineColor: AppColors.fadedGrey,
+          stepWidth: 24.w,
+          stepHeight: 24.h,
+          lineWidth: 125.w,
+          lineHeight: 2.h,
+          borderWidth: 2.w,
+          lineBorderRadius: 10.r,
+          isTextShowing: true,
+          onStepperTap: (step) {},
+        );
+      },
     );
   }
 
