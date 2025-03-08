@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/di/service_locator.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_tab/home_tab_cubit.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/home/home_app_bar.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/home/home_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -12,13 +13,15 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const HomeAppBar(),
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => HomeTabCubit(),
           ),
           BlocProvider(
-            create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())..getActivePrograms(),
+            create: (context) =>
+                HomeCubit(getIt.get<HomeRepoImpl>())..getActivePrograms(),
           ),
         ],
         child: const HomeBody(),
@@ -26,3 +29,4 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+

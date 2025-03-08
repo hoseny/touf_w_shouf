@@ -1,1 +1,14 @@
-{}
+{
+  "home": {
+    "tabs": {
+      "outings": "البرامج",
+      "hotels": "الفنادق",
+      "transportation": "النقل"
+    },
+    "outings": {
+      "activePrograms": "البرامج الحالية",
+      "advertisements": "الاعلانات",
+      "partners": "الشركاء"
+    }
+  }
+}

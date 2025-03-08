@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
@@ -37,16 +38,18 @@ class Advertisements extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  'Planning a vacation?',
+                  isEnglish(context) ? 'Planning a vacation?' : 'تخطط للعطلة؟',
                   style: TextStyles.font20WhiteMedium,
                 ),
                 Text(
-                  'Choose your holiday packages.',
+                  isEnglish(context)
+                      ? 'Choose your holiday packages.'
+                      : 'اختر الحجوزات الخاصة بك',
                   style: TextStyles.font18WhiteRegular,
                 ),
                 AppButton(
                   onPressed: () {},
-                  text: 'Book',
+                  text: isEnglish(context) ? 'Book' : 'احجز',
                   backgroundColor: AppColors.orange,
                   width: 100.w,
                   borderRadius: 6.r,

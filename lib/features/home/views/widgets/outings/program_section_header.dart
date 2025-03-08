@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
+import '../../../../../core/helpers/helpers_methods.dart';
+
 class OutingsSectionHeader extends StatelessWidget {
   const OutingsSectionHeader({
     super.key,
@@ -37,7 +39,7 @@ class OutingsSectionHeader extends StatelessWidget {
             GestureDetector(
               onTap: onTap,
               child: Text(
-                'See All',
+                isEnglish(context) ? 'See All' : 'عرض الكل',
                 style: TextStyles.font16BlackRegular,
               ),
             ),

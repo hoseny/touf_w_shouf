@@ -1,1 +1,14 @@
-{}
+{
+  "home": {
+    "tabs": {
+      "outings": "Outings",
+      "hotels": "Hotels",
+      "transportation": "Transportation"
+    },
+    "outings": {
+      "activePrograms": "Active Programs",
+      "advertisements": "Advertisements",
+      "partners": "Partners"
+    }
+  }
+}

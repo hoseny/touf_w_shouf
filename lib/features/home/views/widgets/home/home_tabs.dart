@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_tab/home_tab_cubit.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/home/custom_home_tab.dart';
@@ -8,11 +10,6 @@ import 'package:touf_w_shouf/features/home/views/widgets/home/custom_home_tab.da
 class HomeTabs extends StatelessWidget {
   const HomeTabs({super.key});
 
-  static const List<String> _tabNames = [
-    'Outings',
-    'Hotels',
-    'Transportation',
-  ];
   static const List<String> _tabIcons = [
     Assets.outings,
     Assets.hotel,
@@ -21,12 +18,17 @@ class HomeTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> tabNames = [
+      context.tr(LocaleKeys.outings),
+      context.tr(LocaleKeys.hotels),
+      context.tr(LocaleKeys.transportation),
+    ];
     return SizedBox(
       height: 60.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: _tabNames.length,
-        separatorBuilder: (_,__) => 16.horizontalSpace,
+        itemCount: tabNames.length,
+        separatorBuilder: (_, __) => 16.horizontalSpace,
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
         ),
@@ -38,7 +40,7 @@ class HomeTabs extends StatelessWidget {
                 onTap: () => cubit.updateTab(index),
                 child: CustomHomeTab(
                   iconPath: _tabIcons[index],
-                  text: _tabNames[index],
+                  text: tabNames[index],
                   isActive: currentTab == index,
                 ),
               );
