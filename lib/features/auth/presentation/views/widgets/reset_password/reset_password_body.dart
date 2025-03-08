@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
@@ -23,9 +24,11 @@ class ResetPasswordBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
-      if (state is ResetPasswordSuccess) {
+        if (state is ResetPasswordSuccess) {
           context.pop();
-          ToastHelper.showSuccessToast('Password Reset Successful');
+          ToastHelper.showSuccessToast(isEnglish(context)
+              ? 'Password Reset Successful'
+              : 'تم تغيير كلمة المرور بنجاح');
           context.pushNamedAndRemoveUntil(Routes.loginView,
               predicate: (route) => false);
         } else if (state is ResetPasswordFailure) {

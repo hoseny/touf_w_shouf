@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/validations/regex_validation.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
@@ -97,7 +98,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             Column(
               children: [
                 AppTextFormField(
-                  hintText: "Enter new password",
+                  hintText: isEnglish(context) ? "Enter new password" : "كلمة المرور الجديدة",
                   controller: newPassController,
                   isPassword: true,
                   validator: (value) =>
@@ -113,7 +114,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 ),
                 10.verticalSpace,
                 AppTextFormField(
-                  hintText: "Confirm new password",
+                  hintText: isEnglish(context) ? "Confirm new password" : "تأكيد كلمة المرور",
                   controller: confirmNewPassController,
                   isPassword: true,
                   validator: (value) => Validation.passwordConfirmValidator(
@@ -130,7 +131,9 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 return AppButton(
                   isLoading: state is ResetPasswordLoading,
                   onPressed: _onSubmit,
-                  text: "Reset Password",
+                  text: isEnglish(context)
+                      ? "Reset Password"
+                      : "استعادة كلمة المرور",
                   width: 327.w,
                   height: 46.h,
                 );

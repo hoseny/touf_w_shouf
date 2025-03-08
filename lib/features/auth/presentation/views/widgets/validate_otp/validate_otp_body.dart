@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/validate_otp_cubit/validate_otp_cubit.dart';
@@ -29,7 +30,9 @@ class ValidateOtpBody extends StatelessWidget {
                 predicate: (route) => false,
               );
               ToastHelper.showSuccessToast(
-                'Verifying Successfully, Please login now',
+                isEnglish(context)
+                    ? 'Verifying Successfully, Please login now'
+                    : 'تحقق بنجاح، يرجى تسجيل الدخول الآن',
               );
             } else if (state is ValidateOtpFailure) {
               context.pop();
@@ -58,7 +61,9 @@ class ValidateOtpBody extends StatelessWidget {
                 },
               );
               ToastHelper.showSuccessToast(
-                'OTP verification successful for password reset',
+                isEnglish(context)
+                    ? 'OTP verification successful for password reset'
+                    : 'تم التحقق من OTP بنجاح لاستعادة كلمة المرور',
               );
             } else if (state is ValidateOtpForgetFailure) {
               context.pop();

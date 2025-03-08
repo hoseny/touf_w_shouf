@@ -17,26 +17,22 @@ class ProgramListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 214.h,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: programs.length,
         scrollDirection: Axis.horizontal,
         cacheExtent: 400,
         padding: EdgeInsets.symmetric(horizontal: 16.w),
+        separatorBuilder: (context, index) => 16.horizontalSpace,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(
-              right: index == programs.length - 1 ? 0 : 16,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                context.pushNamed(
-                  Routes.programDetailsView,
-                  arguments: programs[index],
-                );
-              },
-              child: ProgramListViewItem(
-                program: programs[index],
-              ),
+          return GestureDetector(
+            onTap: () {
+              context.pushNamed(
+                Routes.programDetailsView,
+                arguments: programs[index],
+              );
+            },
+            child: ProgramListViewItem(
+              program: programs[index],
             ),
           );
         },

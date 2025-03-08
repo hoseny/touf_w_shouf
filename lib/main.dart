@@ -15,8 +15,8 @@ void main() async {
     DioFactory.initialize(),
     SharedPref.init(),
     EasyLocalization.ensureInitialized(),
+    setupServiceLocator(),
   ]);
-  setupServiceLocator();
   Bloc.observer = MyBlocObserver();
   SystemUIConfig.configure();
   runApp(

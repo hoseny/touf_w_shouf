@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
@@ -45,16 +46,19 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AppTextFormField(
-            hintText: "Insert email address",
+            hintText: isEnglish(context)
+                ? "Insert email address"
+                : "أدخل البريد الإلكتروني",
             controller: widget.emailController,
-            validator: (value) => Validation.validatePhoneOrEmail(context, value),
+            validator: (value) =>
+                Validation.validatePhoneOrEmail(context, value),
           ),
           SizedBox(height: 150.h),
           BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
             builder: (context, state) {
               return AppButton(
                 onPressed: _submit,
-                text: 'Submit',
+                text: isEnglish(context) ? 'Submit' : 'تأكيد',
                 width: 327.w,
                 height: 46.h,
                 isLoading: state is ForgotPasswordLoading,

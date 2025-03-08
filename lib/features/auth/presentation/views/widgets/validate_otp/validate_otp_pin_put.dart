@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class ValidateOtpPinPut extends StatelessWidget {
   final TextEditingController otpController;
   final void Function(String) onCompleted;
+
   const ValidateOtpPinPut({
     super.key,
     required this.otpController,
@@ -52,9 +54,13 @@ class ValidateOtpPinPut extends StatelessWidget {
         pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return "OTP cannot be empty!";
+            return isEnglish(context)
+                ? "OTP cannot be empty!"
+                : "لا يمكن ان يكون OTP فارغا!";
           } else if (value.length < 6) {
-            return "Please enter a valid OTP";
+            return isEnglish(context)
+                ? "Please enter a valid OTP!"
+                : 'يرجى إدخال OTP صحيح!';
           }
           return null;
         },
