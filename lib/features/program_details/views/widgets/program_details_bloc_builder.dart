@@ -23,10 +23,11 @@ class ProgramDetailsBodyBlocBuilder extends StatelessWidget {
         } else if (state is ProgramDetailsSuccess) {
           return const ProgramDetailsBody();
         } else if (state is ProgramDetailsFailure) {
-          return FailureState(
-            message: state.errorMessage,
-            onRetry: () =>
-                context.read<ProgramDetailsCubit>().getProgramDetails(),
+          return Center(
+            child: FailureState(
+              message: state.errorMessage,
+              onRetry: () => context.read<ProgramDetailsCubit>().getProgramDetails(),
+            ),
           );
         } else {
           return const Center(

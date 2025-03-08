@@ -10,9 +10,10 @@ import 'package:touf_w_shouf/features/program_details/data/repos/program_details
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  //dio & ApiService
-  Dio dio = DioFactory.getDio();
-  getIt.registerSingleton<ApiService>(ApiService(dio));
+  // Register Dio instance
+  getIt.registerSingleton<Dio>(DioFactory.dio);
+  // Register API Service with the Dio instance
+  getIt.registerSingleton<ApiService>(ApiService(getIt.get<Dio>()));
   //repos
   getIt.registerSingleton<AuthRepoImpl>(AuthRepoImpl(apiService: getIt.get<ApiService>()));
   getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(apiService: getIt.get<ApiService>()));

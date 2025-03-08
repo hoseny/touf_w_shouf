@@ -21,7 +21,7 @@ class HomeHeader extends StatelessWidget {
           children: [
             const HomeCarousel(),
             Positioned(
-              bottom: -20.h,
+              bottom: 20.h,
               left: 0,
               right: 0,
               child: const HomeTabs(),

@@ -18,26 +18,37 @@ class CustomHomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              iconPath,
-              colorFilter: isActive
-                  ? const ColorFilter.mode(AppColors.orange, BlendMode.srcIn)
-                  : const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
-            ),
-            6.horizontalSpace,
-            Text(
-              text,
-              style: isActive ? TextStyles.font18OrangeMedium : TextStyles.font18WhiteMedium,
-            ),
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: isActive ? AppColors.orange : Colors.transparent,
+            width: 2.w,
+          ),
         ),
-        const Divider(color: Colors.red,)
-      ],
+      ),
+      padding: EdgeInsets.only(
+        bottom: 8.h,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            iconPath,
+            colorFilter: isActive
+                ? const ColorFilter.mode(AppColors.orange, BlendMode.srcIn)
+                : const ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+          ),
+          6.horizontalSpace,
+          Text(
+            text,
+            style: isActive
+                ? TextStyles.font18OrangeMedium
+                : TextStyles.font18WhiteMedium,
+          ),
+        ],
+      ),
     );
   }
 }

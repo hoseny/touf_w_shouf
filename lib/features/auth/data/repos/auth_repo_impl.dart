@@ -49,7 +49,7 @@ class AuthRepoImpl extends AuthRepo {
           key: SharedPrefKeys.telephone,
           value: telephone,
         );
-        DioFactory.setTokenIntoHeaderAfterLogin(token);
+        DioFactory.updateAuthToken(token);
       } else {
         return Left(CacheFailure('Token is missing or invalid'));
       }

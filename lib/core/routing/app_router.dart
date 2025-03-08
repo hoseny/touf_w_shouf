@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:touf_w_shouf/core/routing/route_animations.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/login_view.dart';
@@ -19,107 +18,54 @@ class AppRouter {
 
     switch (settings.name) {
       case Routes.splashView:
-        return MaterialPageRoute(
-          builder: (context) => const SplashView(),
-        );
+        return MaterialPageRoute(builder: (context) => const SplashView());
       case Routes.onboardingView:
-        return RouteAnimations.buildPageRoute(
-          page: const OnboardingView(),
-          settings: settings,
-          transitionType: TransitionType.fadeScale,
-        );
+        return MaterialPageRoute(builder: (context) => const OnboardingView());
       case Routes.loginView:
-        return RouteAnimations.buildPageRoute(
-          page: const LoginView(),
-          settings: settings,
-          transitionType: TransitionType.fadeScale,
-        );
+        return MaterialPageRoute(builder: (context) => const LoginView());
       case Routes.signUpView:
-        return RouteAnimations.buildPageRoute(
-          page: const SignupView(),
-          settings: settings,
-          transitionType: TransitionType.slideFromBottom,
-        );
+        return MaterialPageRoute(builder: (context) => const SignupView());
       case Routes.forgotPasswordView:
-        return RouteAnimations.buildPageRoute(
-          page: const ForgotPasswordView(),
-          settings: settings,
-          transitionType: TransitionType.slideFromBottom,
-        );
-
+        return MaterialPageRoute(builder: (context) => const ForgotPasswordView());
       case Routes.resetPasswordView:
         final args = arguments as Map<String, dynamic>?;
-        if (args != null &&
-            args.containsKey('email') &&
-            args.containsKey('otp') &&
-            args.containsKey('transNo') &&
-            args['email'] is String &&
-            args['otp'] is String &&
-            args['transNo'] is int) {
-          final email = args['email'] as String;
-          final otp = args['otp'] as String;
-          final transNo = args['transNo'] as int;
-
-          return RouteAnimations.buildPageRoute(
-            page: ResetPasswordView(
-              otpCode: otp,
-              email: email,
-              transNo: transNo,
+        if (args != null && args['email'] is String && args['otp'] is String && args['transNo'] is int) {
+          return MaterialPageRoute(
+            builder: (context) => ResetPasswordView(
+              otpCode: args['otp'] as String,
+              email: args['email'] as String,
+              transNo: args['transNo'] as int,
             ),
-            settings: settings,
-            transitionType: TransitionType.slideFromBottom,
           );
         }
         return null;
-
       case Routes.validateOtpView:
         if (arguments is Map<String, dynamic>) {
-          final email = arguments['email'] as String?;
-          final phone = arguments['phone'] as String?;
-
-          if (email != null) {
-            return RouteAnimations.buildPageRoute(
-              page: ValidateOtpView(
-                email: email,
-                phone: phone,
-              ),
-              settings: settings,
-              transitionType: TransitionType.slideFromBottom,
-            );
-          }
+          return MaterialPageRoute(
+            builder: (context) => ValidateOtpView(
+              email: arguments['email'] as String,
+              phone: arguments['phone'] as String?,
+            ),
+          );
         }
         return null;
-
       case Routes.homeView:
-        return RouteAnimations.buildPageRoute(
-          page: const HomeView(),
-          settings: settings,
-          transitionType: TransitionType.slideFromRight,
-        );
+        return MaterialPageRoute(builder: (context) => const HomeView());
       case Routes.programDetailsView:
         if (arguments is ProgramModel) {
-          final program = arguments;
-          return RouteAnimations.buildPageRoute(
-            page: ProgramDetailsView(program: program),
-            settings: settings,
-            transitionType: TransitionType.fadeScale,
+          return MaterialPageRoute(
+            builder: (context) => ProgramDetailsView(program: arguments),
           );
-        } else {
-          return null;
         }
+        return null;
       case Routes.paymentView:
         if (arguments is ProgramModel) {
-          final program = arguments;
-          return RouteAnimations.buildPageRoute(
-            page: PaymentView(program: program),
-            settings: settings,
-            transitionType: TransitionType.fadeScale,
+          return MaterialPageRoute(
+            builder: (context) => PaymentView(program: arguments),
           );
-        } else {
-          return null;
         }
+        return null;
       default:
-        //Exit app
         return null;
     }
   }
