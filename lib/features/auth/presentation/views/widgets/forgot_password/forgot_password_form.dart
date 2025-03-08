@@ -47,7 +47,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           AppTextFormField(
             hintText: "Insert email address",
             controller: widget.emailController,
-            validator: Validation.validatePhoneOrEmail,
+            validator: (value) => Validation.validatePhoneOrEmail(context, value),
           ),
           SizedBox(height: 150.h),
           BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(

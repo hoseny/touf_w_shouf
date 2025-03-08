@@ -18,4 +18,14 @@ abstract class LocaleKeys {
   static const authLoginSuccess = 'auth.loginSuccess';
   static const authLoginError = 'auth.loginError';
   static const authInvalidCredentials = 'auth.invalidCredentials';
+  static const authSignup = 'auth.signup';
+  static const authCreate = 'auth.create';
+  static const authFirstName = 'auth.firstName';
+  static const authLastName = 'auth.lastName';
+  static const authPhone = 'auth.phone';
+  static const authCreateAccount = 'auth.createAccount';
+  static const authJoinedBefore = 'auth.joinedBefore';
+  static const authRegisterSuccess = 'auth.registerSuccess';
+  static const authRegisterError = 'auth.registerError';
+  static const authInvalidRegistration = 'auth.invalidRegistration';
 }

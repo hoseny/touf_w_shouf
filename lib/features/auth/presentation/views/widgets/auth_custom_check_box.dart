@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class AuthCustomCheckBox extends StatefulWidget {
   const AuthCustomCheckBox({
     super.key,
-    required this.mainText,
-    this.highlightedParts = const [],
-    this.isChecked = false,
-    this.onChanged,
+    required this.isChecked,
+    required this.onChanged,
+    required this.textSpans,
   });
 
-  final String mainText;
-  final List<String> highlightedParts;
   final bool isChecked;
   final ValueChanged<bool>? onChanged;
-
+  final List<TextSpan> textSpans;
   @override
   State<AuthCustomCheckBox> createState() => _AuthCustomCheckBoxState();
 }
@@ -30,9 +28,9 @@ class _AuthCustomCheckBoxState extends State<AuthCustomCheckBox> {
     _isChecked = widget.isChecked;
   }
 
-  void _handleCheckboxChange(bool? value) {
+  void _onCheckboxChanged(bool? newValue) {
     setState(() {
-      _isChecked = value ?? false;
+      _isChecked = newValue ?? false;
     });
     widget.onChanged?.call(_isChecked);
   }
@@ -46,42 +44,24 @@ class _AuthCustomCheckBoxState extends State<AuthCustomCheckBox> {
         children: [
           Checkbox(
             value: _isChecked,
-            onChanged: _handleCheckboxChange,
+            onChanged: _onCheckboxChanged,
             checkColor: Colors.white,
             activeColor: AppColors.primaryBlue,
             side: BorderSide(color: AppColors.lightGrey, width: 1.3.w),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.r)),
+              borderRadius: BorderRadius.circular(4.r),
+            ),
           ),
-          SizedBox(width: 2.w),
           Expanded(
             child: RichText(
               text: TextSpan(
-                style: TextStyles.font14Grey600Medium,
-                children: _buildRichTextParts(),
+                style: TextStyles.font14Grey600Regular,
+                children: widget.textSpans,
               ),
             ),
           ),
         ],
       ),
     );
-  }
-
-  List<TextSpan> _buildRichTextParts() {
-    final List<TextSpan> spans = [];
-    final textParts = widget.mainText.split(' ');
-
-    for (final part in textParts) {
-      final isHighlighted = widget.highlightedParts.contains(part);
-      spans.add(
-        TextSpan(
-          text: "$part ",
-          style: isHighlighted
-              ? TextStyles.font14Blue500Bold
-              : TextStyles.font14Grey600Regular,
-        ),
-      );
-    }
-    return spans;
   }
 }

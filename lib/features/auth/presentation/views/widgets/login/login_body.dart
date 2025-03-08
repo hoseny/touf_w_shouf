@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 
@@ -17,7 +19,7 @@ class LoginBody extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           context.pop();
-          ToastHelper.showSuccessToast('Login Successfully');
+          ToastHelper.showSuccessToast(context.tr(LocaleKeys.authLoginSuccess));
         } else if (state is LoginFailure) {
           ToastHelper.showErrorToast(state.errMessage);
         }

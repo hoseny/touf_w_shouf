@@ -5,11 +5,21 @@
     "email": "Email",
     "password": "Password",
     "remember": "Remember me",
-    "forgot": "Forgot password?",
-    "firstTime": "First time here? Sign for free.",
+    "forgot": "Forgot Password?",
+    "firstTime": "First time here? Sign up for free.",
     "loginSuccess": "Login successful.",
     "loginError": "Login failed. Please try again.",
-    "invalidCredentials": "Invalid email or password."
+    "invalidCredentials": "Invalid email or password.",
+    "signup": "Sign Up",
+    "create": "Hello there! Let’s create your account.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone Number",
+    "createAccount": "Create Account",
+    "joinedBefore": "Joined us before?",
+    "registerSuccess": "Registration successful.",
+    "registerError": "Registration failed. Please try again.",
+    "invalidRegistration": "Invalid registration details. Please try again."
   },
   "home": {
     "tabs": {
@@ -22,26 +32,5 @@
       "advertisements": "Advertisements",
       "partners": "Partners"
     }
-  },
-  "serverFailure": {
-    "connectionTimeout": "Connection to the server timed out. Please check your internet connection.",
-    "sendTimeout": "Request sending timed out. Please try again.",
-    "receiveTimeout": "Response receiving timed out. Please try again later.",
-    "badCertificate": "The security certificate is invalid.",
-    "cancel": "The request was cancelled. Please try again.",
-    "connectionError": "Network connection failed. Please check your internet connection.",
-    "noInternet": "No internet connection.",
-    "unknownError": "An unexpected error occurred.",
-    "badResponse": {
-      "400": "Bad request.",
-      "401": "Login required.",
-      "403": "Access denied.",
-      "404": "Resource not found.",
-      "408": "Request timed out.",
-      "500": "Internal server error.",
-      "503": "Service currently unavailable.",
-      "default": "Request failed with status code {statusCode}."
-    }
-  },
-  "cacheFailure": "Cache error: {error}"
+  }
 }

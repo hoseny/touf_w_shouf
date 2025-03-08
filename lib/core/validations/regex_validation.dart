@@ -42,7 +42,7 @@ class RegexValidation {
 
   // Validate Expiration Date (MM/YY format)
   static bool isExpirationDateValid(String expirationDate) {
-    return RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{2})$').hasMatch(expirationDate);
+    return RegExp(r'^(0[1-9]|1[0-2])/([0-9]{2})$').hasMatch(expirationDate);
   }
 
   // Validate CVV (3 digits)

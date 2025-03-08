@@ -7,6 +7,7 @@ import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/data/models/reset_password_models/reset_password_request.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
+
 import 'reset_password_validations.dart';
 
 class ResetPasswordForm extends StatefulWidget {
@@ -28,7 +29,7 @@ class ResetPasswordForm extends StatefulWidget {
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final TextEditingController newPassController = TextEditingController();
   final TextEditingController confirmNewPassController =
-  TextEditingController();
+      TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
@@ -74,8 +75,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
         password: newPassword,
       );
       context.read<ResetPasswordCubit>().resetPassword(
-        resetPasswordRequest: resetPasswordRequest,
-      );
+            resetPasswordRequest: resetPasswordRequest,
+          );
     } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
@@ -99,9 +100,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   hintText: "Enter new password",
                   controller: newPassController,
                   isPassword: true,
-                  validator: (value) {
-                    return Validation.passwordValidator(value);
-                  },
+                  validator: (value) =>
+                      Validation.passwordValidator(context, value),
                 ),
                 3.verticalSpace,
                 ResetPasswordValidations(
@@ -116,12 +116,11 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   hintText: "Confirm new password",
                   controller: confirmNewPassController,
                   isPassword: true,
-                  validator: (value) {
-                    return Validation.passwordConfirmValidator(
-                      value,
-                      newPassController.text,
-                    );
-                  },
+                  validator: (value) => Validation.passwordConfirmValidator(
+                    context,
+                    value,
+                    newPassController.text,
+                  ),
                 ),
               ],
             ),
