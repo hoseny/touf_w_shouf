@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
@@ -13,13 +14,22 @@ void main() async {
   await Future.wait([
     DioFactory.initialize(),
     SharedPref.init(),
+    EasyLocalization.ensureInitialized(),
   ]);
   setupServiceLocator();
   Bloc.observer = MyBlocObserver();
   SystemUIConfig.configure();
   runApp(
-    ToufWShouf(
-      appRouter: AppRouter(),
+    EasyLocalization(
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ar'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: ToufWShouf(
+        appRouter: AppRouter(),
+      ),
     ),
   );
 }
