@@ -11,15 +11,20 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
-      title: Image.asset(
-        Assets.logo,
-        width: 100.w,
-        height: 50.h,
-      ),
+      actions: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Image.asset(
+            Assets.logo,
+            width: 100.w,
+            height: 50.h,
+          ),
+        ),
+      ],
       backgroundColor: AppColors.white,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(50.h);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
