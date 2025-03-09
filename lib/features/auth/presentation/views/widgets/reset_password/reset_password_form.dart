@@ -29,11 +29,8 @@ class ResetPasswordForm extends StatefulWidget {
 
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final TextEditingController newPassController = TextEditingController();
-  final TextEditingController confirmNewPassController =
-      TextEditingController();
+  final TextEditingController confirmNewPassController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   bool minLength = false;
   bool hasNumber = false;
@@ -78,10 +75,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
       context.read<ResetPasswordCubit>().resetPassword(
             resetPasswordRequest: resetPasswordRequest,
           );
-    } else {
-      setState(() {
-        autoValidateMode = AutovalidateMode.always;
-      });
     }
   }
 
@@ -89,7 +82,6 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      autovalidateMode: autoValidateMode,
       child: SizedBox(
         height: 380.h,
         child: Column(
@@ -98,11 +90,14 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             Column(
               children: [
                 AppTextFormField(
-                  hintText: isEnglish(context) ? "Enter new password" : "كلمة المرور الجديدة",
+                  hintText: isEnglish(context)
+                      ? "Enter new password"
+                      : "كلمة المرور الجديدة",
                   controller: newPassController,
                   isPassword: true,
                   validator: (value) =>
                       Validation.passwordValidator(context, value),
+                  onChanged: (value) => formKey.currentState!.validate(),
                 ),
                 3.verticalSpace,
                 ResetPasswordValidations(
@@ -114,7 +109,9 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                 ),
                 10.verticalSpace,
                 AppTextFormField(
-                  hintText: isEnglish(context) ? "Confirm new password" : "تأكيد كلمة المرور",
+                  hintText: isEnglish(context)
+                      ? "Confirm new password"
+                      : "تأكيد كلمة المرور",
                   controller: confirmNewPassController,
                   isPassword: true,
                   validator: (value) => Validation.passwordConfirmValidator(
@@ -122,6 +119,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                     value,
                     newPassController.text,
                   ),
+                  onChanged: (value) => formKey.currentState!.validate(),
                 ),
               ],
             ),

@@ -14,8 +14,7 @@ class SignupAction extends StatelessWidget {
       initialText: context.tr(LocaleKeys.authJoinedBefore),
       actionText: context.tr(LocaleKeys.authLogin),
       onActionTap: () {
-        context.pushNamedAndRemoveUntil(Routes.loginView,
-            predicate: (route) => false);
+        context.pushNamed(Routes.loginView,);
       },
     );
   }

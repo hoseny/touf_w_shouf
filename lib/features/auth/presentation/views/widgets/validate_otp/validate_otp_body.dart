@@ -13,26 +13,20 @@ class ValidateOtpBody extends StatelessWidget {
   final String email;
   final String? phone;
 
-  final TextEditingController otpController = TextEditingController();
 
-  ValidateOtpBody({super.key, required this.email, required this.phone});
+  const ValidateOtpBody({super.key, required this.email, required this.phone});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ValidateOtpCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener<ValidateOtpCubit, ValidateOtpState>(
           listener: (context, state) {
             if (state is ValidateOtpSuccess) {
               context.pop();
-              context.pushNamedAndRemoveUntil(
+              context.pushNamed(
                 Routes.loginView,
-                predicate: (route) => false,
-              );
-              ToastHelper.showSuccessToast(
-                isEnglish(context)
-                    ? 'Verifying Successfully, Please login now'
-                    : 'تحقق بنجاح، يرجى تسجيل الدخول الآن',
               );
             } else if (state is ValidateOtpFailure) {
               context.pop();
@@ -56,7 +50,7 @@ class ValidateOtpBody extends StatelessWidget {
                 Routes.resetPasswordView,
                 arguments: {
                   'email': email,
-                  'otp': otpController.text,
+                  'otp': cubit.otpController.text,
                   'transNo': state.response.transactionNo,
                 },
               );
@@ -79,7 +73,6 @@ class ValidateOtpBody extends StatelessWidget {
             ValidateOtpForm(
               email: email,
               phone: phone,
-              otpController: otpController,
             ),
           ],
         ),

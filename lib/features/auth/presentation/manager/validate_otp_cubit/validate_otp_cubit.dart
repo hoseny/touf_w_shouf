@@ -9,6 +9,8 @@ part 'validate_otp_state.dart';
 class ValidateOtpCubit extends Cubit<ValidateOtpState> {
   ValidateOtpCubit(this.authRepo) : super(ValidateOtpInitial());
   final AuthRepo authRepo;
+  final TextEditingController otpController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> validateOtp({
     required ValidateOtpRequest validateOtpRequest,

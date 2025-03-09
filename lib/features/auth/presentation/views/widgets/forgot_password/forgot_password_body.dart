@@ -12,15 +12,14 @@ class ForgotPasswordBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-
+final cubit = context.read<ForgotPasswordCubit>();
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
       listener: (context, state) {
         if (state is ForgotPasswordSuccess) {
           context.pop();
           ToastHelper.showSuccessToast(state.response.items.first.otp!);
           context.pushNamed(Routes.validateOtpView, arguments: {
-            'email': emailController.text.trim(),
+            'email': cubit.emailController.text.trim(),
             'phone': null
           });
         } else if (state is ForgotPasswordFailure) {
@@ -33,7 +32,7 @@ class ForgotPasswordBody extends StatelessWidget {
           child: Column(
             children: [
               const ForgotPasswordHeader(),
-              ForgotPasswordForm(emailController: emailController),
+              ForgotPasswordForm(),
             ],
           ),
         );

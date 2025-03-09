@@ -8,6 +8,8 @@ part 'forgot_password_state.dart';
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit(this.authRepo) : super(ForgotPasswordInitial());
   final AuthRepo authRepo;
+  final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> forgetPassword({required String email}) async {
     emit(ForgotPasswordLoading());

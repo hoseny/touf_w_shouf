@@ -7,41 +7,16 @@ import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
 
-class ForgotPasswordForm extends StatefulWidget {
-  final TextEditingController emailController;
-
-  const ForgotPasswordForm({super.key, required this.emailController});
-
-  @override
-  State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
-}
-
-class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-
-  @override
-  void dispose() {
-    widget.emailController.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    if (formKey.currentState?.validate() ?? false) {
-      final email = widget.emailController.text.trim();
-      context.read<ForgotPasswordCubit>().forgetPassword(email: email);
-    } else {
-      setState(() {
-        autoValidateMode = AutovalidateMode.always;
-      });
-    }
-  }
+class ForgotPasswordForm extends StatelessWidget {
+  const ForgotPasswordForm({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ForgotPasswordCubit>();
     return Form(
-      key: formKey,
-      autovalidateMode: autoValidateMode,
+      key: cubit.formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -49,15 +24,22 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
             hintText: isEnglish(context)
                 ? "Insert email address"
                 : "أدخل البريد الإلكتروني",
-            controller: widget.emailController,
-            validator: (value) =>
-                Validation.validatePhoneOrEmail(context, value),
+            controller: cubit.emailController,
+            validator: (value) => Validation.validatePhoneOrEmail(context, value),
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           SizedBox(height: 150.h),
           BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
             builder: (context, state) {
               return AppButton(
-                onPressed: _submit,
+                onPressed: () {
+                  if (cubit.formKey.currentState?.validate() ?? false) {
+                    final email = cubit.emailController.text.trim();
+                    context
+                        .read<ForgotPasswordCubit>()
+                        .forgetPassword(email: email);
+                  }
+                },
                 text: isEnglish(context) ? 'Submit' : 'تأكيد',
                 width: 327.w,
                 height: 46.h,

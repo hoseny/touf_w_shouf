@@ -115,8 +115,7 @@ class SignUpForm extends StatelessWidget {
               return AppButton(
                 isLoading: state is SignUpLoading,
                 onPressed: () {
-                  if (cubit.formKey.currentState!.validate() &&
-                      cubit.isChecked) {
+                  if (cubit.formKey.currentState!.validate() && cubit.isChecked) {
                     context.read<SignUpCubit>().signUp(
                           signUpRequest: SignUpRequest(
                             phone: cubit.phoneController.text.trim(),

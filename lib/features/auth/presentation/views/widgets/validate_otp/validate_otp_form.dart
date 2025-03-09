@@ -10,38 +10,28 @@ import 'package:touf_w_shouf/features/auth/presentation/manager/validate_otp_cub
 import 'package:touf_w_shouf/features/auth/presentation/manager/validate_otp_forget_cubit/validate_otp_forget_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/validate_otp/validate_otp_pin_put.dart';
 
-class ValidateOtpForm extends StatefulWidget {
+class ValidateOtpForm extends StatelessWidget {
   final String email;
   final String? phone;
-  final TextEditingController otpController;
 
   const ValidateOtpForm({
     super.key,
     required this.email,
     required this.phone,
-    required this.otpController,
   });
 
   @override
-  State<ValidateOtpForm> createState() => _ValidateOtpFormState();
-}
-
-class _ValidateOtpFormState extends State<ValidateOtpForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
-
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ValidateOtpCubit>();
     return Form(
-      key: _formKey,
-      autovalidateMode: _autoValidateMode,
+      key: cubit.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ValidateOtpPinPut(
-            otpController: widget.otpController,
+            otpController: cubit.otpController,
             onCompleted: (otp) {
-              _onSubmitted(otp);
+              _onSubmitted(context, otp);
             },
           ),
           150.verticalSpace,
@@ -49,7 +39,7 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
             builder: (context, state) {
               return AppButton(
                 onPressed: () {
-                  _onSubmitted(widget.otpController.text);
+                  _onSubmitted(context, cubit.otpController.text);
                 },
                 width: 327.w,
                 height: 46.h,
@@ -58,7 +48,7 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
               );
             },
           ),
-          BlocConsumer<ValidateOtpCubit, ValidateOtpState>(
+          BlocListener<ValidateOtpCubit, ValidateOtpState>(
             listener: (context, state) {
               if (state is ValidateOtpFailure) {
                 ToastHelper.showErrorToast(state.errMessage);
@@ -70,38 +60,29 @@ class _ValidateOtpFormState extends State<ValidateOtpForm> {
                 );
               }
             },
-            builder: (context, state) {
-              if (state is ValidateOtpLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return Container();
-            },
           ),
         ],
       ),
     );
   }
 
-  void _onSubmitted(String otp) {
-    if (_formKey.currentState!.validate()) {
-      if (widget.phone != null) {
+  void _onSubmitted(BuildContext context, String otp) {
+    final cubit = context.read<ValidateOtpCubit>();
+    if (cubit.formKey.currentState!.validate()) {
+      if (phone != null) {
         context.read<ValidateOtpCubit>().validateOtp(
               validateOtpRequest: ValidateOtpRequest(
                 otp: otp,
-                email: widget.email,
-                phone: widget.phone!,
+                email: email,
+                phone: phone!,
               ),
             );
       } else {
         context.read<ValidateOtpForgetCubit>().validateOtpForget(
               request: ValidateOtpForgetRequest(vOtp: otp),
-              email: widget.email,
+              email: email,
             );
       }
-    } else {
-      setState(() {
-        _autoValidateMode = AutovalidateMode.always;
-      });
     }
   }
 }
