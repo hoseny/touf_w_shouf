@@ -36,7 +36,7 @@ class OutingsSectionHeader extends StatelessWidget {
           ),
           const Spacer(),
           if (onTap != null)
-            GestureDetector(
+            InkWell(
               onTap: onTap,
               child: Text(
                 isEnglish(context) ? 'See All' : 'عرض الكل',

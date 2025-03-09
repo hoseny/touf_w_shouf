@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/app_cached_network_image.dart';
 import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/home/price_tag.dart';
 
 class ProgramListViewItem extends StatelessWidget {
   const ProgramListViewItem({
@@ -33,34 +34,7 @@ class ProgramListViewItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.r),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(12.r),
-            ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 6.h,
-              vertical: 4.h,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Start From',
-                  style: TextStyles.font10mutedGreyRegular,
-                ),
-                Text(
-                  '${program.startPrice.toString()} EGP',
-                  style: TextStyles.font16OrangeSemiBold,
-                ),
-              ],
-            ),
-          ),
-        ),
+        PriceTag(price: program.startPrice,),
         Positioned(
           left: 6.w,
           right: 6.w,
@@ -85,4 +59,5 @@ class ProgramListViewItem extends StatelessWidget {
     );
   }
 }
+
 

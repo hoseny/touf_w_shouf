@@ -7,6 +7,7 @@ import 'package:touf_w_shouf/features/auth/presentation/views/signup_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/validate_otp_view.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/views/home_view.dart';
+import 'package:touf_w_shouf/features/home/views/see_all_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
@@ -26,10 +27,14 @@ class AppRouter {
       case Routes.signUpView:
         return MaterialPageRoute(builder: (context) => const SignupView());
       case Routes.forgotPasswordView:
-        return MaterialPageRoute(builder: (context) => const ForgotPasswordView());
+        return MaterialPageRoute(
+            builder: (context) => const ForgotPasswordView());
       case Routes.resetPasswordView:
         final args = arguments as Map<String, dynamic>?;
-        if (args != null && args['email'] is String && args['otp'] is String && args['transNo'] is int) {
+        if (args != null &&
+            args['email'] is String &&
+            args['otp'] is String &&
+            args['transNo'] is int) {
           return MaterialPageRoute(
             builder: (context) => ResetPasswordView(
               otpCode: args['otp'] as String,
@@ -50,7 +55,13 @@ class AppRouter {
         }
         return null;
       case Routes.homeView:
-        return MaterialPageRoute(builder: (context) => const HomeView());
+        return MaterialPageRoute(
+          builder: (context) => const HomeView(),
+        );
+      case Routes.seeAllView:
+        return MaterialPageRoute(
+          builder: (context) => SeeAllView(title: arguments as String),
+        );
       case Routes.programDetailsView:
         if (arguments is ProgramModel) {
           return MaterialPageRoute(
