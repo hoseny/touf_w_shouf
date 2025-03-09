@@ -13,90 +13,63 @@ import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_requ
 import 'package:touf_w_shouf/features/auth/presentation/manager/signup_cubit/sign_up_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
-class SignUpForm extends StatefulWidget {
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
+class SignUpForm extends StatelessWidget {
 
   const SignUpForm({
     super.key,
-    required this.emailController,
-    required this.phoneController,
   });
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _firstnameController = TextEditingController();
-  final TextEditingController _lastnameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
-  bool _isChecked = false;
-
-  @override
-  void dispose() {
-    _firstnameController.dispose();
-    _lastnameController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<SignUpCubit>();
     return Form(
-      key: _formKey,
-      autovalidateMode: _autoValidateMode,
+      key: cubit.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authFirstName),
-            controller: _firstnameController,
+            controller: cubit.firstnameController,
             validator: (value) => Validation.userNameValidator(context, value),
-            autoValidateMode: _autoValidateMode,
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authLastName),
-            controller: _lastnameController,
+            controller: cubit.lastnameController,
             validator: (value) => Validation.userNameValidator(context, value),
-            autoValidateMode: _autoValidateMode,
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authEmail),
-            controller: widget.emailController,
+            controller: cubit.emailController,
             validator: (value) => Validation.emailValidator(context, value),
-            autoValidateMode: _autoValidateMode,
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authPhone),
-            controller: widget.phoneController,
-            validator: (value) =>
-                Validation.phoneNumberValidator(context, value),
+            controller: cubit.phoneController,
+            validator: (value) => Validation.phoneNumberValidator(context, value),
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
             keyboardType: TextInputType.phone,
             isPhoneField: true,
-            autoValidateMode: _autoValidateMode,
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authPassword),
-            controller: _passwordController,
+            controller: cubit.passwordController,
             isPassword: true,
             validator: (value) =>
                 Validation.loginPasswordValidator(context, value),
-            autoValidateMode: _autoValidateMode,
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           10.verticalSpace,
           AuthCustomCheckBox(
-            isChecked: _isChecked,
+            isChecked: cubit.isChecked,
             onChanged: (value) {
-              setState(() {
-                _isChecked = value;
-              });
+              cubit.toggleCheckbox(value);
             },
             textSpans: isEnglish(context)
                 ? [
@@ -142,29 +115,25 @@ class _SignUpFormState extends State<SignUpForm> {
               return AppButton(
                 isLoading: state is SignUpLoading,
                 onPressed: () {
-                  if (_formKey.currentState!.validate() && _isChecked) {
+                  if (cubit.formKey.currentState!.validate() &&
+                      cubit.isChecked) {
                     context.read<SignUpCubit>().signUp(
                           signUpRequest: SignUpRequest(
-                            phone: widget.phoneController.text.trim(),
-                            email: widget.emailController.text.trim(),
+                            phone: cubit.phoneController.text.trim(),
+                            email: cubit.emailController.text.trim(),
                             userName:
-                                "${_firstnameController.text.trim()} ${_lastnameController.text.trim()}",
-                            password: _passwordController.text.trim(),
+                                "${cubit.firstnameController.text.trim()} ${cubit.lastnameController.text.trim()}",
+                            password: cubit.passwordController.text.trim(),
                             nat: "1",
                             address: "address",
                           ),
                         );
-                  } else {
-                    setState(() {
-                      _autoValidateMode = AutovalidateMode.always;
-                    });
-                    if (!_isChecked) {
-                      ToastHelper.showErrorToast(
-                        isEnglish(context)
-                            ? 'You must agree to the terms to create an account'
-                            : 'يجب عليك الموافقة على الشروط لإنشاء حساب',
-                      );
-                    }
+                  } else if (!cubit.isChecked) {
+                    ToastHelper.showErrorToast(
+                      isEnglish(context)
+                          ? 'You must agree to the terms to create an account'
+                          : 'يجب عليك الموافقة على الشروط لإنشاء حساب',
+                    );
                   }
                 },
                 text: context.tr(LocaleKeys.authCreateAccount),

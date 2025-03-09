@@ -8,7 +8,7 @@ class StandardInputField extends StatelessWidget {
   final TextEditingController controller;
   final bool isPassword;
   final String? Function(String?)? validator;
-  final ValueChanged<String>? onChanged;
+  final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final AutovalidateMode? autoValidateMode;
   final bool isObscured;

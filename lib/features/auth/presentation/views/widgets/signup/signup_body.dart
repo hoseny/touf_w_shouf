@@ -9,26 +9,14 @@ import 'package:touf_w_shouf/features/auth/presentation/views/widgets/signup/sig
 
 import 'signup_header.dart';
 
-class SignupBody extends StatefulWidget {
+class SignupBody extends StatelessWidget {
   const SignupBody({
     super.key,
   });
 
   @override
-  State<SignupBody> createState() => _SignupBodyState();
-}
-
-class _SignupBodyState extends State<SignupBody> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  @override
-  void dispose() {
-    emailController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<SignUpCubit>();
 
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
@@ -36,8 +24,8 @@ class _SignupBodyState extends State<SignupBody> {
           context.pushNamed(
             Routes.validateOtpView,
             arguments: {
-              'email': emailController.text.trim(),
-              'phone': phoneController.text.trim()
+              'email': cubit.emailController.text.trim(),
+              'phone': cubit.phoneController.text.trim()
             },
           );
           ToastHelper.showSuccessToast(state.signUpResponse.message);
@@ -45,15 +33,12 @@ class _SignupBodyState extends State<SignupBody> {
           ToastHelper.showErrorToast(state.errMessage);
         }
       },
-      child: SingleChildScrollView(
+      child: const SingleChildScrollView(
         child: Column(
           children: [
-            const SignupHeader(),
-            SignUpForm(
-              emailController: emailController,
-              phoneController: phoneController,
-            ),
-            const SignupAction(),
+            SignupHeader(),
+            SignUpForm(),
+            SignupAction(),
           ],
         ),
       ),

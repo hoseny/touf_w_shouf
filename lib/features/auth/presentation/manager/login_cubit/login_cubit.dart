@@ -9,6 +9,9 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.authRepo) : super(LoginInitial());
   final AuthRepo authRepo;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> login({required LoginRequest loginRequest}) async {
     emit(LoginLoading());
@@ -17,5 +20,11 @@ class LoginCubit extends Cubit<LoginState> {
       (failure) => emit(LoginFailure(failure.message)),
       (loginResponse) => emit(LoginSuccess(loginResponse)),
     );
+  }
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
   }
 }

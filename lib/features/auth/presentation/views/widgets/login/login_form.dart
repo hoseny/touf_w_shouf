@@ -11,61 +11,31 @@ import 'package:touf_w_shouf/features/auth/data/models/login_models/login_reques
 import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-  bool isObscureText = true;
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.read<LoginCubit>();
     return Form(
-      key: formKey,
-      autovalidateMode: autoValidateMode,
+      key: cubit.formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authEmail),
-            controller: emailController,
+            controller: cubit.emailController,
             validator: (value) => Validation.emailValidator(context, value),
-            autoValidateMode: autoValidateMode,
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           15.verticalSpace,
           AppTextFormField(
             hintText: context.tr(LocaleKeys.authPassword),
-            controller: passwordController,
+            controller: cubit.passwordController,
             isPassword: true,
-            validator: (value) =>
-                Validation.loginPasswordValidator(context, value),
-            autoValidateMode: autoValidateMode,
-          ),
-          4.verticalSpace,
-          AuthCustomCheckBox(
-            isChecked: false,
-            onChanged: (value) {},
-            textSpans: [
-              TextSpan(
-                text: context.tr(LocaleKeys.authRemember),
-                style: TextStyles.font14Grey600Regular,
-              ),
-            ],
+            validator: (value) => Validation.loginPasswordValidator(context, value),
+            onChanged: (value) => cubit.formKey.currentState!.validate(),
           ),
           10.verticalSpace,
           BlocBuilder<LoginCubit, LoginState>(
@@ -73,17 +43,13 @@ class _LoginFormState extends State<LoginForm> {
               return AppButton(
                 isLoading: state is LoginLoading,
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
+                  if (cubit.formKey.currentState!.validate()) {
                     context.read<LoginCubit>().login(
                           loginRequest: LoginRequest(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
+                            email: cubit.emailController.text.trim(),
+                            password: cubit.passwordController.text.trim(),
                           ),
                         );
-                  } else {
-                    setState(() {
-                      autoValidateMode = AutovalidateMode.always;
-                    });
                   }
                 },
                 text: context.tr(LocaleKeys.authLogin),
