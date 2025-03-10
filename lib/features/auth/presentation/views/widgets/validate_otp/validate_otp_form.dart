@@ -23,44 +23,51 @@ class ValidateOtpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ValidateOtpCubit>();
-    return Form(
-      key: cubit.formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ValidateOtpPinPut(
-            otpController: cubit.otpController,
-            onCompleted: (otp) {
-              _onSubmitted(context, otp);
-            },
-          ),
-          150.verticalSpace,
-          BlocConsumer<ValidateOtpCubit, ValidateOtpState>(
-            listener: (context, state) {
-              if (state is ValidateOtpFailure) {
-                ToastHelper.showErrorToast(state.errMessage);
-              } else if (state is ValidateOtpSuccess) {
-                ToastHelper.showSuccessToast(
-                  isEnglish(context)
-                      ? 'OTP Verified Successfully!'
-                      : 'تم التحقق من الكود بنجاح',
-                );
-              }
-            },
-            builder: (context, state) {
-              return AppButton(
-                onPressed: () {
-                  _onSubmitted(context, cubit.otpController.text);
+    return BlocBuilder<ValidateOtpCubit, ValidateOtpState>(
+      builder: (context, state) {
+        return Form(
+          key: cubit.formKey,
+          autovalidateMode: cubit.enableAutoValidate(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ValidateOtpPinPut(
+                otpController: cubit.otpController,
+                onCompleted: (otp) {
+                  _onSubmitted(context, otp);
                 },
-                width: 327.w,
-                height: 46.h,
-                text: 'Verify',
-                isLoading: state is ValidateOtpLoading,
-              );
-            },
+              ),
+              150.verticalSpace,
+              BlocConsumer<ValidateOtpCubit, ValidateOtpState>(
+                listener: (context, state) {
+                  if (state is ValidateOtpFailure) {
+                    ToastHelper.showErrorToast(state.errMessage);
+                  } else if (state is ValidateOtpSuccess) {
+                    ToastHelper.showSuccessToast(
+                      isEnglish(context)
+                          ? 'OTP Verified Successfully!'
+                          : 'تم التحقق من الكود بنجاح',
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return AppButton(
+                    onPressed: () {
+                      _onSubmitted(context, cubit.otpController.text);
+                    },
+                    width: 327.w,
+                    height: 46.h,
+                    text: 'Verify',
+                    isLoading: state is ValidateOtpLoading ||
+                        context.watch<ValidateOtpForgetCubit>().state
+                            is ValidateOtpForgetLoading,
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -81,6 +88,8 @@ class ValidateOtpForm extends StatelessWidget {
               email: email,
             );
       }
+    } else {
+      cubit.enableAutoValidate();
     }
   }
 }

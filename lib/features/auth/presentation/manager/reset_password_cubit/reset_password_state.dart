@@ -17,4 +17,6 @@ final class ResetPasswordFailure extends ResetPasswordState {
 
   ResetPasswordFailure(this.errorMessage);
 }
+
 final class SetupPasswordListener extends ResetPasswordState {}
+final class UpdateAutoValidate extends ResetPasswordState {}

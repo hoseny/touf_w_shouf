@@ -12,6 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   Future<void> login({required LoginRequest loginRequest}) async {
     emit(LoginLoading());
@@ -21,10 +22,16 @@ class LoginCubit extends Cubit<LoginState> {
       (loginResponse) => emit(LoginSuccess(loginResponse)),
     );
   }
+
   @override
   Future<void> close() {
     emailController.dispose();
     passwordController.dispose();
     return super.close();
+  }
+
+  enableAutoValidate() {
+    autoValidateMode = AutovalidateMode.always;
+    emit(UpdateAutoValidate());
   }
 }

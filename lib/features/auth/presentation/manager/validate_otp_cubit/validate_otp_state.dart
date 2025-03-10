@@ -18,3 +18,4 @@ final class ValidateOtpFailure extends ValidateOtpState {
 
   ValidateOtpFailure(this.errMessage);
 }
+final class UpdateAutoValidate extends ValidateOtpState {}

@@ -18,3 +18,4 @@ final class SignUpFailure extends SignUpState {
 
   SignUpFailure(this.errMessage);
 }
+final class UpdateAutoValidate extends SignUpState {}

@@ -15,40 +15,41 @@ class ForgotPasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ForgotPasswordCubit>();
-    return Form(
-      key: cubit.formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AppTextFormField(
-            hintText: isEnglish(context)
-                ? "Insert email address"
-                : "أدخل البريد الإلكتروني",
-            controller: cubit.emailController,
-            validator: (value) => Validation.validatePhoneOrEmail(context, value),
-            onChanged: (value) => cubit.formKey.currentState!.validate(),
-          ),
-          SizedBox(height: 150.h),
-          BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
-            builder: (context, state) {
-              return AppButton(
+    return BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+      builder: (context, state) {
+        return Form(
+          key: cubit.formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppTextFormField(
+                hintText: isEnglish(context)
+                    ? "Insert email address"
+                    : "أدخل البريد الإلكتروني",
+                controller: cubit.emailController,
+                validator: (value) => Validation.validatePhoneOrEmail(context, value),
+              ),
+              SizedBox(height: 150.h),
+              AppButton(
                 onPressed: () {
-                  if (cubit.formKey.currentState?.validate() ?? false) {
+                  if (cubit.formKey.currentState!.validate()) {
                     final email = cubit.emailController.text.trim();
                     context
                         .read<ForgotPasswordCubit>()
                         .forgetPassword(email: email);
+                  } else {
+                    cubit.enableAutoValidate();
                   }
                 },
                 text: isEnglish(context) ? 'Submit' : 'تأكيد',
                 width: 327.w,
                 height: 46.h,
                 isLoading: state is ForgotPasswordLoading,
-              );
-            },
+              )
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

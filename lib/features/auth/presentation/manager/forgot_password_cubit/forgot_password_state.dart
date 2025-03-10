@@ -18,3 +18,5 @@ class ForgotPasswordFailure extends ForgotPasswordState {
 
   ForgotPasswordFailure(this.errMessage);
 }
+
+class UpdateAutoValidate extends ForgotPasswordState {}

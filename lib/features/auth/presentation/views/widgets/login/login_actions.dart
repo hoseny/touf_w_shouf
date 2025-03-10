@@ -27,7 +27,7 @@ class LoginActions extends StatelessWidget {
           initialText: context.tr(LocaleKeys.authFirstTime),
           actionText: isEnglish(context) ? 'Sign up for free' : 'تسجيل حساب جديد',
           onActionTap: () {
-            context.pushReplacementNamed(Routes.signUpView);
+            context.pushNamed(Routes.signUpView);
           },
         ),
       ],

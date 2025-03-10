@@ -40,4 +40,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     passwordController.dispose();
     return super.close();
   }
+
+  enableAutoValidate() {
+    autoValidateMode = AutovalidateMode.always;
+    emit(UpdateAutoValidate());
+  }
 }

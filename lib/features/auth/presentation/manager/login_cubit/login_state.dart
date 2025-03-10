@@ -18,3 +18,5 @@ final class LoginFailure extends LoginState {
 
   LoginFailure(this.errMessage);
 }
+
+final class UpdateAutoValidate extends LoginState {}

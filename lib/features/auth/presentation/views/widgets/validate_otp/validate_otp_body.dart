@@ -36,15 +36,7 @@ class ValidateOtpBody extends StatelessWidget {
         ),
         BlocListener<ValidateOtpForgetCubit, ValidateOtpForgetState>(
           listener: (context, state) {
-            if (state is ValidateOtpForgetLoading) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else if (state is ValidateOtpForgetSuccess) {
+             if (state is ValidateOtpForgetSuccess) {
               context.pop();
               context.pushNamed(
                 Routes.resetPasswordView,

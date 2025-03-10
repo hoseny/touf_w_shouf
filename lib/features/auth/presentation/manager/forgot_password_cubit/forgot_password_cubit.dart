@@ -11,6 +11,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+
   Future<void> forgetPassword({required String email}) async {
     emit(ForgotPasswordLoading());
     final response = await authRepo.forgetPassword(email: email);
@@ -18,5 +19,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
           (failure) => emit(ForgotPasswordFailure(failure.message)),
           (forgetPasswordResponse) => emit(ForgotPasswordSuccess(forgetPasswordResponse)),
     );
+  }
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
+  enableAutoValidate() {
+    autoValidateMode = AutovalidateMode.always;
+    emit(UpdateAutoValidate());
   }
 }

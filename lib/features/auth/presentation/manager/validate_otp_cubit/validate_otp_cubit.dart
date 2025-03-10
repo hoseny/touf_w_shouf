@@ -11,6 +11,7 @@ class ValidateOtpCubit extends Cubit<ValidateOtpState> {
   final AuthRepo authRepo;
   final TextEditingController otpController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   Future<void> validateOtp({
     required ValidateOtpRequest validateOtpRequest,
@@ -23,5 +24,9 @@ class ValidateOtpCubit extends Cubit<ValidateOtpState> {
           (failure) => emit(ValidateOtpFailure(failure.message)),
           (validateOtpResponse) => emit(ValidateOtpSuccess(validateOtpResponse)),
     );
+  }
+  enableAutoValidate() {
+    autoValidateMode = AutovalidateMode.always;
+    emit(UpdateAutoValidate());
   }
 }

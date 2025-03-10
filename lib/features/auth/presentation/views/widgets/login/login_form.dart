@@ -15,30 +15,29 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<LoginCubit>();
-    return Form(
-      key: cubit.formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppTextFormField(
-            hintText: context.tr(LocaleKeys.authEmail),
-            controller: cubit.emailController,
-            validator: (value) => Validation.emailValidator(context, value),
-            onChanged: (value) => cubit.formKey.currentState!.validate(),
-          ),
-          15.verticalSpace,
-          AppTextFormField(
-            hintText: context.tr(LocaleKeys.authPassword),
-            controller: cubit.passwordController,
-            isPassword: true,
-            validator: (value) => Validation.loginPasswordValidator(context, value),
-            onChanged: (value) => cubit.formKey.currentState!.validate(),
-          ),
-          10.verticalSpace,
-          BlocBuilder<LoginCubit, LoginState>(
-            builder: (context, state) {
-              return AppButton(
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return Form(
+          key: cubit.formKey,
+          autovalidateMode: cubit.autoValidateMode,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppTextFormField(
+                hintText: context.tr(LocaleKeys.authEmail),
+                controller: cubit.emailController,
+                validator: (value) => Validation.emailValidator(context, value),
+              ),
+              15.verticalSpace,
+              AppTextFormField(
+                hintText: context.tr(LocaleKeys.authPassword),
+                controller: cubit.passwordController,
+                isPassword: true,
+                validator: (value) => Validation.loginPasswordValidator(context, value),
+              ),
+              10.verticalSpace,
+              AppButton(
                 isLoading: state is LoginLoading,
                 onPressed: () {
                   if (cubit.formKey.currentState!.validate()) {
@@ -48,16 +47,18 @@ class LoginForm extends StatelessWidget {
                             password: cubit.passwordController.text.trim(),
                           ),
                         );
+                  } else {
+                    cubit.enableAutoValidate();
                   }
                 },
                 text: context.tr(LocaleKeys.authLogin),
                 width: 327.w,
                 height: 46.h,
-              );
-            },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

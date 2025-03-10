@@ -8,7 +8,9 @@ import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 part 'reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  ResetPasswordCubit(this.authRepo) : super(ResetPasswordInitial());
+  ResetPasswordCubit(this.authRepo) : super(ResetPasswordInitial()) {
+    setupPasswordControllerListener();
+  }
 
   final AuthRepo authRepo;
   final TextEditingController newPassController = TextEditingController();
@@ -21,6 +23,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   bool hasSymbol = false;
   bool hasUppercase = false;
   bool hasLowercase = false;
+
   Future<void> resetPassword({
     required ResetPasswordRequest resetPasswordRequest,
   }) async {
@@ -29,22 +32,26 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       resetPasswordRequest: resetPasswordRequest,
     );
     response.fold(
-          (failure) => emit(ResetPasswordFailure(failure.message)),
-          (resetPasswordResponse) => emit(ResetPasswordSuccess(resetPasswordResponse)),
+      (failure) => emit(ResetPasswordFailure(failure.message)),
+      (resetPasswordResponse) =>
+          emit(ResetPasswordSuccess(resetPasswordResponse)),
     );
   }
+
   void setupPasswordControllerListener() {
     newPassController.addListener(() {
       emit(SetupPasswordListener());
-        hasLowercase = RegexValidation.hasLowerCase(newPassController.text);
-        hasUppercase = RegexValidation.hasUpperCase(newPassController.text);
-        hasNumber = RegexValidation.hasNumber(newPassController.text);
-        minLength = RegexValidation.hasMinLength(newPassController.text);
-        hasSymbol = RegexValidation.hasSpecialCharacter(newPassController.text);
-
+      hasLowercase = RegexValidation.hasLowerCase(newPassController.text);
+      hasUppercase = RegexValidation.hasUpperCase(newPassController.text);
+      hasNumber = RegexValidation.hasNumber(newPassController.text);
+      minLength = RegexValidation.hasMinLength(newPassController.text);
+      hasSymbol = RegexValidation.hasSpecialCharacter(newPassController.text);
     });
   }
-
+  enableAutoValidate() {
+    autoValidateMode = AutovalidateMode.always;
+    emit(UpdateAutoValidate());
+  }
   @override
   Future<void> close() {
     newPassController.dispose();

@@ -31,61 +31,61 @@ class ResetPasswordForm extends StatelessWidget {
         email: email,
         password: newPassword,
       );
-      context
-          .read<ResetPasswordCubit>()
-          .resetPassword(resetPasswordRequest: resetPasswordRequest);
+      context.read<ResetPasswordCubit>().resetPassword(resetPasswordRequest: resetPasswordRequest);
+    } else {
+      cubit.enableAutoValidate();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final ResetPasswordCubit cubit = context.read<ResetPasswordCubit>();
-    return Form(
-      key: cubit.formKey,
-      autovalidateMode: cubit.autoValidateMode,
-      child: SizedBox(
-        height: 380.h,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
+    return BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
+      builder: (context, state) {
+        return Form(
+          key: cubit.formKey,
+          autovalidateMode: cubit.autoValidateMode,
+          child: SizedBox(
+            height: 380.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppTextFormField(
-                  hintText: isEnglish(context)
-                      ? "Enter new password"
-                      : "كلمة المرور الجديدة",
-                  controller: cubit.newPassController,
-                  isPassword: true,
-                  validator: (value) =>
-                      Validation.passwordValidator(context, value),
-                ),
-                3.verticalSpace,
-                ResetPasswordValidations(
-                  minLength: cubit.minLength,
-                  hasNumber: cubit.hasNumber,
-                  hasUppercase: cubit.hasUppercase,
-                  hasLowercase: cubit.hasLowercase,
-                  hasSymbol: cubit.hasSymbol,
+                Column(
+                  children: [
+                    AppTextFormField(
+                      hintText: isEnglish(context)
+                          ? "Enter new password"
+                          : "كلمة المرور الجديدة",
+                      controller: cubit.newPassController,
+                      isPassword: true,
+                      validator: (value) =>
+                          Validation.passwordValidator(context, value),
+                    ),
+                    16.verticalSpace,
+                    ResetPasswordValidations(
+                      minLength: cubit.minLength,
+                      hasNumber: cubit.hasNumber,
+                      hasUppercase: cubit.hasUppercase,
+                      hasLowercase: cubit.hasLowercase,
+                      hasSymbol: cubit.hasSymbol,
+                    ),
+                    10.verticalSpace,
+                    AppTextFormField(
+                      hintText: isEnglish(context)
+                          ? "Confirm new password"
+                          : "تأكيد كلمة المرور",
+                      controller: cubit.confirmNewPassController,
+                      isPassword: true,
+                      validator: (value) => Validation.passwordConfirmValidator(
+                        context,
+                        value,
+                        cubit.newPassController.text,
+                      ),
+                    ),
+                  ],
                 ),
                 10.verticalSpace,
-                AppTextFormField(
-                  hintText: isEnglish(context)
-                      ? "Confirm new password"
-                      : "تأكيد كلمة المرور",
-                  controller: cubit.confirmNewPassController,
-                  isPassword: true,
-                  validator: (value) => Validation.passwordConfirmValidator(
-                    context,
-                    value,
-                    cubit.newPassController.text,
-                  ),
-                ),
-              ],
-            ),
-            10.verticalSpace,
-            BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
-              builder: (context, state) {
-                return AppButton(
+                AppButton(
                   isLoading: state is ResetPasswordLoading,
                   onPressed: () => _onSubmit(context, cubit),
                   text: isEnglish(context)
@@ -93,12 +93,12 @@ class ResetPasswordForm extends StatelessWidget {
                       : "استعادة كلمة المرور",
                   width: 327.w,
                   height: 46.h,
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
