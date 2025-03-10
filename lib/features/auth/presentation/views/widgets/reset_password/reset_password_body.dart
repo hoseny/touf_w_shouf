@@ -23,6 +23,10 @@ class ResetPasswordBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
+      listenWhen: (previous, current) =>
+          current is ResetPasswordLoading ||
+          current is ResetPasswordSuccess ||
+          current is ResetPasswordFailure,
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
           context.pop();
@@ -36,6 +40,10 @@ class ResetPasswordBody extends StatelessWidget {
           ToastHelper.showErrorToast(state.errorMessage);
         }
       },
+      buildWhen: (previous, current) =>
+          current is ResetPasswordLoading ||
+          current is ResetPasswordSuccess ||
+          current is ResetPasswordFailure,
       builder: (context, state) {
         return SingleChildScrollView(
           child: Column(

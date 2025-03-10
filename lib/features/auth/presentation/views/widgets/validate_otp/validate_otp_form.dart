@@ -35,20 +35,7 @@ class ValidateOtpForm extends StatelessWidget {
             },
           ),
           150.verticalSpace,
-          BlocBuilder<ValidateOtpCubit, ValidateOtpState>(
-            builder: (context, state) {
-              return AppButton(
-                onPressed: () {
-                  _onSubmitted(context, cubit.otpController.text);
-                },
-                width: 327.w,
-                height: 46.h,
-                text: 'Verify',
-                isLoading: state is ValidateOtpLoading,
-              );
-            },
-          ),
-          BlocListener<ValidateOtpCubit, ValidateOtpState>(
+          BlocConsumer<ValidateOtpCubit, ValidateOtpState>(
             listener: (context, state) {
               if (state is ValidateOtpFailure) {
                 ToastHelper.showErrorToast(state.errMessage);
@@ -59,6 +46,17 @@ class ValidateOtpForm extends StatelessWidget {
                       : 'تم التحقق من الكود بنجاح',
                 );
               }
+            },
+            builder: (context, state) {
+              return AppButton(
+                onPressed: () {
+                  _onSubmitted(context, cubit.otpController.text);
+                },
+                width: 327.w,
+                height: 46.h,
+                text: 'Verify',
+                isLoading: state is ValidateOtpLoading,
+              );
             },
           ),
         ],

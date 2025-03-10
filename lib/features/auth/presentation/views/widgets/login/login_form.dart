@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
-import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
 import 'package:touf_w_shouf/features/auth/data/models/login_models/login_request.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/login_cubit/login_cubit.dart';
-import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});

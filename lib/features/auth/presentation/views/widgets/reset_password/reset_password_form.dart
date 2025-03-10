@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
-import 'package:touf_w_shouf/core/validations/regex_validation.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
@@ -11,7 +10,7 @@ import 'package:touf_w_shouf/features/auth/presentation/manager/reset_password_c
 
 import 'reset_password_validations.dart';
 
-class ResetPasswordForm extends StatefulWidget {
+class ResetPasswordForm extends StatelessWidget {
   final String otp;
   final int transNo;
   final String email;
@@ -23,65 +22,27 @@ class ResetPasswordForm extends StatefulWidget {
     required this.email,
   });
 
-  @override
-  State<ResetPasswordForm> createState() => _ResetPasswordFormState();
-}
-
-class _ResetPasswordFormState extends State<ResetPasswordForm> {
-  final TextEditingController newPassController = TextEditingController();
-  final TextEditingController confirmNewPassController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool minLength = false;
-  bool hasNumber = false;
-  bool hasSymbol = false;
-  bool hasUppercase = false;
-  bool hasLowercase = false;
-
-  @override
-  void initState() {
-    super.initState();
-    setupPasswordControllerListener();
-  }
-
-  void setupPasswordControllerListener() {
-    newPassController.addListener(() {
-      setState(() {
-        hasLowercase = RegexValidation.hasLowerCase(newPassController.text);
-        hasUppercase = RegexValidation.hasUpperCase(newPassController.text);
-        hasNumber = RegexValidation.hasNumber(newPassController.text);
-        minLength = RegexValidation.hasMinLength(newPassController.text);
-        hasSymbol = RegexValidation.hasSpecialCharacter(newPassController.text);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    newPassController.dispose();
-    confirmNewPassController.dispose();
-    super.dispose();
-  }
-
-  void _onSubmit() {
-    if (formKey.currentState!.validate()) {
-      final newPassword = newPassController.text;
+  void _onSubmit(BuildContext context, ResetPasswordCubit cubit) {
+    if (cubit.formKey.currentState!.validate()) {
+      final newPassword = cubit.newPassController.text;
       final resetPasswordRequest = ResetPasswordRequest(
-        otp: widget.otp,
-        transactionNo: widget.transNo,
-        email: widget.email,
+        otp: otp,
+        transactionNo: transNo,
+        email: email,
         password: newPassword,
       );
-      context.read<ResetPasswordCubit>().resetPassword(
-            resetPasswordRequest: resetPasswordRequest,
-          );
+      context
+          .read<ResetPasswordCubit>()
+          .resetPassword(resetPasswordRequest: resetPasswordRequest);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final ResetPasswordCubit cubit = context.read<ResetPasswordCubit>();
     return Form(
-      key: formKey,
+      key: cubit.formKey,
+      autovalidateMode: cubit.autoValidateMode,
       child: SizedBox(
         height: 380.h,
         child: Column(
@@ -93,33 +54,31 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   hintText: isEnglish(context)
                       ? "Enter new password"
                       : "كلمة المرور الجديدة",
-                  controller: newPassController,
+                  controller: cubit.newPassController,
                   isPassword: true,
                   validator: (value) =>
                       Validation.passwordValidator(context, value),
-                  onChanged: (value) => formKey.currentState!.validate(),
                 ),
                 3.verticalSpace,
                 ResetPasswordValidations(
-                  minLength: minLength,
-                  hasNumber: hasNumber,
-                  hasUppercase: hasUppercase,
-                  hasLowercase: hasLowercase,
-                  hasSymbol: hasSymbol,
+                  minLength: cubit.minLength,
+                  hasNumber: cubit.hasNumber,
+                  hasUppercase: cubit.hasUppercase,
+                  hasLowercase: cubit.hasLowercase,
+                  hasSymbol: cubit.hasSymbol,
                 ),
                 10.verticalSpace,
                 AppTextFormField(
                   hintText: isEnglish(context)
                       ? "Confirm new password"
                       : "تأكيد كلمة المرور",
-                  controller: confirmNewPassController,
+                  controller: cubit.confirmNewPassController,
                   isPassword: true,
                   validator: (value) => Validation.passwordConfirmValidator(
                     context,
                     value,
-                    newPassController.text,
+                    cubit.newPassController.text,
                   ),
-                  onChanged: (value) => formKey.currentState!.validate(),
                 ),
               ],
             ),
@@ -128,7 +87,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
               builder: (context, state) {
                 return AppButton(
                   isLoading: state is ResetPasswordLoading,
-                  onPressed: _onSubmit,
+                  onPressed: () => _onSubmit(context, cubit),
                   text: isEnglish(context)
                       ? "Reset Password"
                       : "استعادة كلمة المرور",
