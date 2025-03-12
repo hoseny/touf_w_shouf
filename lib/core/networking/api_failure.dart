@@ -44,7 +44,7 @@ class ServerFailure extends Failure {
 
     switch (statusCode) {
       case 400:
-        return ServerFailure(message ?? 'serverFailure.badResponse.400'.tr());
+        return ServerFailure('serverFailure.badResponse.400'.tr());
       case 401:
         return ServerFailure(message ?? 'serverFailure.badResponse.401'.tr());
       case 403:
@@ -52,18 +52,15 @@ class ServerFailure extends Failure {
       case 404:
         return ServerFailure(message ?? 'serverFailure.badResponse.404'.tr());
       case 408:
-        return ServerFailure(message ?? 'serverFailure.badResponse.408'.tr());
+        return ServerFailure('serverFailure.badResponse.408'.tr());
       case 500:
-        return ServerFailure(message ?? 'serverFailure.badResponse.500'.tr());
+        return ServerFailure('serverFailure.badResponse.500'.tr());
       case 503:
-        return ServerFailure(message ?? 'serverFailure.badResponse.503'.tr());
+        return ServerFailure('serverFailure.badResponse.503'.tr());
       case 555:
         return ServerFailure('Backend error please try again.');
       default:
-        return ServerFailure(
-          message ??
-              'serverFailure.badResponse.default'
-                  .tr(args: [statusCode.toString()]),
+        return ServerFailure('serverFailure.badResponse.default'.tr(args: [statusCode.toString()]),
         );
     }
   }
@@ -81,6 +78,7 @@ class ServerFailure extends Failure {
       return responseData['message']?.toString() ??
           responseData['error']?.toString() ??
           responseData['detail']?.toString() ??
+          responseData['errMessage']?.toString() ??
           _parseNestedErrors(responseData);
     }
 
@@ -119,7 +117,6 @@ class CacheFailure extends Failure {
   CacheFailure(super.errorMessage);
 
   factory CacheFailure.fromException(Exception exception) {
-    return CacheFailure(
-        'cacheFailure'.tr(args: [exception.runtimeType.toString()]));
+    return CacheFailure('cacheFailure'.tr(args: [exception.runtimeType.toString()]));
   }
 }

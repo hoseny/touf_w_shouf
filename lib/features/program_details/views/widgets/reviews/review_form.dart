@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/helpers/font_weight_helper.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
@@ -73,7 +74,8 @@ class _ReviewFormState extends State<ReviewForm> {
                   borderRadius: BorderRadius.circular(8.r),
                   borderSide: const BorderSide(color: AppColors.error),
                 ),
-                hintText: 'Write your feedback',
+                hintText:
+                    isEnglish(context) ? 'Write your feedback' : 'اكتب تعليقك',
                 hintStyle: TextStyle(
                   fontSize: 16.sp,
                   color: const Color(0xff747474),
@@ -84,7 +86,9 @@ class _ReviewFormState extends State<ReviewForm> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter your review';
+                  return isEnglish(context)
+                      ? 'Please enter your review'
+                      : 'يرجى ادخال تعليقك';
                 }
                 return null;
               },
@@ -105,7 +109,7 @@ class _ReviewFormState extends State<ReviewForm> {
               return AppButton(
                 isLoading: state is InsertReviewLoading,
                 onPressed: onPressed,
-                text: 'Submit',
+                text: isEnglish(context) ? 'Submit' : 'ارسال',
                 backgroundColor: AppColors.orange,
                 borderRadius: 4.r,
                 width: 160.w,
@@ -129,7 +133,9 @@ class _ReviewFormState extends State<ReviewForm> {
     }
 
     if (userRating == 0) {
-      ToastHelper.showErrorToast('Please select a rating');
+      ToastHelper.showErrorToast(
+        isEnglish(context) ? 'Please rate the program' : 'يرجى تقييم البرنامج',
+      );
       return;
     }
     final isFormValid = formKey.currentState?.validate() ?? false;

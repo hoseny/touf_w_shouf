@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/expandable_container.dart';
 
@@ -17,17 +18,17 @@ class TourTermsAndPolicies extends StatelessWidget {
       child: Column(
         children: [
           ExpandableContainer(
-            title: 'Tour Including',
+            title: isEnglish(context) ? 'Tour Including' : 'مميزات الرحلة',
             description: state.programDetails.tourIncluding,
           ),
           16.verticalSpace,
           ExpandableContainer(
-            title: 'Tour Excluding',
+            title: isEnglish(context) ? 'Tour Excluding' : 'استثناءات الرحلة',
             description: state.programDetails.tourExcluding,
           ),
           16.verticalSpace,
           ExpandableContainer(
-            title: 'Cancellation policy',
+            title: isEnglish(context) ? 'Cancellation policy' : 'سياسة الإلغاء',
             description: state.policyModel.policy,
           ),
         ],

@@ -28,4 +28,10 @@ abstract class LocaleKeys {
   static const authRegisterSuccess = 'auth.registerSuccess';
   static const authRegisterError = 'auth.registerError';
   static const authInvalidRegistration = 'auth.invalidRegistration';
+
+  // Program Details locale keys
+  static const programDetailsOverview = 'programDetails.Overview';
+  static const programDetailsSupplement = 'programDetails.Supplement';
+  static const programDetailsPhotoGallery = 'programDetails.Photo Gallery';
+  static const programDetailsReviews = 'programDetails.Reviews';
 }

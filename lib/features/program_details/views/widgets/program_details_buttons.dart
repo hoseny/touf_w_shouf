@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/icon_text_button.dart';
 
@@ -13,8 +14,8 @@ class ProgramDetailsButtons extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(
-          left: 10.w,
-          right: 64.w,
+          left: isEnglish(context)? 10.w : 64.w,
+          right: isEnglish(context)? 64.w : 10.w,
           top: 10.h,
         ),
         child: Column(
@@ -24,13 +25,15 @@ class ProgramDetailsButtons extends StatelessWidget {
               children: [
                 IconTextButton(
                   svgPath: Assets.heart,
-                  text: 'Add To Wishlist',
+                  text: isEnglish(context)
+                      ? 'Add To Wishlist'
+                      : 'اضافة للمفضلة',
                   onTap: () {},
                 ),
                 const Spacer(),
                 IconTextButton(
                   svgPath: Assets.map,
-                  text: 'Map',
+                  text: isEnglish(context) ? 'Map' : 'خريطة',
                   onTap: () {},
                 ),
               ],
@@ -38,7 +41,7 @@ class ProgramDetailsButtons extends StatelessWidget {
             10.verticalSpace,
             IconTextButton(
               svgPath: Assets.play,
-              text: 'Watch Video',
+              text: isEnglish(context) ? 'Watch Video' : 'مشاهدة الفيديو',
               lPadding: 4,
               onTap: () {},
             ),

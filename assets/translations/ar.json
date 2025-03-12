@@ -33,6 +33,12 @@
       "partners": "الشركاء"
     }
   },
+  "programDetails": {
+    "Overview": "نظرة عامة",
+    "Supplement": "الاضافات",
+    "Photo Gallery": "معرض الصور",
+    "Reviews": "التقييمات"
+  },
   "serverFailure": {
     "connectionTimeout": "انتهت مهلة الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت.",
     "sendTimeout": "انتهت مهلة إرسال الطلب. يرجى المحاولة مرة أخرى.",

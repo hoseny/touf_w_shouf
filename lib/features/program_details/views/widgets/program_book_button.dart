@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
@@ -29,7 +30,7 @@ class ProgramBookButton extends StatelessWidget {
                     Routes.loginView,
                   );
           },
-          text: 'Book Now',
+          text: isEnglish(context) ? 'Book Now' : 'احجز الان',
           style: TextStyles.font18WhiteMedium,
           backgroundColor: AppColors.orange,
         ),

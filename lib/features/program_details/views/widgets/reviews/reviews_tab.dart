@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/app_star_rating.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
@@ -22,14 +23,16 @@ class ReviewsTab extends StatelessWidget {
           const ReviewsListBlocBuilder(),
           10.verticalSpace,
           Text(
-            'Write your review for ${context.read<ReviewCubit>().program.programName}',
+            isEnglish(context)
+                ? 'Write your review for ${context.read<ReviewCubit>().program.programName}'
+                : 'اكتب تعليقك ${context.read<ReviewCubit>().program.programName}',
             style: TextStyles.font18CharcoalGreyRegular,
           ),
           12.verticalSpace,
           Row(
             children: [
               Text(
-                'Your review',
+                isEnglish(context) ? 'Your review' : 'تعليقك',
                 style: TextStyles.font18BlackMedium,
               ),
               const Spacer(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/review_model.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/review_list_item.dart';
 
@@ -33,7 +34,7 @@ class ReviewsList extends StatelessWidget {
             height: 100.h,
             child: Center(
               child: Text(
-                'No Reviews',
+                isEnglish(context) ? 'No Reviews' : 'لا يوجد تقييمات',
                 style: TextStyles.font18OrangeMedium,
               ),
             ),

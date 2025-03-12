@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_information_tile.dart';
@@ -40,29 +41,29 @@ class ProgramInformation extends StatelessWidget {
             children: [
               ProgramInformationTile(
                 svg: Assets.location,
-                title: 'Location: ',
+                title: isEnglish(context) ? 'Location: ' : 'الموقع: ',
                 value: state.programDetails.city,
               ),
               ProgramInformationTile(
                 svg: Assets.price,
-                title: 'Price: ',
+                title: isEnglish(context) ? 'Price: ' : 'السعر: ',
                 value: state.programDetails.startPrice.toString(),
               ),
               ProgramInformationTile(
                 svg: Assets.clock,
-                title: 'Start Date: ',
+                title: isEnglish(context) ? 'Start Date: ' : 'تاريخ البدء: ',
                 value: state.programDetails.startDate,
               ),
               ProgramInformationTile(
                 svg: Assets.clock,
-                title: 'End Date: ',
+                title: isEnglish(context) ? 'End Date: ' : 'تاريخ الانتهاء: ',
                 value: state.programDetails.endDate,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 4.w),
                 child: ProgramInformationTile(
                   svg: Assets.walking,
-                  title: 'Class Trip: ',
+                  title: isEnglish(context) ? 'Class Trip: ' : 'رحلة الصف: ',
                   value: state.programDetails.classTrip,
                 ),
               ),
