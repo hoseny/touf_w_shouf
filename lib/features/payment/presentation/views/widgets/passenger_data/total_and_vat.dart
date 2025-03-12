@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 
@@ -20,7 +21,7 @@ class TotalAndVat extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Total',
+                isEnglish(context) ? "Total" : "المجموع",
                 style: TextStyles.font24BlackMedium,
               ),
               BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
@@ -37,7 +38,9 @@ class TotalAndVat extends StatelessWidget {
           Row(
             children: [
               Text(
-                "The total includes VAT",
+                isEnglish(context)
+                    ? "The total includes VAT"
+                    : "المجموع يشمل الضريبة",
                 style: TextStyles.font20OrangeMedium,
               ),
             ],

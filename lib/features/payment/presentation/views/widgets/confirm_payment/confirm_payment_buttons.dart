@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geideapay/geideapay.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
@@ -21,8 +25,31 @@ class ConfirmPaymentButtons extends StatelessWidget {
     return Column(
       children: [
         BlocConsumer<CheckoutCubit, CheckoutState>(
-          listener: (context, state) {
-            // TODO: implement listener
+          listener: (context, state) async {
+            if (state is CheckoutSuccess) {
+              final int totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
+              final plugin = GeideapayPlugin();
+              plugin.initialize(
+                publicKey: state.checkoutResponse.checkout,
+                apiPassword: state.checkoutResponse.checkout,
+                serverEnvironment: ServerEnvironmentModel.EGY_PREPROD(),
+              );
+              CheckoutOptions checkoutOptions = CheckoutOptions(
+                totalPrice.toDouble(),
+                "EGP",
+              );
+              {
+                try {
+                  OrderApiResponse response = await plugin.checkout(
+                    context: context,
+                    checkoutOptions: checkoutOptions,
+                  );
+                  log('Response = $response');
+                } catch (e) {
+                  log("OrderApiResponse Error: $e");
+                }
+              }
+            }
           },
           builder: (context, state) {
             final checkoutCubit = context.read<CheckoutCubit>();
@@ -43,7 +70,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
                 );
               },
               isLoading: state is CheckoutLoading,
-              text: 'Confirm',
+              text: isEnglish(context) ? 'Confirm' : 'تأكيد',
               width: 358.w,
               height: 42.h,
               backgroundColor: AppColors.orange,
@@ -57,7 +84,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
             final cubit = context.read<StepCubit>();
             cubit.previousStep();
           },
-          text: 'Back',
+          text: isEnglish(context) ? 'Back' : 'إلغاء',
           width: 358.w,
           height: 42.h,
           borderRadius: 12.r,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/checkout.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/confirm_payment/confirm_payment_step.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/passenger_data_step.dart';
 
@@ -18,7 +19,7 @@ class PaymentSteps extends StatelessWidget {
             case 1:
               return const ConfirmPaymentStep();
             case 2:
-              return const Text('test');
+              return const Checkout();
             default:
               return const SizedBox.shrink();
           }

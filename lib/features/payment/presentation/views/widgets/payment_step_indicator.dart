@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_stepper/smart_stepper.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
@@ -58,9 +59,9 @@ class PaymentStepIndicator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildStepLabel(label: "Passenger data", isActive: currentStep >= 0),
-            _buildStepLabel(label: "Payment and Confirm", isActive: currentStep >= 1),
-            _buildStepLabel(label: "Success", isActive: currentStep >= 2),
+            _buildStepLabel(label: isEnglish(context)? "Passenger Data" : "بيانات المسافر", isActive: currentStep >= 0),
+            _buildStepLabel(label: isEnglish(context)? "Payment and Confirm" : "الدفع و التأكيد", isActive: currentStep >= 1),
+            _buildStepLabel(label: isEnglish(context)? "Success" : "نجاح", isActive: currentStep >= 2),
           ],
         );
       },

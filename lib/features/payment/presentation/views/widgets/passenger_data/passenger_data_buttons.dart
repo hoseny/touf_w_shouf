@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
@@ -52,7 +53,9 @@ class PassengerDataButtons extends StatelessWidget {
         20.verticalSpace,
         AppButton(
           onPressed: () {},
-          text: 'Add to my shopping cart',
+          text: isEnglish(context)
+              ? 'Add to my shopping cart'
+              : 'اضافة لسلة التسوق',
           width: 358.w,
           height: 42.h,
           borderRadius: 12.r,
@@ -68,11 +71,15 @@ class PassengerDataButtons extends StatelessWidget {
     final groupCubit = context.read<ProgramGroupCubit>();
     if (groupCubit.calculateTotalCount() == 0) {
       ToastHelper.showErrorToast(
-        'Please add at least one passenger',
+        isEnglish(context)
+            ? 'Please add at least one passenger'
+            : 'يرجى اضافة على الاقل مسافر',
       );
     } else if (groupCubit.isTermsAccepted == false) {
       ToastHelper.showErrorToast(
-        'Please accept terms and conditions',
+        isEnglish(context)
+            ? 'Please accept terms and conditions'
+            : 'يرجى قبول الشروط والاحكام',
       );
     } else {
       final reservationCubit = context.read<ReservationCubit>();

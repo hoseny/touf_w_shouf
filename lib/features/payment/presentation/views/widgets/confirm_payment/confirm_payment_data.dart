@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/data/models/display_payment.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/confirm_payment/confirm_payment_data_row.dart';
@@ -14,6 +15,7 @@ class ConfirmPaymentData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool english = isEnglish(context);
     return Column(
       spacing: 8.h,
       mainAxisSize: MainAxisSize.min,
@@ -23,55 +25,59 @@ class ConfirmPaymentData extends StatelessWidget {
           style: TextStyles.font20BlackMedium,
         ),
         ConfirmPaymentDataRow(
-          title: 'Trip Date',
+          title: english ? 'Trip Date' : 'تاريخ الرحلة',
           value: payment.tripDate,
         ),
         ConfirmPaymentDataRow(
-          title: 'Program Year',
+          title: english ? 'Program Year' : 'سنة البرنامج',
           value: payment.programYear.toString(),
         ),
         ConfirmPaymentDataRow(
-          title: 'Customer Ref',
+          title: english ? 'Customer Ref' : 'مرجع العميل',
           value: payment.customerRef.toString(),
         ),
         ConfirmPaymentDataRow(
-          title: 'Reservation Ref',
+          title: english ? 'Reservation Ref' : 'مرجع الحجز',
           value: payment.reservationRef.toString(),
         ),
         ConfirmPaymentDataRow(
-          title: 'Reservation SP',
+          title: english ? 'Reservation SP' : 'حجز SP',
           value: payment.reservationSp.toString(),
         ),
         ConfirmPaymentDataRow(
-          title: 'Number of Adults',
+          title: english ? 'Number of Adults' : 'عدد البالغين',
           value: payment.numberOfAdults.toString(),
         ),
-        const ConfirmPaymentDataRow(
-          title: 'Number of Children (1-6)',
-          value: '0',
-        ),
-        const ConfirmPaymentDataRow(
-          title: 'Number of Children (6-12)',
+        ConfirmPaymentDataRow(
+          title: english ? 'Number of Children (1-6)' : 'عدد الأطفال (1-6)',
           value: '0',
         ),
         ConfirmPaymentDataRow(
-          title: 'Total Without Additional Services',
+          title: english ? 'Number of Children (6-12)' : 'عدد الأطفال (6-12)',
+          value: '0',
+        ),
+        ConfirmPaymentDataRow(
+          title: english
+              ? 'Total Without Additional Services'
+              : 'الإجمالي بدون الخدمات الإضافية',
           value: payment.totalWithoutAdditionalService.toStringAsFixed(0),
         ),
         ConfirmPaymentDataRow(
-          title: 'Additional Service Total',
+          title: english
+              ? 'Additional Service Total'
+              : 'إجمالي الخدمات الإضافية',
           value: (payment.totalAdditionalService ?? 0).toStringAsFixed(0),
         ),
         ConfirmPaymentDataRow(
-          title: 'Total',
+          title: english ? 'Total' : 'الإجمالي',
           value: payment.total.toStringAsFixed(0),
         ),
         ConfirmPaymentDataRow(
-          title: 'VAT',
+          title: english ? 'VAT' : 'ضريبة القيمة المضافة',
           value: payment.vat.toStringAsFixed(0),
         ),
         ConfirmPaymentDataRow(
-          title: 'Total with VAT',
+          title: english ? 'Total with VAT' : 'الإجمالي مع ضريبة القيمة المضافة',
           value: payment.totalIncludesVat.toStringAsFixed(0),
         ),
       ],

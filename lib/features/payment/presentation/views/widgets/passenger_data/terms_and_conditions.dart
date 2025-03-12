@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
@@ -37,12 +38,15 @@ class TermsAndConditions extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:
-                        'I Accept Terms And Conditions and Cancellation policy ',
+                    text: isEnglish(context)
+                        ? 'I Accept Terms And Conditions and Cancellation policy '
+                        : 'أقبل الشروط والأحكام وسياسة الإلغاء',
                     style: TextStyles.font18BlackRegular,
                   ),
                   TextSpan(
-                    text: 'Read Terms and conditions',
+                    text: isEnglish(context)
+                        ? 'Read Terms and conditions'
+                        : 'قراءة الشروط والأحكام',
                     style: TextStyles.font18DeepTealRegular,
                     recognizer: TapGestureRecognizer()..onTap = () {},
                   ),
