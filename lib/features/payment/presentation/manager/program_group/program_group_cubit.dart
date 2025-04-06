@@ -92,7 +92,7 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
 
   // Calculate the total price for the selected group
   int calculateTotalPrice() {
-    int totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice * pax.count);
+    int totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice.toInt() * pax.count);
     return totalPrice;
   }
 
