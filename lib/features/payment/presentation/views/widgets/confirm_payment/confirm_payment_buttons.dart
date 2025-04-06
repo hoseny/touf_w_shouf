@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geideapay/geideapay.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
@@ -30,13 +31,17 @@ class ConfirmPaymentButtons extends StatelessWidget {
               final int totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
               final plugin = GeideapayPlugin();
               plugin.initialize(
-                publicKey: state.checkoutResponse.checkout,
-                apiPassword: state.checkoutResponse.checkout,
-                serverEnvironment: ServerEnvironmentModel.EGY_PREPROD(),
+                publicKey: '0c5da0b6-7be7-4f99-9d45-41cbb3a7d8a6',
+                apiPassword: '84bd8f1b-caa6-458f-af6f-963fd9609668',
+                serverEnvironment: ServerEnvironmentModel.EGY_PROD(),
               );
               CheckoutOptions checkoutOptions = CheckoutOptions(
                 totalPrice.toDouble(),
-                "EGP",
+                isEnglish(context) ? "EGP" :'',
+                lang: isEnglish(context) ? null : "AR",
+                callbackUrl: "https://webhook.site/view/bc56cade-5f7c-4cd6-b652-0513e98f10c6",
+                returnUrl: 'https://returnurl.com',
+                paymentOperation: "Pay",
               );
               {
                 try {
@@ -44,23 +49,29 @@ class ConfirmPaymentButtons extends StatelessWidget {
                     context: context,
                     checkoutOptions: checkoutOptions,
                   );
+                  log('payment success');
                   log('Response = $response');
                 } catch (e) {
                   log("OrderApiResponse Error: $e");
+                  ToastHelper.showErrorToast(e.toString());
                 }
               }
             }
           },
           builder: (context, state) {
             final checkoutCubit = context.read<CheckoutCubit>();
-            final ressp = context.read<ReservationCubit>().reservationResponse.resSp;
-            final totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
+            final ressp =
+                context.read<ReservationCubit>().reservationResponse.resSp;
+            final totalPrice =
+                context.read<ProgramGroupCubit>().calculateTotalPrice();
             return AppButton(
               onPressed: () {
                 checkoutCubit.checkout(
                   request: CheckoutRequest(
-                    urlFalse: 'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/faild-page?',
-                    urlTrue: 'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/sucess-page?',
+                    urlFalse:
+                        'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/faild-page?',
+                    urlTrue:
+                        'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/sucess-page?',
                     accessType: 'Mobile',
                     custRef: SharedPref.getInt(key: SharedPrefKeys.custCode),
                     ressp: ressp,

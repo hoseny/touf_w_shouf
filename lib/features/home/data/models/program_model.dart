@@ -17,12 +17,12 @@ class ProgramModel {
 
   factory ProgramModel.fromJson(Map<String, dynamic> json) {
     return ProgramModel(
-      code: json['prog_Code'],
-      programName: json['progName'],
-      programYear: json['prog_year'],
-      startPrice: json['StartPrice']??0,
-      imgPath: json['IMG_Path'],
-      rateReview: json['Rate_Review'],
+      code: json['prog_Code'] ?? 0,
+      programName: json['progName'] ?? '',
+      programYear: json['prog_year'] ?? '',
+      startPrice: json['StartPrice'] ?? 0,
+      imgPath: json['IMG_Path'] ?? '',
+      rateReview: json['Rate_Review'] ?? '',
     );
   }
 }

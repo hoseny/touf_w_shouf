@@ -11,7 +11,7 @@ class DioFactory {
   DioFactory._();
 
   // Default timeout duration for API requests
-  static const _defaultTimeout = Duration(seconds: 30);
+  static const _defaultTimeout = Duration(seconds: 120);
 
   // Private static Dio instance
   static Dio? _dioInstance;

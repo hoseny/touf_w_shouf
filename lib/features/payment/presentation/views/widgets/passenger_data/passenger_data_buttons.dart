@@ -42,7 +42,7 @@ class PassengerDataButtons extends StatelessWidget {
             return AppButton(
               onPressed: () => onPayPressed(context),
               isLoading: state is ReservationLoading,
-              text: 'Pay',
+              text: isEnglish(context) ? 'Pay' : 'ادفع',
               width: 358.w,
               height: 42.h,
               backgroundColor: AppColors.orange,

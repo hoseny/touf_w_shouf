@@ -1,7 +1,8 @@
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
+
 class ProgramDetailsModel {
   final int progCode;
   final String programName;
-  final String language;
   final int programYear;
   final int startPrice;
   final String startDate;
@@ -16,7 +17,6 @@ class ProgramDetailsModel {
   ProgramDetailsModel({
     required this.progCode,
     required this.programName,
-    required this.language,
     required this.programYear,
     required this.startPrice,
     required this.startDate,
@@ -32,18 +32,17 @@ class ProgramDetailsModel {
   factory ProgramDetailsModel.fromJson(Map<String, dynamic> json) {
     return ProgramDetailsModel(
       progCode: json['PROGCODE'] ?? 0,
-      programName: json['ProgramName'] ?? 'Unknown',
-      language: json['language'] ?? 0,
+      programName: json['ProgramName'] ?? (true ? 'Unknown' : 'غير معروف'),
       programYear: json['ProgramYear'] ?? 0,
       startPrice: json['StartPrice'] ?? 0,
-      startDate: json['startDate'] ?? 'Unknown',
-      endDate: json['endDate'] ?? 'Unknown',
+      startDate: json['startDate'] ?? (true ? 'Unknown' : 'غير معروف'),
+      endDate: json['endDate'] ?? (true ? 'Unknown' : 'غير معروف'),
       day: json['day'] ?? 0,
-      classTrip: json['ClassTrip'] ?? 'Unknown',
-      city: json['City'] ?? 'Unknown',
-      overview: json['OverView'] ?? 'Unknown',
-      tourIncluding: json['TOUR_INCLUDING'] ?? 'Unknown',
-      tourExcluding: json['TOUREXCLUDING'] ?? 'Unknown',
+      classTrip: json['ClassTrip'] ?? (true ? 'Unknown' : 'غير معروف'),
+      city: json['City'] ?? (true ? 'Unknown' : 'غير معروف'),
+      overview: json['OverView'] ?? (true ? 'Unknown' : 'غير معروف'),
+      tourIncluding: json['TOUR_INCLUDING'] ?? (true ? 'Unknown' : 'غير معروف'),
+      tourExcluding: json['TOUREXCLUDING'] ?? (true ? 'Unknown' : 'غير معروف'),
     );
   }
 }

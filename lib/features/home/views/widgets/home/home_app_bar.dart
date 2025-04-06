@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -13,6 +15,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeCubit cubit = context.read<HomeCubit>();
     return AppBar(
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -33,6 +36,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   : context.setLocale(
                       const Locale('en'),
                     );
+              cubit.getActivePrograms();
             },
             style: TextButton.styleFrom(
               backgroundColor: AppColors.orange,
@@ -46,7 +50,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             child: Text(
-              isEnglish(context) ? 'English' : 'العربية',
+              isEnglish(context) ? 'العربية' : 'English',
               style: TextStyles.font18WhiteRegular,
             ),
           ),

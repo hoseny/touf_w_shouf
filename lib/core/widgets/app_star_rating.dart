@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 
 class AppStarRating extends StatelessWidget {
@@ -46,7 +47,7 @@ class AppStarRating extends StatelessWidget {
       onRatingUpdate: onRatingUpdate ?? (double value) {},
     )
         : Text(
-      'No Review',
+      isEnglish(context) ? 'No Review' : 'لا يوجد تقييم',
       style: TextStyle(
         fontSize: 18.sp,
         color: Colors.white,

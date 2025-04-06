@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_tab/home_tab_cubit.dart';
@@ -12,19 +13,20 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const HomeAppBar(),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => HomeTabCubit(),
-          ),
-          BlocProvider(
-            create: (context) =>
-                HomeCubit(getIt.get<HomeRepoImpl>())..getActivePrograms(),
-          ),
-        ],
-        child: const HomeBody(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeTabCubit(),
+        ),
+        BlocProvider(
+          create: (context) =>
+          HomeCubit(getIt.get<HomeRepoImpl>())
+            ..getActivePrograms(),
+        ),
+      ],
+      child: const Scaffold(
+        appBar: HomeAppBar(),
+        body: HomeBody(),
       ),
     );
   }

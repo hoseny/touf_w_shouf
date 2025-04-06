@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
@@ -36,19 +37,25 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
               ? ProgramDetailsModel.fromJson(response['items'][0])
               : ProgramDetailsModel(
                   progCode: 0,
-                  programName: 'Unknown Program',
-                  language: 'Not Available',
+                  programName: true ? 'Unknown Program' : 'غير معروف',
                   programYear: 0,
                   startPrice: 0,
-                  startDate: 'Not Available',
-                  endDate: 'Not Available',
+                  startDate: true ? 'Not Available' : 'غير متاح',
+                  endDate: true ? 'Not Available' : 'غير متاح',
                   day: 0,
-                  classTrip: 'Not Available',
-                  city: 'Not Available',
-                  overview: 'No overview available',
-                  tourIncluding: 'No inclusions specified',
-                  tourExcluding: 'No exclusions specified',
+                  classTrip: true ? 'Not Available' : 'غير متاح',
+                  city: true ? 'Not Available' : 'غير متاح',
+                  overview: true
+                      ? 'No overview available'
+                      : 'لا توجد نظرة عامة',
+                  tourIncluding: true
+                      ? 'No inclusions specified'
+                      : 'لم يتم تحديد ما يشمله البرنامج',
+                  tourExcluding: true
+                      ? 'No exclusions specified'
+                      : 'لم يتم تحديد ما لا يشمله البرنامج',
                 );
+
       return Right(programDetails);
     } catch (e) {
       if (e is DioException) {
@@ -125,8 +132,8 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
       final policy = (response['items'] != null && response['items'].isNotEmpty)
           ? PolicyModel.fromJson(response['items'][0])
           : PolicyModel(
-              policy: 'No Policy specified',
-              code: 'No exclusions specified',
+              policy: true ? 'No Policy specified' : 'لا يوجد ',
+              code: true ? 'No exclusions specified' : 'لا يوجد ',
             );
       return Right(policy);
     } catch (e) {

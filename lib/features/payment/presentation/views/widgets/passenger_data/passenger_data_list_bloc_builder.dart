@@ -28,7 +28,7 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
           );
         } else if (state is ProgramGroupFailure) {
           return SizedBox(
-            height: 120.h,
+            height: 200.h,
             child: Center(
               child: FailureState(
                 message: state.errorMessage,
