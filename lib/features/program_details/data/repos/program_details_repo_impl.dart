@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
@@ -37,23 +36,17 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
               ? ProgramDetailsModel.fromJson(response['items'][0])
               : ProgramDetailsModel(
                   progCode: 0,
-                  programName: true ? 'Unknown Program' : 'غير معروف',
+                  programName: 'Unknown Program',
                   programYear: 0,
                   startPrice: 0,
-                  startDate: true ? 'Not Available' : 'غير متاح',
-                  endDate: true ? 'Not Available' : 'غير متاح',
+                  startDate: 'Not Available',
+                  endDate: 'Not Available',
                   day: 0,
-                  classTrip: true ? 'Not Available' : 'غير متاح',
-                  city: true ? 'Not Available' : 'غير متاح',
-                  overview: true
-                      ? 'No overview available'
-                      : 'لا توجد نظرة عامة',
-                  tourIncluding: true
-                      ? 'No inclusions specified'
-                      : 'لم يتم تحديد ما يشمله البرنامج',
-                  tourExcluding: true
-                      ? 'No exclusions specified'
-                      : 'لم يتم تحديد ما لا يشمله البرنامج',
+                  classTrip: 'Not Available',
+                  city: 'Not Available',
+                  overview: 'No overview available',
+                  tourIncluding: 'No inclusions specified',
+                  tourExcluding: 'No exclusions specified',
                 );
 
       return Right(programDetails);
@@ -132,9 +125,10 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
       final policy = (response['items'] != null && response['items'].isNotEmpty)
           ? PolicyModel.fromJson(response['items'][0])
           : PolicyModel(
-              policy: true ? 'No Policy specified' : 'لا يوجد ',
-              code: true ? 'No exclusions specified' : 'لا يوجد ',
+              policy: 'No Policy specified',
+              code: 'No exclusions specified',
             );
+
       return Right(policy);
     } catch (e) {
       if (e is DioException) {

@@ -59,7 +59,7 @@ class _OnboardingButtonRowState extends State<OnboardingButtonRow> {
             text: 'Skip',
             style: TextStyles.font16WhiteRegular,
             onTap: () {
-              context.pushReplacementNamed(Routes.loginView);
+              context.pushReplacementNamed(Routes.homeView);
             },
           ),
           16.horizontalSpace,

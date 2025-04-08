@@ -28,10 +28,10 @@ final cubit = context.read<ForgotPasswordCubit>();
         }
       },
       builder: (context, state) {
-        return SingleChildScrollView(
+        return const SingleChildScrollView(
           child: Column(
             children: [
-              const ForgotPasswordHeader(),
+              ForgotPasswordHeader(),
               ForgotPasswordForm(),
             ],
           ),

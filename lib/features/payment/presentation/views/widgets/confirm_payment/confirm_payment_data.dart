@@ -49,14 +49,6 @@ class ConfirmPaymentData extends StatelessWidget {
           value: payment.numberOfAdults.toString(),
         ),
         ConfirmPaymentDataRow(
-          title: english ? 'Number of Children (1-6)' : 'عدد الأطفال (1-6)',
-          value: '0',
-        ),
-        ConfirmPaymentDataRow(
-          title: english ? 'Number of Children (6-12)' : 'عدد الأطفال (6-12)',
-          value: '0',
-        ),
-        ConfirmPaymentDataRow(
           title: english
               ? 'Total Without Additional Services'
               : 'الإجمالي بدون الخدمات الإضافية',

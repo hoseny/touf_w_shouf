@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
 

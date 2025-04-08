@@ -8,6 +8,7 @@ part 'display_payment_state.dart';
 class DisplayPaymentCubit extends Cubit<DisplayPaymentState> {
   DisplayPaymentCubit(this.paymentRepoImpl) : super(DisplayPaymentInitial());
   final PaymentRepoImpl paymentRepoImpl;
+  late final DisplayPaymentModel payment;
 
   Future<void> getPayment({
     required String refNo,
@@ -18,9 +19,10 @@ class DisplayPaymentCubit extends Cubit<DisplayPaymentState> {
       refNo: refNo,
       ressp: ressp,
     );
-    result.fold(
-      (failure) => emit(DisplayPaymentFailure(failure.message)),
-      (payment) => emit(DisplayPaymentSuccess(payment)),
-    );
+    result.fold((failure) => emit(DisplayPaymentFailure(failure.message)),
+        (payment) {
+      this.payment = payment;
+      emit(DisplayPaymentSuccess(payment));
+    });
   }
 }

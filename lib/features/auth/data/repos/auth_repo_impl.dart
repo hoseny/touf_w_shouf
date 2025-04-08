@@ -33,23 +33,33 @@ class AuthRepoImpl extends AuthRepo {
         endpoint: ApiEndpoints.login(loginRequest: loginRequest),
       );
       final loginResponse = LoginResponse.fromJson(response['item'][0]);
-      final token = loginResponse.token;
-      final custCode = loginResponse.custCode;
-      final telephone = loginResponse.telephone;
-      if (token.isNotEmpty) {
-        await SharedPref.setData(
-          key: SharedPrefKeys.token,
-          value: token,
+      if (loginResponse.token.isNotEmpty) {
+        Future.wait(
+          [
+            SharedPref.setData(
+              key: SharedPrefKeys.token,
+              value: loginResponse.token,
+            ),
+            SharedPref.setData(
+              key: SharedPrefKeys.custCode,
+              value: loginResponse.custCode,
+            ),
+            SharedPref.setData(
+              key: SharedPrefKeys.telephone,
+              value: loginResponse.telephone,
+            ),
+            SharedPref.setData(
+              key: SharedPrefKeys.customerName,
+              value: loginResponse.name,
+            ),
+            SharedPref.setData(
+              key: SharedPrefKeys.customerEmail,
+              value: loginResponse.email,
+            ),
+          ],
         );
-        await SharedPref.setData(
-          key: SharedPrefKeys.custCode,
-          value: custCode,
-        );
-        await SharedPref.setData(
-          key: SharedPrefKeys.telephone,
-          value: telephone,
-        );
-        DioFactory.updateAuthToken(token);
+
+        DioFactory.updateAuthToken(loginResponse.token);
       } else {
         return Left(CacheFailure('Token is missing or invalid'));
       }

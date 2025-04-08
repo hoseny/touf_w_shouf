@@ -92,7 +92,7 @@ class PassengerDataButtons extends StatelessWidget {
           progYear: groupCubit.program.programYear.toString(),
           lang: '1',
         ),
-        paxType: 'A',
+        paxType: groupCubit.groupPrices[0].pCategory,
         paxCount: groupCubit.calculateTotalCount().toString(),
         progGrpNo: groupCubit.programGroup.progGrpNo.toString(),
       );

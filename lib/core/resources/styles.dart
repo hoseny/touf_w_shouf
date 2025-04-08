@@ -206,6 +206,11 @@ abstract class TextStyles {
     fontWeight: FontWeightHelper.semiBold,
     color: AppColors.orange,
   );
+  static TextStyle font16WhiteBold = baseStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: AppColors.white,
+  );
   static TextStyle font16CharcoalGreySemiBold = baseStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.semiBold,

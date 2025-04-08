@@ -17,7 +17,7 @@ class ProgramDetailsBodyBlocBuilder extends StatelessWidget {
         if (state is ProgramDetailsLoading) {
           return const Center(
             child: CircularProgressIndicator(
-              color: AppColors.primaryBlue,
+              color: AppColors.orange,
             ),
           );
         } else if (state is ProgramDetailsSuccess) {

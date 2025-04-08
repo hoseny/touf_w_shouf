@@ -9,15 +9,17 @@ class Partners extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(Assets.partner1),
-        2.horizontalSpace,
-        Image.asset(Assets.partner2),
-        2.horizontalSpace,
-        Image.asset(Assets.partner3),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 4.w,
+        children: [
+          Expanded(child: Image.asset(Assets.partner1)),
+          Expanded(child: Image.asset(Assets.partner2)),
+          Expanded(child: Image.asset(Assets.partner3)),
+        ],
+      ),
     );
   }
 }
