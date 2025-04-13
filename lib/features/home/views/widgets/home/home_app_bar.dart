@@ -13,7 +13,7 @@ import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({

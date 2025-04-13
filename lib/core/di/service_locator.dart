@@ -8,7 +8,7 @@ import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo_impl.dart';
 

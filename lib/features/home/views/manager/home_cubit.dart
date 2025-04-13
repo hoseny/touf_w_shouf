@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_state.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRepo) : super(HomeState());
@@ -19,22 +19,20 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getActivePrograms() async {
     emit(
       state.copyWith(
-        programsLoading: true,
+        programsStatus: ProgramsStatus.loading,
       ),
     );
     final response = await homeRepo.getActivePrograms();
     response.fold(
       (failure) => emit(
         state.copyWith(
-          programsLoading: false,
-          programsFailure: true,
+          programsStatus: ProgramsStatus.failure,
           errorMessage: failure.message,
         ),
       ),
       (programs) => emit(
         state.copyWith(
-          programsLoading: false,
-          programsSuccess: true,
+          programsStatus: ProgramsStatus.success,
           programs: programs,
         ),
       ),
