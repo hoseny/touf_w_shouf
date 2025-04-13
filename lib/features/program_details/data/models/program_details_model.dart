@@ -2,7 +2,7 @@ class ProgramDetailsModel {
   final int progCode;
   final String programName;
   final int programYear;
-  final int startPrice;
+  final num startPrice;
   final String startDate;
   final String endDate;
   final int day;

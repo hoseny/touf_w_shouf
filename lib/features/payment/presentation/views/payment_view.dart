@@ -24,7 +24,7 @@ class PaymentView extends StatelessWidget {
           create: (context) => ProgramGroupCubit(
             getIt.get<PaymentRepoImpl>(),
             program,
-          )..getGroup(
+          )..getProgramGroup(
               programCode: program.code.toString(),
               programYear: program.programYear.toString(),
             ),

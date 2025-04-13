@@ -11,7 +11,7 @@ import 'package:touf_w_shouf/features/payment/data/models/reservation/reservatio
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_response.dart';
 
 abstract class PaymentRepo {
-  Future<Either<Failure, ProgramGroup>> getProgramGroup({
+  Future<Either<Failure, List<ProgramGroup>>> getProgramGroup({
     required String programCode,
     required String programYear,
   });

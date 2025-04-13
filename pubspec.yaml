@@ -53,6 +53,7 @@ dependencies:
   smart_stepper:
   photo_view: ^0.15.0
   easy_localization: ^3.0.0
+  animated_custom_dropdown: ^3.1.1
   geideapay:
     git:
       url: https://github.com/GeideaSolutions/Flutter-SDK

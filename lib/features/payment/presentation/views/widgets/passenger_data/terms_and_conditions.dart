@@ -6,6 +6,7 @@ import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
 
 class TermsAndConditions extends StatelessWidget {
   const TermsAndConditions({
@@ -22,7 +23,7 @@ class TermsAndConditions extends StatelessWidget {
             builder: (context, state) {
               final cubit = context.read<ProgramGroupCubit>();
               return Checkbox(
-                value: cubit.isTermsAccepted,
+                value: cubit.state.isTermsAccepted,
                 onChanged: (bool? isChecked) {
                   cubit.toggleTerms();
                 },

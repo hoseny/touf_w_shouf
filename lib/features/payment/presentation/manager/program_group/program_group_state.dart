@@ -1,19 +1,42 @@
-part of 'program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
+import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 
-@immutable
-sealed class ProgramGroupState {}
+enum ProgramGroupStatus { initial, loading, success, failure }
+enum GroupPriceStatus { initial, loading, success, failure }
 
-final class ProgramGroupInitial extends ProgramGroupState {}
-final class ProgramGroupLoading extends ProgramGroupState {}
-final class ProgramGroupSuccess extends ProgramGroupState {
-  final ProgramGroup programGroup;
-  final List<GroupPrice> groupPrice;
+class ProgramGroupState {
+  final ProgramGroupStatus programGroupStatus;
+  final GroupPriceStatus groupPriceStatus;
 
-  ProgramGroupSuccess({required this.programGroup, required this.groupPrice});
-}
-final class ProgramGroupFailure extends ProgramGroupState {
+  final List<ProgramGroup>? programGroups;
+  final List<GroupPrice>? groupPrice;
   final String errorMessage;
+  final bool isTermsAccepted;
 
-  ProgramGroupFailure(this.errorMessage);
+  const ProgramGroupState({
+    this.programGroupStatus = ProgramGroupStatus.initial,
+    this.groupPriceStatus = GroupPriceStatus.initial,
+    this.programGroups,
+    this.groupPrice,
+    this.errorMessage = '',
+    this.isTermsAccepted = false,
+  });
 
+  ProgramGroupState copyWith({
+    ProgramGroupStatus? programGroupStatus,
+    GroupPriceStatus? groupPriceStatus,
+    List<ProgramGroup>? programGroups,
+    List<GroupPrice>? groupPrice,
+    String? errorMessage,
+    bool? isTermsAccepted,
+  }) {
+    return ProgramGroupState(
+      programGroupStatus: programGroupStatus ?? this.programGroupStatus,
+      groupPriceStatus: groupPriceStatus ?? this.groupPriceStatus,
+      programGroups: programGroups ?? this.programGroups,
+      groupPrice: groupPrice ?? this.groupPrice,
+      errorMessage: errorMessage ?? this.errorMessage,
+      isTermsAccepted: isTermsAccepted ?? this.isTermsAccepted,
+    );
+  }
 }

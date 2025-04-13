@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
 
 class TotalAndVat extends StatelessWidget {
   const TotalAndVat({
@@ -28,7 +29,7 @@ class TotalAndVat extends StatelessWidget {
                 builder: (context, state) {
                   final cubit = context.read<ProgramGroupCubit>();
                   return Text(
-                    cubit.calculateTotalPrice().toString(),
+                    cubit.calculateTotalPrice().toStringAsFixed(2),
                     style: TextStyles.font24BlackMedium,
                   );
                 },

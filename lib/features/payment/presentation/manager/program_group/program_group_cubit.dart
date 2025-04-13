@@ -1,113 +1,137 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
-
-part 'program_group_state.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
 
 class ProgramGroupCubit extends Cubit<ProgramGroupState> {
-  ProgramGroupCubit(this.paymentRepoImpl, this.program) : super(ProgramGroupInitial());
+  ProgramGroupCubit(this.paymentRepoImpl, this.program) : super(const ProgramGroupState());
+
   final PaymentRepoImpl paymentRepoImpl;
   final ProgramModel program;
-  List<GroupPrice> groupPrices = [];
-  bool isTermsAccepted = false;
   late ProgramGroup programGroup;
-
-  // Fetch Program Group and Group Prices
-  Future<void> getGroup({
+  /// Fetch the program group
+  Future<void> getProgramGroup({
     required String programCode,
     required String programYear,
   }) async {
-    emit(ProgramGroupLoading());
+    // Set programGroup loading state
+    emit(state.copyWith(
+      programGroupStatus: ProgramGroupStatus.loading,
+      errorMessage: '',
+    ));
 
+    // Fetch program group
     final programGroupResult = await paymentRepoImpl.getProgramGroup(
       programCode: programCode,
       programYear: programYear,
     );
 
-    final programGroup = programGroupResult.fold(
+    // Handle result
+    programGroupResult.fold(
       (failure) {
-        emit(ProgramGroupFailure(failure.message));
-        return null;
+        emit(state.copyWith(
+          programGroupStatus: ProgramGroupStatus.failure,
+          errorMessage: failure.message,
+        ));
       },
-      (group) => group,
+      (programGroup) {
+        emit(
+          state.copyWith(
+            programGroupStatus: ProgramGroupStatus.success,
+            programGroups: programGroup,
+          ),
+        );
+      },
     );
+  }
 
-    if (programGroup == null) return;
-    this.programGroup = programGroup;
+  /// Fetch the group price based on an already-fetched program group
+  Future<void> getGroupPrice({
+    required String programCode,
+    required String programYear,
+    required String groupNumber,
+  }) async {
+    // Check if programGroup exists first
+    if (state.programGroups == null) return;
+
+    // Set groupPrice loading state
+    emit(state.copyWith(
+      groupPriceStatus: GroupPriceStatus.loading,
+      errorMessage: '',
+    ));
+
+    // Fetch group prices
     final groupPriceResult = await paymentRepoImpl.getGroupPrice(
       programCode: programCode,
       programYear: programYear,
-      groupNumber: programGroup.progGrpNo.toString(),
+      groupNumber: groupNumber,
     );
 
-    final groupPrices = groupPriceResult.fold(
+    // Handle result
+    groupPriceResult.fold(
       (failure) {
-        emit(ProgramGroupFailure(failure.message));
-        return null;
+        emit(
+          state.copyWith(
+            groupPriceStatus: GroupPriceStatus.failure,
+            errorMessage: failure.message,
+          ),
+        );
       },
-      (price) => price,
-    );
-
-    if (groupPrices == null) return;
-
-    this.groupPrices = groupPrices;
-    emitProgramGroupSuccess(programGroup, groupPrices);
-  }
-
-  // Helper to emit ProgramGroupSuccess
-  void emitProgramGroupSuccess(
-      ProgramGroup programGroup, List<GroupPrice> groupPrices) {
-    emit(
-      ProgramGroupSuccess(
-        programGroup: programGroup,
-        groupPrice: List.unmodifiable(groupPrices), // Prevent external mutation
-      ),
+      (groupPrices) {
+        emit(
+          state.copyWith(
+            groupPriceStatus: GroupPriceStatus.success,
+            groupPrice: List.unmodifiable(groupPrices),
+          ),
+        );
+      },
     );
   }
 
-  // Increase count for a specific group
+  /// Increase the count for a specific group price item.
   void increaseCount(int index) {
-    if (groupPrices[index].count < 10) {
-      groupPrices[index].count++;
-      emitProgramGroupSuccess(
-        (state as ProgramGroupSuccess).programGroup,
-        groupPrices,
-      );
+    final currentGroupPrices = state.groupPrice;
+    if (currentGroupPrices == null || index >= currentGroupPrices.length) {
+      return;
+    }
+    // Create a mutable copy of the group prices list.
+    final updatedPrices = List<GroupPrice>.from(currentGroupPrices);
+    if (updatedPrices[index].count < 10) {
+      updatedPrices[index] = updatedPrices[index].copyWith(count: updatedPrices[index].count + 1);
+      emit(state.copyWith(groupPrice: updatedPrices));
     }
   }
 
-  // Decrease count for a specific group
+  /// Decrease the count for a specific group price item.
   void decreaseCount(int index) {
-    if (groupPrices[index].count > 0) {
-      groupPrices[index].count--;
-      emitProgramGroupSuccess(
-        (state as ProgramGroupSuccess).programGroup,
-        groupPrices,
-      );
+    final currentGroupPrices = state.groupPrice;
+    if (currentGroupPrices == null || index >= currentGroupPrices.length) {
+      return;
+    }
+    final updatedPrices = List<GroupPrice>.from(currentGroupPrices);
+    if (updatedPrices[index].count > 0) {
+      updatedPrices[index] = updatedPrices[index].copyWith(count: updatedPrices[index].count - 1);
+      emit(state.copyWith(groupPrice: updatedPrices));
     }
   }
 
-  // Calculate the total price for the selected group
-  int calculateTotalPrice() {
-    int totalPrice = groupPrices.fold(0, (sum, pax) => sum + pax.pPrice.toInt() * pax.count);
-    return totalPrice;
+  /// Calculate the total price based on the selected counts.
+  num calculateTotalPrice() {
+    if (state.groupPrice == null) return 0;
+    return state.groupPrice!
+        .fold(0, (sum, item) => sum + item.pPrice * item.count);
   }
 
-  // Calculate the total count of all groups
+  /// Calculate the total count of all selected groups.
   int calculateTotalCount() {
-    int totalCount = groupPrices.fold(0, (sum, pax) => sum + pax.count);
-    return totalCount;
+    if (state.groupPrice == null) return 0;
+    return state.groupPrice!.fold(0, (sum, item) => sum + item.count);
   }
 
-  // Toggle the acceptance of terms
+  /// Toggle the acceptance of terms.
   void toggleTerms() {
-    isTermsAccepted = !isTermsAccepted;
-    emitProgramGroupSuccess(
-      (state as ProgramGroupSuccess).programGroup,
-      groupPrices,
-    );
+    emit(state.copyWith(isTermsAccepted: !state.isTermsAccepted));
   }
 }

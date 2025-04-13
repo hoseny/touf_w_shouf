@@ -76,7 +76,7 @@ class PassengerDataButtons extends StatelessWidget {
             ? 'Please add at least one passenger'
             : 'يرجى اضافة على الاقل مسافر',
       );
-    } else if (groupCubit.isTermsAccepted == false) {
+    } else if (groupCubit.state.isTermsAccepted == false) {
       ToastHelper.showErrorToast(
         isEnglish(context)
             ? 'Please accept terms and conditions'
@@ -92,7 +92,7 @@ class PassengerDataButtons extends StatelessWidget {
           progYear: groupCubit.program.programYear.toString(),
           lang: '1',
         ),
-        groupPrices: groupCubit.groupPrices,
+        groupPrices: groupCubit.state.groupPrice!,
         programGroup: groupCubit.programGroup,
         program: groupCubit.program,
       );

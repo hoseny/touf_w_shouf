@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class ProgramGroup {
   final int progGrpNo;
   final DateTime progGrpFrom;
@@ -19,4 +21,13 @@ class ProgramGroup {
       nationality: json['nationaliy'],
     );
   }
+
+  static fromJsonList(List list) => list.map((e) => ProgramGroup.fromJson(e)).toList();
+
+  String get formattedProgGrpFrom {
+    return DateFormat('M/d/yyyy').format(progGrpFrom);
+  }
+
+  @override
+  String toString() => formattedProgGrpFrom;
 }

@@ -20,7 +20,7 @@ class PaymentRepoImpl extends PaymentRepo {
   PaymentRepoImpl({required this.apiService});
 
   @override
-  Future<Either<Failure, ProgramGroup>> getProgramGroup({
+  Future<Either<Failure, List<ProgramGroup>>> getProgramGroup({
     required String programCode,
     required String programYear,
   }) async {
@@ -31,7 +31,7 @@ class PaymentRepoImpl extends PaymentRepo {
           programYear: programYear,
         ),
       );
-      final programGroup = ProgramGroup.fromJson(response['items'][0]);
+      final programGroup = ProgramGroup.fromJsonList(response['items']);
       return Right(programGroup);
     } catch (e) {
       if (e is DioException) {

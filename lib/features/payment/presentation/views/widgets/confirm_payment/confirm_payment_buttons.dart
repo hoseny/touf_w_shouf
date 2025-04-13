@@ -46,7 +46,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
                     accessType: 'Mobile',
                     custRef: SharedPref.getInt(key: SharedPrefKeys.custCode),
                     ressp: ressp,
-                    totalPrice: totalPrice,
+                    totalPrice: totalPrice.toInt(),
                     token: SharedPref.getString(key: SharedPrefKeys.token),
                   ),
                 );
@@ -62,7 +62,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
         ),
         20.verticalSpace,
         AppButton(
-          onPressed: () => context.read<StepCubit>().previousStep(),
+          onPressed: () => context.pop(),
           text: isEnglish(context) ? 'Back' : 'إلغاء',
           width: 358.w,
           height: 42.h,
@@ -106,7 +106,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
     }
   }
 
-  CheckoutOptions _checkoutOptions(int totalPrice, BuildContext context) {
+  CheckoutOptions _checkoutOptions(num totalPrice, BuildContext context) {
     return CheckoutOptions(
       totalPrice.toDouble(),
       isEnglish(context) ? "EGP" : '',

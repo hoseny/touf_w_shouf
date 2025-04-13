@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
+import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/count_button.dart';
 
 class IncrementDecrementButtons extends StatelessWidget {
@@ -32,7 +33,7 @@ class IncrementDecrementButtons extends StatelessWidget {
                 },
               ),
               Text(
-                cubit.groupPrices[index].count.toString(),
+                cubit.state.groupPrice![index].count.toString(),
                 style: TextStyles.font14FadedGreyMedium,
               ),
               CountButton(
