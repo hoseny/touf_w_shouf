@@ -10,22 +10,22 @@ class ApiService {
     return response.data;
   }
 
-  Future<dynamic> post({required String endpoint, required Map<String, dynamic> data}) async {
-    final response = await dio.post(endpoint, data: data);
-    return response.data;
-  }
+  Future<dynamic> post({
+    required String endpoint,
+    required dynamic data,
+    final String? customBaseUrl,
+    final String? contentType,
+  }) async {
+    final String baseUrl = customBaseUrl ?? dio.options.baseUrl;
+    final String url = baseUrl + endpoint;
 
-  Future<dynamic> postFormData({required String endPoint, required FormData formData,}) async {
     final response = await dio.post(
-      endPoint,
-      data: formData,
+      url,
+      data: data,
       options: Options(
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        contentType: contentType,
       ),
     );
-
     return response.data;
   }
 

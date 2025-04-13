@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_tab/home_tab_cubit.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/outings/outings_body.dart';
 
 class HomeTabContent extends StatelessWidget {
@@ -8,21 +8,32 @@ class HomeTabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: BlocBuilder<HomeTabCubit, int>(
-        builder: (context, currentTab) {
-          switch (currentTab) {
-            case 0:
-              return const OutingsBody();
-            case 1:
-              return const Text('Hotels Tab Content');
-            case 2:
-              return const Text('Transportation Tab Content');
-            default:
-              return Container();
-          }
-        },
-      ),
-    );
+    final cubit = context.watch<HomeCubit>();
+    switch (cubit.state.tabIndex) {
+      case 0:
+        return const SliverToBoxAdapter(
+          child: OutingsBody(),
+        );
+      case 1:
+        return const SliverFillRemaining(
+          hasScrollBody: false,
+          child: Center(
+            child: Text(
+              'Hotels Tab Content',
+            ),
+          ),
+        );
+      case 2:
+        return const SliverFillRemaining(
+          hasScrollBody: false,
+          child: Center(
+            child: Text(
+              'Transportation Tab Content',
+            ),
+          ),
+        );
+      default:
+        return Container();
+    }
   }
 }

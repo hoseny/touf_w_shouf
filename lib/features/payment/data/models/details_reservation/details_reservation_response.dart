@@ -5,7 +5,7 @@ class DetailsReservationResponse {
 
   factory DetailsReservationResponse.fromJson(Map<String, dynamic> json) {
     return DetailsReservationResponse(
-      insert: json['Insert '] ?? '',
+      insert: json['V_RESPONSE '] ?? '',
     );
   }
 

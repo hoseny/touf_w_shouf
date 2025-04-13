@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyBlocObserver extends BlocObserver {
@@ -8,7 +7,7 @@ class MyBlocObserver extends BlocObserver {
     super.onCreate(bloc);
     log(
       '🟢 [onCreate] - ${bloc.runtimeType} created',
-      name: 'App bloc state',
+      name: 'App Bloc State',
     );
   }
 
@@ -19,8 +18,8 @@ class MyBlocObserver extends BlocObserver {
     if (change.currentState != change.nextState) {
       log(
         '🔄 [onChange] - ${bloc.runtimeType} state changed: '
-        'from ${change.currentState} to ${change.nextState}',
-        name: 'App bloc state',
+            'from ${change.currentState} ➡️ ${change.nextState}',
+        name: 'App Bloc State',
       );
     }
   }
@@ -28,8 +27,8 @@ class MyBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     log(
-      '❌ [onError] - ${bloc.runtimeType} encountered an error: $error',
-      name: 'App bloc state',
+      '❌ [onError] - ${bloc.runtimeType} encountered error: $error',
+      name: 'App Bloc State',
     );
     super.onError(bloc, error, stackTrace);
   }
@@ -39,7 +38,7 @@ class MyBlocObserver extends BlocObserver {
     super.onClose(bloc);
     log(
       '🔴 [onClose] - ${bloc.runtimeType} closed',
-      name: 'App bloc state',
+      name: 'App Bloc State',
     );
   }
 }

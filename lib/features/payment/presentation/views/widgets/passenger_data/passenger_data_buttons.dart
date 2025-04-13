@@ -68,7 +68,8 @@ class PassengerDataButtons extends StatelessWidget {
   }
 
   void onPayPressed(BuildContext context) {
-    final groupCubit = context.read<ProgramGroupCubit>();
+    final ProgramGroupCubit groupCubit = context.read<ProgramGroupCubit>();
+    final ReservationCubit reservationCubit = context.read<ReservationCubit>();
     if (groupCubit.calculateTotalCount() == 0) {
       ToastHelper.showErrorToast(
         isEnglish(context)
@@ -82,7 +83,6 @@ class PassengerDataButtons extends StatelessWidget {
             : 'يرجى قبول الشروط والاحكام',
       );
     } else {
-      final reservationCubit = context.read<ReservationCubit>();
       reservationCubit.postReservation(
         request: ReservationRequest(
           custRef: SharedPref.getInt(key: SharedPrefKeys.custCode).toString(),
@@ -92,9 +92,9 @@ class PassengerDataButtons extends StatelessWidget {
           progYear: groupCubit.program.programYear.toString(),
           lang: '1',
         ),
-        paxType: groupCubit.groupPrices[0].pCategory,
-        paxCount: groupCubit.calculateTotalCount().toString(),
-        progGrpNo: groupCubit.programGroup.progGrpNo.toString(),
+        groupPrices: groupCubit.groupPrices,
+        programGroup: groupCubit.programGroup,
+        program: groupCubit.program,
       );
     }
   }

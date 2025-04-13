@@ -86,18 +86,18 @@ class PaymentRepoImpl extends PaymentRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
-
   @override
   Future<Either<Failure, DetailsReservationResponse>> postDetailsReservation({
     required DetailsReservationRequest request,
   }) async {
     try {
       final response = await apiService.post(
-        endpoint: ApiEndpoints.detailsReservation,
+        endpoint: 'add_details/v1',
+        customBaseUrl: 'https://app.misrtravelco.net:4444/ords/invoice/',
+        contentType: Headers.jsonContentType,
         data: request.toJson(),
       );
-      final detailsReservationResponse =
-          DetailsReservationResponse.fromJson(response);
+      final detailsReservationResponse = DetailsReservationResponse.fromJson(response);
       return Right(detailsReservationResponse);
     } catch (e) {
       if (e is DioException) {
@@ -116,8 +116,7 @@ class PaymentRepoImpl extends PaymentRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.displayPayment(refNo: refNo, ressp: ressp),
       );
-      final displayPaymentModel =
-          DisplayPaymentModel.fromJson(response['items'][0]);
+      final displayPaymentModel = DisplayPaymentModel.fromJson(response['items'][0]);
       return Right(displayPaymentModel);
     } catch (e) {
       if (e is DioException) {

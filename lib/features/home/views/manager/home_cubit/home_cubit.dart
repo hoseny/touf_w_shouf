@@ -1,20 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
-import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
-
-part 'home_state.dart';
+import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
+import 'package:touf_w_shouf/features/home/views/manager/home_cubit/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.homeRepo) : super(HomeInitial());
-  final HomeRepoImpl homeRepo;
+  HomeCubit(this.homeRepo) : super(HomeState());
+  final HomeRepo homeRepo;
+
+  void updateTab(int index) {
+    if (index != state.tabIndex) {
+      emit(
+        state.copyWith(
+          tabIndex: index,
+        ),
+      );
+    }
+  }
 
   Future<void> getActivePrograms() async {
-    emit(ActiveProgramsLoading());
+    emit(
+      state.copyWith(
+        programsLoading: true,
+      ),
+    );
     final response = await homeRepo.getActivePrograms();
     response.fold(
-      (failure) => emit(ActiveProgramsFailure(failure.message)),
-      (programs) => emit(ActiveProgramsSuccess(programs)),
+      (failure) => emit(
+        state.copyWith(
+          programsLoading: false,
+          programsFailure: true,
+          errorMessage: failure.message,
+        ),
+      ),
+      (programs) => emit(
+        state.copyWith(
+          programsLoading: false,
+          programsSuccess: true,
+          programs: programs,
+        ),
+      ),
     );
   }
 }
