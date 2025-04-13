@@ -15,7 +15,9 @@ class HomeView extends StatelessWidget {
       create: (_) {
         return HomeCubit(
           getIt.get<HomeRepo>(),
-        )..getActivePrograms();
+        )
+          ..getActivePrograms()
+          ..getDayUsePrograms();
       },
       child: const Scaffold(
         appBar: HomeAppBar(),

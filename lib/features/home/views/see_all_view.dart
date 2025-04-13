@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
-import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
+import 'package:touf_w_shouf/core/routing/args_model/sell_all_model.dart';
+import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/views/widgets/see_all/see_all_app_bar.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/see_all/see_all_body.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/see_all/see_all_active_programs.dart';
+import 'package:touf_w_shouf/features/home/views/widgets/see_all/see_all_day_use.dart';
 
 class SeeAllView extends StatelessWidget {
-  const SeeAllView({super.key, required this.title});
+  const SeeAllView({super.key, required this.seeAllModel});
 
-  final String title;
+  final SeeAllModel seeAllModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SeeAllAppBar(title: title),
+      appBar: SeeAllAppBar(title: seeAllModel.title),
       body: BlocProvider(
-        create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())..getActivePrograms(),
-        child: const SeeAllBody(),
+        create: (context) {
+          final cubit = HomeCubit(
+            getIt.get<HomeRepo>(),
+          );
+
+          if (seeAllModel.isDayUsePrograms) {
+            cubit.getDayUsePrograms();
+          } else {
+            cubit.getActivePrograms();
+          }
+
+          return cubit;
+        },
+        child: seeAllModel.isDayUsePrograms
+            ? const SeeAllDayUse()
+            : const SeeAllActivePrograms(),
       ),
     );
   }

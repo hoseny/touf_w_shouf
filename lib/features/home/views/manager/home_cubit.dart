@@ -38,4 +38,27 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+
+  Future<void> getDayUsePrograms() async {
+    emit(
+      state.copyWith(
+        dayUseProgramStatus: DayUseProgramStatus.loading,
+      ),
+    );
+    final response = await homeRepo.getDayUsePrograms();
+    response.fold(
+      (failure) => emit(
+        state.copyWith(
+          dayUseProgramStatus: DayUseProgramStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (dayUsePrograms) => emit(
+        state.copyWith(
+          dayUseProgramStatus: DayUseProgramStatus.success,
+          dayUsePrograms: dayUsePrograms,
+        ),
+      ),
+    );
+  }
 }

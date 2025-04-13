@@ -27,6 +27,7 @@ abstract class ApiEndpoints {
   }
 
   static String packages = 'Packages';
+  static String dayUsePrograms = 'programENG';
 
   static String programDetails({
     required String programCode,

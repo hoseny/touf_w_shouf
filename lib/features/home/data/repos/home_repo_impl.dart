@@ -17,10 +17,23 @@ class HomeRepoImpl extends HomeRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.packages,
       );
-      final List<ProgramModel> programs = [];
-      for (var program in response['packages']) {
-        programs.add(ProgramModel.fromJson(program));
+      final List<ProgramModel> programs = ProgramModel.fromJsonList(response['packages']);
+      return Right(programs);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProgramModel>>> getDayUsePrograms() async {
+    try {
+      final response = await apiService.get(
+        endpoint: ApiEndpoints.dayUsePrograms,
+      );
+      final List<ProgramModel> programs = ProgramModel.fromJsonList(response['DayUse']);
       return Right(programs);
     } catch (e) {
       if (e is DioException) {

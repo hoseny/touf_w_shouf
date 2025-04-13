@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:touf_w_shouf/core/routing/args_model/sell_all_model.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/forgot_password_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/login_view.dart';
@@ -60,7 +61,9 @@ class AppRouter {
         );
       case Routes.seeAllView:
         return MaterialPageRoute(
-          builder: (context) => SeeAllView(title: arguments as String),
+          builder: (context) => SeeAllView(
+            seeAllModel: arguments as SeeAllModel,
+          ),
         );
       case Routes.programDetailsView:
         if (arguments is ProgramModel) {

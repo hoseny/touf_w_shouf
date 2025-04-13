@@ -25,4 +25,6 @@ class ProgramModel {
       rateReview: json['Rate_Review'] ?? '',
     );
   }
+
+  static fromJsonList(List list) => list.map((e) => ProgramModel.fromJson(e)).toList();
 }

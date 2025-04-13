@@ -4,4 +4,5 @@ import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure,List<ProgramModel>>> getActivePrograms();
+  Future<Either<Failure,List<ProgramModel>>> getDayUsePrograms();
 }
