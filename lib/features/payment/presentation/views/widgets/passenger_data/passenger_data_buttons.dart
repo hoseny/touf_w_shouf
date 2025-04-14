@@ -51,18 +51,18 @@ class PassengerDataButtons extends StatelessWidget {
           },
         ),
         20.verticalSpace,
-        AppButton(
-          onPressed: () {},
-          text: isEnglish(context)
-              ? 'Add to my shopping cart'
-              : 'اضافة لسلة التسوق',
-          width: 358.w,
-          height: 42.h,
-          borderRadius: 12.r,
-          backgroundColor: AppColors.orange,
-          variant: ButtonVariant.outlined,
-          textColor: AppColors.orange,
-        ),
+        // AppButton(
+        //   onPressed: () {},
+        //   text: isEnglish(context)
+        //       ? 'Add to my shopping cart'
+        //       : 'اضافة لسلة التسوق',
+        //   width: 358.w,
+        //   height: 42.h,
+        //   borderRadius: 12.r,
+        //   backgroundColor: AppColors.orange,
+        //   variant: ButtonVariant.outlined,
+        //   textColor: AppColors.orange,
+        // ),
       ],
     );
   }

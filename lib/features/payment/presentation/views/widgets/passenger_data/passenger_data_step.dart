@@ -14,10 +14,10 @@ class PassengerDataStep extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h),
-      child:  const Column(
+      child: const Column(
         children: [
           DropDownBlocBuilder(),
-           PassengerDataListBlocBuilder(),
+          PassengerDataListBlocBuilder(),
           TotalAndVat(),
           TermsAndConditions(),
           PassengerDataButtons(),

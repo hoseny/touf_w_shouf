@@ -52,25 +52,25 @@ class ConfirmPaymentData extends StatelessWidget {
           title: english
               ? 'Total Without Additional Services'
               : 'الإجمالي بدون الخدمات الإضافية',
-          value: payment.totalWithoutAdditionalService.toStringAsFixed(0),
+          value: payment.totalWithoutAdditionalService.toStringAsFixed(2),
         ),
         ConfirmPaymentDataRow(
           title: english
               ? 'Additional Service Total'
               : 'إجمالي الخدمات الإضافية',
-          value: (payment.totalAdditionalService ?? 0).toStringAsFixed(0),
+          value: (payment.totalAdditionalService ?? 0).toStringAsFixed(2),
         ),
         ConfirmPaymentDataRow(
           title: english ? 'Total' : 'الإجمالي',
-          value: payment.total.toStringAsFixed(0),
+          value: payment.total.toStringAsFixed(2),
         ),
         ConfirmPaymentDataRow(
           title: english ? 'VAT' : 'ضريبة القيمة المضافة',
-          value: payment.vat.toStringAsFixed(0),
+          value: payment.vat.toStringAsFixed(2),
         ),
         ConfirmPaymentDataRow(
           title: english ? 'Total with VAT' : 'الإجمالي مع ضريبة القيمة المضافة',
-          value: payment.totalIncludesVat.toStringAsFixed(0),
+          value: payment.totalIncludesVat.toStringAsFixed(2),
         ),
       ],
     );

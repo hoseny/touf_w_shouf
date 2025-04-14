@@ -24,7 +24,7 @@ class PaymentDataBlocBuilder extends StatelessWidget {
             height: 250.h,
             child: const Center(
               child: CircularProgressIndicator(
-                color: AppColors.primaryBlue,
+                color: AppColors.orange,
               ),
             ),
           );

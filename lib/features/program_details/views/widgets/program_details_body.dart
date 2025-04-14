@@ -15,7 +15,7 @@ class ProgramDetailsBody extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       slivers: [
         ProgramDetailsHeader(),
-        ProgramDetailsButtons(),
+        //ProgramDetailsButtons(),
         ProgramInformation(),
         ProgramDetailsTabs(),
         TourTermsAndPolicies(),

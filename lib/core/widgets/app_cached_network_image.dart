@@ -30,7 +30,7 @@ class AppCachedNetworkImage extends StatelessWidget {
         maxWidthDiskCache: 800,
         placeholder: (context, url) => const Center(
           child: CircularProgressIndicator(
-            color: AppColors.primaryBlue,
+            color: AppColors.orange,
           ),
         ),
         errorWidget: (context, url, error) => Icon(

@@ -10,13 +10,8 @@ import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
-import 'package:touf_w_shouf/core/shared/shared_pref.dart';
-import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
-import 'package:touf_w_shouf/features/payment/data/models/checkout/checkout_request.dart';
-import 'package:touf_w_shouf/features/payment/presentation/manager/checkout/checkout_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
-import 'package:touf_w_shouf/features/payment/presentation/manager/reservation/reservation_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
 
 class ConfirmPaymentButtons extends StatelessWidget {
@@ -26,39 +21,13 @@ class ConfirmPaymentButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BlocConsumer<CheckoutCubit, CheckoutState>(
-          listener: (context, state) async {
-            if (state is CheckoutSuccess) {
-              _handlePayment(context);
-            }
-          },
-          builder: (context, state) {
-            final checkoutCubit = context.read<CheckoutCubit>();
-            final ressp = context.read<ReservationCubit>().reservationResponse.resSp;
-            final totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
-
-            return AppButton(
-              onPressed: () {
-                checkoutCubit.checkout(
-                  request: CheckoutRequest(
-                    urlFalse: 'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/faild-page?',
-                    urlTrue: 'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/sucess-page?',
-                    accessType: 'Mobile',
-                    custRef: SharedPref.getInt(key: SharedPrefKeys.custCode),
-                    ressp: ressp,
-                    totalPrice: totalPrice.toInt(),
-                    token: SharedPref.getString(key: SharedPrefKeys.token),
-                  ),
-                );
-              },
-              isLoading: state is CheckoutLoading,
-              text: isEnglish(context) ? 'Confirm' : 'تأكيد',
-              width: 358.w,
-              height: 42.h,
-              backgroundColor: AppColors.orange,
-              borderRadius: 12.r,
-            );
-          },
+        AppButton(
+          onPressed: () => _handlePayment(context),
+          text: isEnglish(context) ? 'Confirm' : 'تأكيد',
+          width: 358.w,
+          height: 42.h,
+          backgroundColor: AppColors.orange,
+          borderRadius: 12.r,
         ),
         20.verticalSpace,
         AppButton(
@@ -78,9 +47,9 @@ class ConfirmPaymentButtons extends StatelessWidget {
   Future<void> _handlePayment(BuildContext context) async {
     _showLoadingDialog(context);
 
-    final totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
-    final plugin = getIt.get<GeideapayPlugin>();
-    final options = _checkoutOptions(totalPrice, context);
+    final num totalPrice = context.read<ProgramGroupCubit>().calculateTotalPrice();
+    final GeideapayPlugin plugin = getIt.get<GeideapayPlugin>();
+    final CheckoutOptions options = _checkoutOptions(totalPrice, context);
 
     try {
       OrderApiResponse response = await plugin.checkout(
@@ -96,7 +65,10 @@ class ConfirmPaymentButtons extends StatelessWidget {
       if (response.responseMessage == "Success") {
         context.read<StepCubit>().nextStep();
       } else {
-        ToastHelper.showErrorToast(response.responseMessage != null ? response.responseMessage! : "Payment was not completed.",
+        ToastHelper.showErrorToast(
+          response.responseMessage != null
+              ? response.responseMessage!
+              : "Payment was not completed.",
         );
       }
     } catch (e) {
@@ -107,8 +79,9 @@ class ConfirmPaymentButtons extends StatelessWidget {
   }
 
   CheckoutOptions _checkoutOptions(num totalPrice, BuildContext context) {
+    double formattedPrice = double.parse(totalPrice.toDouble().toStringAsFixed(2));
     return CheckoutOptions(
-      totalPrice.toDouble(),
+      formattedPrice,
       isEnglish(context) ? "EGP" : '',
       lang: isEnglish(context) ? null : "AR",
       callbackUrl: 'https://app.misrtravelco.net:4444/ords/invoice/r/onlinesystem/faild-page?',

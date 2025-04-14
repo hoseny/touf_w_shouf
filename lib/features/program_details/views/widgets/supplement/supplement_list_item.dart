@@ -16,7 +16,7 @@ class SupplementListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    RegExp regExp = RegExp(r'(.+?)(\d+)\s*EGP');
+    RegExp regExp = RegExp(r'(.+?)(\d+(?:\.\d+)?)\s*EGP');
     Match? match = regExp.firstMatch(supplement.thePriceIncludesSupplement);
 
     String description = match != null ? match.group(1)!.trim() : 'No description';

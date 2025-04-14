@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
@@ -11,30 +12,29 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
   final PaymentRepoImpl paymentRepoImpl;
   final ProgramModel program;
   late ProgramGroup programGroup;
-  /// Fetch the program group
+
   Future<void> getProgramGroup({
     required String programCode,
     required String programYear,
   }) async {
-    // Set programGroup loading state
     emit(state.copyWith(
       programGroupStatus: ProgramGroupStatus.loading,
       errorMessage: '',
     ));
 
-    // Fetch program group
     final programGroupResult = await paymentRepoImpl.getProgramGroup(
       programCode: programCode,
       programYear: programYear,
     );
 
-    // Handle result
     programGroupResult.fold(
       (failure) {
-        emit(state.copyWith(
-          programGroupStatus: ProgramGroupStatus.failure,
-          errorMessage: failure.message,
-        ));
+        emit(
+          state.copyWith(
+            programGroupStatus: ProgramGroupStatus.failure,
+            errorMessage: failure.message,
+          ),
+        );
       },
       (programGroup) {
         emit(
@@ -47,29 +47,24 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     );
   }
 
-  /// Fetch the group price based on an already-fetched program group
   Future<void> getGroupPrice({
     required String programCode,
     required String programYear,
     required String groupNumber,
   }) async {
-    // Check if programGroup exists first
     if (state.programGroups == null) return;
 
-    // Set groupPrice loading state
     emit(state.copyWith(
       groupPriceStatus: GroupPriceStatus.loading,
       errorMessage: '',
     ));
 
-    // Fetch group prices
     final groupPriceResult = await paymentRepoImpl.getGroupPrice(
       programCode: programCode,
       programYear: programYear,
       groupNumber: groupNumber,
     );
 
-    // Handle result
     groupPriceResult.fold(
       (failure) {
         emit(
@@ -96,11 +91,20 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     if (currentGroupPrices == null || index >= currentGroupPrices.length) {
       return;
     }
+
+    // Calculate the current total count across all group price items.
+    final currentTotal = calculateTotalCount();
+
     // Create a mutable copy of the group prices list.
     final updatedPrices = List<GroupPrice>.from(currentGroupPrices);
-    if (updatedPrices[index].count < 10) {
-      updatedPrices[index] = updatedPrices[index].copyWith(count: updatedPrices[index].count + 1);
+
+    // Increase the count only if the new total count won't exceed paxAval.
+    if ((currentTotal + 1) <= programGroup.paxAval) {
+      updatedPrices[index] =
+          updatedPrices[index].copyWith(count: updatedPrices[index].count + 1);
       emit(state.copyWith(groupPrice: updatedPrices));
+    } else {
+      ToastHelper.showErrorToast('Pax limit exceeded');
     }
   }
 
@@ -112,7 +116,8 @@ class ProgramGroupCubit extends Cubit<ProgramGroupState> {
     }
     final updatedPrices = List<GroupPrice>.from(currentGroupPrices);
     if (updatedPrices[index].count > 0) {
-      updatedPrices[index] = updatedPrices[index].copyWith(count: updatedPrices[index].count - 1);
+      updatedPrices[index] =
+          updatedPrices[index].copyWith(count: updatedPrices[index].count - 1);
       emit(state.copyWith(groupPrice: updatedPrices));
     }
   }

@@ -18,7 +18,7 @@ class SupplementsListBlocBuilder extends StatelessWidget {
             height: 160.h,
             child: const Center(
               child: CircularProgressIndicator(
-                color: AppColors.primaryBlue,
+                color: AppColors.orange,
               ),
             ),
           );

@@ -22,7 +22,7 @@ class ReviewsListBlocBuilder extends StatelessWidget {
             height: 380.h,
             child: const Center(
               child: CircularProgressIndicator(
-                color: AppColors.primaryBlue,
+                color: AppColors.orange,
               ),
             ),
           );

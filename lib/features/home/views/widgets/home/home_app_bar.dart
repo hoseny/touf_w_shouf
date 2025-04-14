@@ -112,36 +112,36 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             size: 32.w,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: TextButton(
-            onPressed: () {
-              isEnglish(context)
-                  ? context.setLocale(
-                      const Locale('ar'),
-                    )
-                  : context.setLocale(
-                      const Locale('en'),
-                    );
-              cubit.getActivePrograms();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: AppColors.orange,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6.r),
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: 12.w,
-                vertical: 6.h,
-              ),
-            ),
-            child: Text(
-              isEnglish(context) ? 'العربية' : 'English',
-              style: TextStyles.font18WhiteRegular,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+        //   child: TextButton(
+        //     onPressed: () {
+        //       isEnglish(context)
+        //           ? context.setLocale(
+        //               const Locale('ar'),
+        //             )
+        //           : context.setLocale(
+        //               const Locale('en'),
+        //             );
+        //       cubit.getActivePrograms();
+        //     },
+        //     style: TextButton.styleFrom(
+        //       backgroundColor: AppColors.orange,
+        //       elevation: 0,
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(6.r),
+        //       ),
+        //       padding: EdgeInsets.symmetric(
+        //         horizontal: 12.w,
+        //         vertical: 6.h,
+        //       ),
+        //     ),
+        //     child: Text(
+        //       isEnglish(context) ? 'العربية' : 'English',
+        //       style: TextStyles.font18WhiteRegular,
+        //     ),
+        //   ),
+        // ),
       ],
       backgroundColor: AppColors.white,
     );

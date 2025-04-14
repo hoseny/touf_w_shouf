@@ -18,16 +18,6 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
         ? BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
             builder: (context, state) {
               switch (state.groupPriceStatus) {
-                case GroupPriceStatus.initial:
-                  return SizedBox(
-                    height: 120.h,
-                    child: Center(
-                      child: Text(
-                        'Please Pick a Date',
-                        style: TextStyles.font18BlackMedium,
-                      ),
-                    ),
-                  );
                 case GroupPriceStatus.loading:
                   return SizedBox(
                     height: 120.h,
@@ -38,8 +28,23 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
                     ),
                   );
                 case GroupPriceStatus.success:
-                  return PassengerDataList(
-                    groupPrice: state.groupPrice!,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 12.h,
+                        ),
+                        child: Text(
+                          'Pax Available: ${context.read<ProgramGroupCubit>().programGroup.paxAval}',
+                          style: TextStyles.font18BlackMedium,
+                        ),
+                      ),
+                      PassengerDataList(
+                        groupPrice: state.groupPrice!,
+                      ),
+                    ],
                   );
 
                 case GroupPriceStatus.failure:
@@ -51,6 +56,8 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
                       ),
                     ),
                   );
+                default:
+                  return const SizedBox.shrink();
               }
             },
           )
