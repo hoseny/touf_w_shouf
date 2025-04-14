@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_book_button.dart';
-import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_buttons.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_header.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_details_tabs.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/program_information.dart';

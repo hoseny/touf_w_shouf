@@ -3,7 +3,7 @@ import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.homeRepo) : super(HomeState());
+  HomeCubit(this.homeRepo) : super(const HomeState());
   final HomeRepo homeRepo;
 
   void updateTab(int index) {
