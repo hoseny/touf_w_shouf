@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:touf_w_shouf/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_app_bar.dart';
 import '../../../../core/di/service_locator.dart';
 import '../manager/reset_password_cubit/reset_password_cubit.dart';
@@ -16,7 +16,7 @@ class ResetPasswordView extends StatelessWidget {
     return Scaffold(
       appBar: const AuthAppBar(),
       body: BlocProvider(
-        create: (context) => ResetPasswordCubit(getIt.get<AuthRepoImpl>()),
+        create: (context) => ResetPasswordCubit(getIt.get<AuthRepo>()),
         child: ResetPasswordBody(otp: otpCode, transNo: transNo, email: email),
       ),
     );

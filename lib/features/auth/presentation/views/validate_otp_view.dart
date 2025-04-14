@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
-import 'package:touf_w_shouf/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/validate_otp_cubit/validate_otp_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/validate_otp_forget_cubit/validate_otp_forget_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_app_bar.dart';
@@ -24,10 +24,10 @@ class ValidateOtpView extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<ValidateOtpCubit>(
-            create: (context) => ValidateOtpCubit(getIt.get<AuthRepoImpl>()),
+            create: (context) => ValidateOtpCubit(getIt.get<AuthRepo>()),
           ),
           BlocProvider<ValidateOtpForgetCubit>(
-            create: (context) => ValidateOtpForgetCubit(getIt.get<AuthRepoImpl>()),
+            create: (context) => ValidateOtpForgetCubit(getIt.get<AuthRepo>()),
           ),
         ],
         child: ValidateOtpBody(
