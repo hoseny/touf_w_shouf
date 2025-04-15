@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 
-enum ButtonVariant { filled, text, outlined } // Added 'outlined'
+enum ButtonVariant { filled, text, outlined }
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -34,39 +34,42 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? double.infinity,
-      height: height ?? 46.h,
-      child: TextButton(
-        onPressed: isLoading ? null : onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: variant == ButtonVariant.outlined
-              ? Colors.transparent
-              : backgroundColor ?? AppColors.primaryBlue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
-            side: variant == ButtonVariant.outlined
-                ? const BorderSide(
-              color: AppColors.orange,
-              width: 1,
-            )
-                : BorderSide.none,
+    return Opacity(
+      opacity: isLoading ? 0.5 : 1,
+      child: SizedBox(
+        width: width ?? double.infinity,
+        height: height ?? 46.h,
+        child: TextButton(
+          onPressed: isLoading ? null : onPressed,
+          style: TextButton.styleFrom(
+            backgroundColor: variant == ButtonVariant.outlined
+                ? Colors.transparent
+                : backgroundColor ?? AppColors.primaryBlue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
+              side: variant == ButtonVariant.outlined
+                  ? const BorderSide(
+                color: AppColors.orange,
+                width: 1,
+              )
+                  : BorderSide.none,
+            ),
+            elevation: 0,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          elevation: 0,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
-        child: isLoading
-            ? SizedBox(
-          height: 30.h,
-          width: 30.w,
-          child: const CircularProgressIndicator(
-            color: AppColors.white,
-            strokeWidth: 2,
+          child: isLoading
+              ? SizedBox(
+            height: 30.h,
+            width: 30.w,
+            child: const CircularProgressIndicator(
+              color: AppColors.white,
+              strokeWidth: 2,
+            ),
+          )
+              : Text(
+            text,
+            style: style ?? TextStyles.font16WhiteMedium.copyWith(color: textColor),
           ),
-        )
-            : Text(
-          text,
-          style: style ?? TextStyles.font16WhiteMedium.copyWith(color: textColor),
         ),
       ),
     );

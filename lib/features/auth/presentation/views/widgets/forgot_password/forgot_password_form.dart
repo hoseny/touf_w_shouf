@@ -5,7 +5,7 @@ import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
-import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/auth_cubit.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
   const ForgotPasswordForm({
@@ -14,42 +14,36 @@ class ForgotPasswordForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ForgotPasswordCubit>();
-    return BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
-      builder: (context, state) {
-        return Form(
-          key: cubit.formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AppTextFormField(
-                hintText: isEnglish(context)
-                    ? "Insert email address"
-                    : "أدخل البريد الإلكتروني",
-                controller: cubit.emailController,
-                validator: (value) => Validation.validatePhoneOrEmail(context, value),
-              ),
-              SizedBox(height: 150.h),
-              AppButton(
-                onPressed: () {
-                  if (cubit.formKey.currentState!.validate()) {
-                    final email = cubit.emailController.text.trim();
-                    context
-                        .read<ForgotPasswordCubit>()
-                        .forgetPassword(email: email);
-                  } else {
-                    cubit.enableAutoValidate();
-                  }
-                },
-                text: isEnglish(context) ? 'Submit' : 'تأكيد',
-                width: 327.w,
-                height: 46.h,
-                isLoading: state is ForgotPasswordLoading,
-              )
-            ],
+    final AuthCubit cubit = context.watch<AuthCubit>();
+    return Form(
+      key: cubit.formKey,
+      autovalidateMode: AutovalidateMode.onUnfocus,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AppTextFormField(
+            hintText: isEnglish(context)
+                ? "Insert email address"
+                : "أدخل البريد الإلكتروني",
+            controller: cubit.emailController,
+            validator: (value) => Validation.validatePhoneOrEmail(context, value),
           ),
-        );
-      },
+          150.verticalSpace,
+          AppButton(
+            onPressed: () {
+              if (cubit.formKey.currentState!.validate()) {
+                final email = cubit.emailController.text.trim();
+                cubit.forgetPassword(email: email);
+              }
+            },
+            text: isEnglish(context) ? 'Submit' : 'تأكيد',
+            width: 327.w,
+            height: 46.h,
+            isLoading: cubit.state is ForgotPasswordLoading,
+          ),
+          16.verticalSpace,
+        ],
+      ),
     );
   }
 }

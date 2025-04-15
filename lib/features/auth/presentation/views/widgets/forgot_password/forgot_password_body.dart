@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
-import 'package:touf_w_shouf/features/auth/presentation/manager/forgot_password_cubit/forgot_password_cubit.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/auth_cubit.dart';
 import 'forgot_password_header.dart';
 import 'forgot_password_form.dart';
 
@@ -12,31 +12,32 @@ class ForgotPasswordBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-final cubit = context.read<ForgotPasswordCubit>();
-    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+    final cubit = context.read<AuthCubit>();
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is ForgotPasswordSuccess) {
           context.pop();
           ToastHelper.showSuccessToast(state.response.items.first.otp!);
-          context.pushNamed(Routes.validateOtpView, arguments: {
-            'email': cubit.emailController.text.trim(),
-            'phone': null
-          });
+          context.pushNamed(
+            Routes.validateOtpView,
+            arguments: {
+              'email': cubit.emailController.text.trim(),
+              'phone': null
+            },
+          );
         } else if (state is ForgotPasswordFailure) {
           context.pop();
           ToastHelper.showErrorToast(state.errMessage);
         }
       },
-      builder: (context, state) {
-        return const SingleChildScrollView(
-          child: Column(
-            children: [
-              ForgotPasswordHeader(),
-              ForgotPasswordForm(),
-            ],
-          ),
-        );
-      },
+      child: const SingleChildScrollView(
+        child: Column(
+          children: [
+            ForgotPasswordHeader(),
+            ForgotPasswordForm(),
+          ],
+        ),
+      ),
     );
   }
 }

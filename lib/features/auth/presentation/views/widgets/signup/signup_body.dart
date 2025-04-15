@@ -35,7 +35,7 @@ class SignupBody extends StatelessWidget {
           ToastHelper.showErrorToast(state.errMessage);
         }
       },
-      child:  SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             const SignupHeader(),

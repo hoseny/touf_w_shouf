@@ -13,7 +13,7 @@ class StandardInputField extends StatelessWidget {
   final AutovalidateMode? autoValidateMode;
   final bool isObscured;
   final VoidCallback togglePasswordVisibility;
-
+  final Color? cursorColor;
   const StandardInputField({
     super.key,
     required this.hintText,
@@ -24,13 +24,13 @@ class StandardInputField extends StatelessWidget {
     this.keyboardType,
     this.autoValidateMode,
     required this.isObscured,
-    required this.togglePasswordVisibility,
+    required this.togglePasswordVisibility, this.cursorColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 327.w, // Fixed width to maintain size
+      width: 327.w,
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -86,7 +86,7 @@ class StandardInputField extends StatelessWidget {
               : null,
         ),
         validator: validator,
-        cursorColor: AppColors.black,
+        cursorColor: cursorColor,
         onChanged: onChanged,
       ),
     );
