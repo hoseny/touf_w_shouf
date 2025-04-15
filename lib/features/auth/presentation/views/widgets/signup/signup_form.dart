@@ -4,13 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
-import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/validations/validation.dart';
-import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/core/widgets/app_text_form_field.dart';
-import 'package:touf_w_shouf/features/auth/data/models/signup_models/signup_request.dart';
-import 'package:touf_w_shouf/features/auth/presentation/manager/signup_cubit/sign_up_cubit.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/widgets/auth_custom_check_box.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -20,19 +17,20 @@ class SignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<SignUpCubit>();
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    final AuthCubit cubit = context.watch<AuthCubit>();
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Form(
           key: cubit.formKey,
-          autovalidateMode: cubit.autoValidateMode,
+          autovalidateMode: AutovalidateMode.onUnfocus,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppTextFormField(
                 hintText: context.tr(LocaleKeys.authFirstName),
                 controller: cubit.firstnameController,
-                validator: (value) => Validation.userNameValidator(context, value),
+                validator: (value) =>
+                    Validation.userNameValidator(context, value),
               ),
               15.verticalSpace,
               AppTextFormField(
@@ -108,37 +106,6 @@ class SignUpForm extends StatelessWidget {
                         ),
                       ],
               ),
-              10.verticalSpace,
-              AppButton(
-                isLoading: state is SignUpLoading,
-                onPressed: () {
-                  if (cubit.formKey.currentState!.validate() &&
-                      cubit.isChecked) {
-                    context.read<SignUpCubit>().signUp(
-                          signUpRequest: SignUpRequest(
-                            phone: cubit.phoneController.text.trim(),
-                            email: cubit.emailController.text.trim(),
-                            userName:
-                                "${cubit.firstnameController.text.trim()} ${cubit.lastnameController.text.trim()}",
-                            password: cubit.passwordController.text.trim(),
-                            nat: "1",
-                            address: "address",
-                          ),
-                        );
-                  } else if (!cubit.isChecked) {
-                    ToastHelper.showErrorToast(
-                      isEnglish(context)
-                          ? 'You must agree to the terms to create an account'
-                          : 'يجب عليك الموافقة على الشروط لإنشاء حساب',
-                    );
-                  } else {
-                    cubit.enableAutoValidate();
-                  }
-                },
-                text: context.tr(LocaleKeys.authCreateAccount),
-                width: 327.w,
-                height: 46.h,
-              )
             ],
           ),
         );

@@ -44,7 +44,7 @@ class ServerFailure extends Failure {
 
     switch (statusCode) {
       case 400:
-        return ServerFailure('serverFailure.badResponse.400'.tr());
+        return ServerFailure(message ?? 'serverFailure.badResponse.400'.tr());
       case 401:
         return ServerFailure(message ?? 'serverFailure.badResponse.401'.tr());
       case 403:
@@ -79,6 +79,7 @@ class ServerFailure extends Failure {
           responseData['error']?.toString() ??
           responseData['detail']?.toString() ??
           responseData['errMessage']?.toString() ??
+          responseData['OTP']?.toString() ??
           _parseNestedErrors(responseData);
     }
 

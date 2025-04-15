@@ -6,6 +6,7 @@ import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/core/networking/dio_factory.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:touf_w_shouf/features/auth/presentation/manager/auth_cubit.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
@@ -41,6 +42,12 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<AuthRepo>(
     () => AuthRepoImpl(
       apiService: getIt.get<ApiService>(),
+    ),
+  );
+  // Auth Cubit
+  getIt.registerFactory<AuthCubit>(
+        () => AuthCubit(
+      getIt.get<AuthRepo>(),
     ),
   );
   // <---------------------------------------------------------------------------->
