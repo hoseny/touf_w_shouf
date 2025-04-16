@@ -9,7 +9,7 @@ import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 
 class ProgramBookButton extends StatelessWidget {
   const ProgramBookButton({super.key});

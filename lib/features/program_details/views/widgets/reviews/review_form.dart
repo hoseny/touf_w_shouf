@@ -12,7 +12,8 @@ import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/insert_review/insert_review_request.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_state.dart';
 
 class ReviewForm extends StatefulWidget {
   const ReviewForm({super.key});
@@ -75,7 +76,7 @@ class _ReviewFormState extends State<ReviewForm> {
                   borderSide: const BorderSide(color: AppColors.error),
                 ),
                 hintText:
-                    isEnglish(context) ? 'Write your feedback' : 'اكتب تعليقك',
+                isEnglish(context) ? 'Write your feedback' : 'اكتب تعليقك',
                 hintStyle: TextStyle(
                   fontSize: 16.sp,
                   color: const Color(0xff747474),
@@ -96,36 +97,36 @@ class _ReviewFormState extends State<ReviewForm> {
             ),
           ),
           16.verticalSpace,
-          BlocConsumer<ReviewCubit, ReviewState>(
+          BlocConsumer<ProgramDetailsCubit, ProgramDetailsState>(
+            listenWhen: (previous, current) => previous.insertReviewStatus != current.insertReviewStatus,
             listener: (context, state) {
-              if (state is InsertReviewSuccess) {
-                context.read<ReviewCubit>().getReviews();
-                ToastHelper.showSuccessToast(state.message);
-              } else if (state is InsertReviewFailure) {
+              if (state.insertReviewStatus == InsertReviewStatus.success) {
+                context.read<ProgramDetailsCubit>().getReviews();
+                ToastHelper.showSuccessToast(state.insertReviewMessage);
+              } else if (state.insertReviewStatus == InsertReviewStatus.failure) {
                 ToastHelper.showErrorToast(state.errorMessage);
               }
             },
             builder: (context, state) {
               return AppButton(
-                isLoading: state is InsertReviewLoading,
-                onPressed: onPressed,
+                isLoading: state.insertReviewStatus == InsertReviewStatus.loading,
+                onPressed: () => _onPressed(context, context.read<ProgramDetailsCubit>().userRating),
                 text: isEnglish(context) ? 'Submit' : 'ارسال',
                 backgroundColor: AppColors.orange,
                 borderRadius: 4.r,
                 width: 160.w,
               );
             },
-          )
+          ),
         ],
       ),
     );
   }
 
-  onPressed() {
+  void _onPressed(BuildContext context, double userRating) {
     FocusScope.of(context).unfocus();
 
     final token = SharedPref.getString(key: SharedPrefKeys.token);
-    final userRating = context.read<ReviewCubit>().userRating;
 
     if (token.isEmpty) {
       context.pushNamed(Routes.loginView);
@@ -138,6 +139,7 @@ class _ReviewFormState extends State<ReviewForm> {
       );
       return;
     }
+
     final isFormValid = formKey.currentState?.validate() ?? false;
 
     if (!isFormValid) {
@@ -148,12 +150,13 @@ class _ReviewFormState extends State<ReviewForm> {
     }
 
     autoValidateMode = AutovalidateMode.disabled;
-    context.read<ReviewCubit>().insertReview(
-          InsertReviewRequest(
-            review: reviewController.text.trim(),
-            rate: userRating.toString(),
-            cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
-          ),
-        );
+
+    final reviewRequest = InsertReviewRequest(
+      review: reviewController.text.trim(),
+      rate: userRating.toString(),
+      cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
+    );
+
+    context.read<ProgramDetailsCubit>().insertReview(reviewRequest);
   }
 }

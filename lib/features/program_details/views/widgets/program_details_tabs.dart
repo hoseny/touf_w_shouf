@@ -31,7 +31,7 @@ class _ProgramDetailsTabsState extends State<ProgramDetailsTabs> {
 
     final List<double> textWidths = List.generate(
       tabNames.length,
-          (index) => calculateTextWidth(
+      (index) => calculateTextWidth(
         tabNames[index],
         selectedIndex == index
             ? TextStyles.font18OrangeMedium
@@ -53,6 +53,7 @@ class _ProgramDetailsTabsState extends State<ProgramDetailsTabs> {
               separatorBuilder: (context, index) => 16.horizontalSpace,
               itemBuilder: (context, index) {
                 return InkWell(
+                  borderRadius: BorderRadius.circular(8.r),
                   onTap: () {
                     setState(() {
                       selectedIndex = index;

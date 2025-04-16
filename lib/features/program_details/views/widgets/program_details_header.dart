@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/widgets/app_program_header.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 
 class ProgramDetailsHeader extends StatelessWidget {
   const ProgramDetailsHeader({

@@ -7,11 +7,14 @@ import 'package:touf_w_shouf/core/networking/dio_factory.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:touf_w_shouf/features/auth/presentation/manager/auth_cubit.dart';
+import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo_impl.dart';
 import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
+import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo.dart';
 import 'package:touf_w_shouf/features/program_details/data/repos/program_details_repo_impl.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -46,7 +49,7 @@ Future<void> setupServiceLocator() async {
   );
   // Auth Cubit
   getIt.registerFactory<AuthCubit>(
-        () => AuthCubit(
+    () => AuthCubit(
       getIt.get<AuthRepo>(),
     ),
   );
@@ -64,8 +67,24 @@ Future<void> setupServiceLocator() async {
     ),
   );
   // <---------------------------------------------------------------------------->
-  // Repositories
+  // Program Details Repo
+  getIt.registerLazySingleton<ProgramDetailsRepo>(
+    () => ProgramDetailsRepoImpl(
+      apiService: getIt.get<ApiService>(),
+    ),
+  );
+  // Program Details Cubit
+  getIt.registerFactoryParam<ProgramDetailsCubit, ProgramModel, void>(
+    (program, _) => ProgramDetailsCubit(
+      getIt.get<ProgramDetailsRepo>(),
+      program,
+    ),
+  );
 
-  getIt.registerLazySingleton<ProgramDetailsRepoImpl>(() => ProgramDetailsRepoImpl(apiService: getIt.get<ApiService>()));
-  getIt.registerLazySingleton<PaymentRepoImpl>(() => PaymentRepoImpl(apiService: getIt.get<ApiService>()));
+  // <---------------------------------------------------------------------------->
+  getIt.registerLazySingleton<PaymentRepoImpl>(
+    () => PaymentRepoImpl(
+      apiService: getIt.get<ApiService>(),
+    ),
+  );
 }

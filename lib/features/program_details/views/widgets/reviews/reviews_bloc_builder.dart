@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/review_cubit/review_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_state.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/reviews/reviews_list.dart';
 
 class ReviewsListBlocBuilder extends StatelessWidget {
@@ -11,35 +12,40 @@ class ReviewsListBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReviewCubit, ReviewState>(
-      buildWhen: (previous, current) =>
-          current is ReviewLoading ||
-          current is ReviewSuccess ||
-          current is ReviewFailure,
+    return BlocBuilder<ProgramDetailsCubit, ProgramDetailsState>(
+      buildWhen: (previous, current) => previous.reviewStatus != current.reviewStatus,
       builder: (context, state) {
-        if (state is ReviewLoading) {
-          return SizedBox(
-            height: 380.h,
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.orange,
+        switch (state.reviewStatus) {
+          case ReviewStatus.loading:
+            return SizedBox(
+              height: 380.h,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.orange,
+                ),
               ),
-            ),
-          );
-        } else if (state is ReviewSuccess) {
-          return ReviewsList(
-            reviews: state.reviews,
-          );
-        } else if (state is ReviewFailure) {
-          return FailureState(
-            message: state.errorMessage,
-            onRetry: () => context.read<ReviewCubit>().getReviews(),
-          );
-        } else {
-          return FailureState(
-            message: 'Something went wrong',
-            onRetry: () => context.read<ReviewCubit>().getReviews(),
-          );
+            );
+
+          case ReviewStatus.success:
+            return ReviewsList(
+              reviews: state.reviews ?? [],
+            );
+
+          case ReviewStatus.failure:
+            return Center(
+              child: FailureState(
+                message: state.errorMessage,
+                onRetry: () => context.read<ProgramDetailsCubit>().getReviews(),
+              ),
+            );
+
+          default:
+            return Center(
+              child: FailureState(
+                message: 'Something went wrong',
+                onRetry: () => context.read<ProgramDetailsCubit>().getReviews(),
+              ),
+            );
         }
       },
     );

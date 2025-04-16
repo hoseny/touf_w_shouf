@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
-import 'package:touf_w_shouf/features/program_details/views/manager/photo_gallery_cubit/photo_gallery_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_state.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/photo_gallery/photoe_gallery_tab.dart';
 
 class PhotoGalleryBlocBuilder extends StatelessWidget {
@@ -11,30 +12,35 @@ class PhotoGalleryBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhotoGalleryCubit, PhotoGalleryState>(
+    return BlocBuilder<ProgramDetailsCubit, ProgramDetailsState>(
+      buildWhen: (previous, current) => previous.photoGalleryStatus != current.photoGalleryStatus,
       builder: (context, state) {
-        if (state is PhotoGalleryLoading) {
-          return SizedBox(
-            height: 400.h,
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primaryBlue,
+        switch (state.photoGalleryStatus) {
+          case PhotoGalleryStatus.loading:
+            return SizedBox(
+              height: 400.h,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primaryBlue,
+                ),
               ),
-            ),
-          );
-        } else if (state is PhotoGallerySuccess) {
-          return PhotoGalleryTab(
-            photos: state.photos,
-          );
-        } else if (state is PhotoGalleryFailure) {
-          return FailureState(
-            message: state.errorMessage,
-            onRetry: () => context.read<PhotoGalleryCubit>().getPhotoGallery(),
-          );
-        } else {
-          return const Center(
-            child: Text('Something went wrong'),
-          );
+            );
+
+          case PhotoGalleryStatus.success:
+            return PhotoGalleryTab(
+              photos: state.photos!,
+            );
+
+          case PhotoGalleryStatus.failure:
+            return FailureState(
+              message: state.errorMessage,
+              onRetry: () => context.read<ProgramDetailsCubit>().getPhotoGallery(),
+            );
+
+          default:
+            return const Center(
+              child: Text('Something went wrong'),
+            );
         }
       },
     );
