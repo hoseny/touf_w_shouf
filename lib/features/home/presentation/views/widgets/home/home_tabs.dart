@@ -12,16 +12,16 @@ class HomeTabs extends StatelessWidget {
 
   static const List<String> _tabIcons = [
     Assets.outings,
-    Assets.hotel,
-    Assets.transportation,
+    // Assets.hotel,
+    // Assets.transportation,
   ];
 
   @override
   Widget build(BuildContext context) {
     final List<String> tabNames = [
       context.tr(LocaleKeys.outings),
-      context.tr(LocaleKeys.hotels),
-      context.tr(LocaleKeys.transportation),
+      // context.tr(LocaleKeys.hotels),
+      // context.tr(LocaleKeys.transportation),
     ];
     final cubit = context.watch<HomeCubit>();
     return SizedBox(

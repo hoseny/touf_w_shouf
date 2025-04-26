@@ -4,7 +4,6 @@ import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
-import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_response.dart';

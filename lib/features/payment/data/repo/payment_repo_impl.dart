@@ -6,7 +6,6 @@ import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/features/payment/data/models/checkout/checkout_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/checkout/checkout_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
-import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/display_payment.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
