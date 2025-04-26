@@ -5,7 +5,8 @@ import 'package:touf_w_shouf/features/program_details/data/repos/program_details
 import 'program_details_state.dart';
 
 class ProgramDetailsCubit extends Cubit<ProgramDetailsState> {
-  ProgramDetailsCubit(this.programDetailsRepo, this.program) : super(const ProgramDetailsState());
+  ProgramDetailsCubit(this.programDetailsRepo, this.program)
+      : super(const ProgramDetailsState());
 
   final ProgramDetailsRepo programDetailsRepo;
   final ProgramModel program;
@@ -20,12 +21,6 @@ class ProgramDetailsCubit extends Cubit<ProgramDetailsState> {
       lang: '1',
     );
 
-    final policyResult = await programDetailsRepo.getPolicy(
-      programCode: program.code.toString(),
-      programYear: program.programYear.toString(),
-      policyType: 'Cancel',
-    );
-
     detailsResult.fold(
       (failure) {
         emit(
@@ -35,25 +30,12 @@ class ProgramDetailsCubit extends Cubit<ProgramDetailsState> {
           ),
         );
       },
-      (details) {
-        policyResult.fold(
-          (failure) {
-            emit(
-              state.copyWith(
-                programDetailsStatus: ProgramDetailsStatus.failure,
-                errorMessage: failure.message,
-              ),
-            );
-          },
-          (policy) {
-            emit(
-              state.copyWith(
-                programDetailsStatus: ProgramDetailsStatus.success,
-                programDetails: details,
-                policyModel: policy,
-              ),
-            );
-          },
+      (programDetails) {
+        emit(
+          state.copyWith(
+            programDetailsStatus: ProgramDetailsStatus.success,
+            programDetails: programDetails,
+          ),
         );
       },
     );

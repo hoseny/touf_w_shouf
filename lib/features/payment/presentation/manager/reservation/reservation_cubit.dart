@@ -5,10 +5,10 @@ import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
-import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_response.dart';
+import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo_impl.dart';
 
 part 'reservation_state.dart';
@@ -22,6 +22,7 @@ class ReservationCubit extends Cubit<ReservationState> {
     required ReservationRequest request,
     required ProgramGroup programGroup,
     required List<GroupPrice> groupPrices,
+    required List<AdditionalService> additionalServices,
     required ProgramModel program,
   }) async {
     emit(ReservationLoading());
@@ -35,30 +36,50 @@ class ReservationCubit extends Cubit<ReservationState> {
       (res) => res,
     );
     if (reservation == null) return;
-
     reservationResponse = reservation;
+
+    final String custRef = SharedPref.getInt(
+      key: SharedPrefKeys.custCode,
+    ).toString();
+    final String refNo = reservation.refNo.toString();
+    final int resSp = reservation.resSp;
 
     final reservationList = groupPrices
         .where((price) => price.count > 0)
         .map((price) => Reservation(
               paxType: price.pCategory,
               paxCount: price.count,
-              ressp: reservation.resSp.toString(),
-              refNo: reservation.refNo.toString(),
-              custRef: SharedPref.getInt(key: SharedPrefKeys.custCode).toString(),
+              ressp: resSp.toString(),
+              refNo: refNo,
+              custRef: custRef,
               code: program.code.toString(),
               year: program.programYear,
               progGrpNo: programGroup.progGrpNo.toString(),
             ))
         .toList();
 
+    final additionalList = additionalServices
+        .where((service) => service.count > 0)
+        .map((service) => Additional(
+              custRef: custRef,
+              refNo: refNo,
+              resSp: resSp,
+              srvType: service.extSrv,
+              paxType: service.pCategory,
+              paxCount: service.count,
+              itemRef: service.itemRef,
+              code: program.code.toString(),
+              year: program.programYear,
+            ))
+        .toList();
 
-    final detailsReservationResult = await repo.postDetailsReservation(
-      request: DetailsReservationRequest(
-        reservation: reservationList,
-      ),
+    final detailsRequest = DetailsReservationRequest(
+      reservation: reservationList,
+      additional: additionalList,
     );
-
+    final detailsReservationResult = await repo.postDetailsReservation(
+      request: detailsRequest,
+    );
     final detailsReservation = detailsReservationResult.fold(
       (failure) {
         emit(ReservationFailure(failure.message));
@@ -66,7 +87,6 @@ class ReservationCubit extends Cubit<ReservationState> {
       },
       (res) => res,
     );
-
     if (detailsReservation == null) return;
 
     emit(

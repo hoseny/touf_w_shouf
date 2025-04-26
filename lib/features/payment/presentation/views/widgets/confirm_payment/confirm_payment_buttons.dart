@@ -10,6 +10,7 @@ import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
+import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/core/widgets/app_button.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/step_cubit/step_cubit.dart';
@@ -23,7 +24,7 @@ class ConfirmPaymentButtons extends StatelessWidget {
       children: [
         AppButton(
           onPressed: () => _handlePayment(context),
-          text: isEnglish(context) ? 'Confirm' : 'تأكيد',
+          text: isEnglish(context) ? 'Pay Now' : 'دفع الان',
           width: 358.w,
           height: 42.h,
           backgroundColor: AppColors.orange,
@@ -31,8 +32,12 @@ class ConfirmPaymentButtons extends StatelessWidget {
         ),
         20.verticalSpace,
         AppButton(
-          onPressed: () => context.pop(),
-          text: isEnglish(context) ? 'Back' : 'إلغاء',
+          onPressed: (){
+            context.pop();
+            context.pop();
+            context.pushNamed(Routes.myReservations);
+          },
+          text: isEnglish(context) ? 'PayLater' : 'الدفع لاحقا',
           width: 358.w,
           height: 42.h,
           borderRadius: 12.r,

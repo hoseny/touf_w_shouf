@@ -31,23 +31,24 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
           lang: lang,
         ),
       );
-      final programDetails =
-          (response['items'] != null && response['items'].isNotEmpty)
-              ? ProgramDetailsModel.fromJson(response['items'][0])
-              : ProgramDetailsModel(
-                  progCode: 0,
-                  programName: 'Unknown Program',
-                  programYear: 0,
-                  startPrice: 0,
-                  startDate: 'Not Available',
-                  endDate: 'Not Available',
-                  day: 0,
-                  classTrip: 'Not Available',
-                  city: 'Not Available',
-                  overview: 'No overview available',
-                  tourIncluding: 'No inclusions specified',
-                  tourExcluding: 'No exclusions specified',
-                );
+      final programDetails = (response['items'] != null && response.isNotEmpty)
+          ? ProgramDetailsModel.fromJson(response)
+          : ProgramDetailsModel(
+              progCode: 0,
+              programName: 'Unknown Program',
+              programYear: 0,
+              startPrice: 0,
+              startDate: 'Not Available',
+              endDate: 'Not Available',
+              day: 0,
+              classTrip: 'Not Available',
+              city: 'Not Available',
+              overview: 'No overview available',
+              tourIncluding: 'No inclusions specified',
+              tourExcluding: 'No exclusions specified',
+              cancelPolicy: '',
+              videoStatus: '',
+            );
 
       return Right(programDetails);
     } catch (e) {

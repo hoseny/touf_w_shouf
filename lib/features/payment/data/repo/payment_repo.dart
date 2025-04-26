@@ -5,10 +5,10 @@ import 'package:touf_w_shouf/features/payment/data/models/checkout/checkout_resp
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/display_payment.dart';
-import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_response.dart';
+import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
 
 abstract class PaymentRepo {
   Future<Either<Failure, List<ProgramGroup>>> getProgramGroup({
@@ -16,7 +16,7 @@ abstract class PaymentRepo {
     required String programYear,
   });
 
-  Future<Either<Failure, List<GroupPrice>>> getGroupPrice({
+  Future<Either<Failure, ServicesModel>> getGroupPrice({
     required String programCode,
     required String programYear,
     required String groupNumber,

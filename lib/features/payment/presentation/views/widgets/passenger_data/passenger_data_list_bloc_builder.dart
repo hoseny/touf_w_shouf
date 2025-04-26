@@ -6,6 +6,7 @@ import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_cubit.dart';
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/additional_services.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/passenger_data_list.dart';
 
 class PassengerDataListBlocBuilder extends StatelessWidget {
@@ -42,8 +43,27 @@ class PassengerDataListBlocBuilder extends StatelessWidget {
                         ),
                       ),
                       PassengerDataList(
-                        groupPrice: state.groupPrice!,
+                        groupPrice: state.services!.groupPrice,
                       ),
+                      if (state.services!.additionalServices.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 12.h,
+                              ),
+                              child: Text(
+                                'Additional Services',
+                                style: TextStyles.font18BlackMedium,
+                              ),
+                            ),
+                            AdditionalServices(
+                              additionalServices: state.services!.additionalServices,
+                            ),
+                          ],
+                        ),
                     ],
                   );
 

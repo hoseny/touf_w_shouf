@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
-import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/passenger_data_tile.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/additional_list_tile.dart';
 
-class PassengerDataList extends StatelessWidget {
-  const PassengerDataList({super.key, required this.groupPrice});
+class AdditionalServices extends StatelessWidget {
+  const AdditionalServices({super.key, required this.additionalServices});
 
-  final List<GroupPrice> groupPrice;
+  final List<AdditionalService> additionalServices;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,13 @@ class PassengerDataList extends StatelessWidget {
         ],
       ),
       child: ListView.builder(
-        itemCount: groupPrice.length,
+        itemCount: additionalServices.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          return PassengerDataTile(
-            groupPrice: groupPrice[index],
+          return AdditionalListTile(
+            service: additionalServices[index],
             index: index,
           );
         },

@@ -1,6 +1,5 @@
 import 'package:touf_w_shouf/features/program_details/data/models/photo_gallery_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/program_details_model.dart';
-import 'package:touf_w_shouf/features/program_details/data/models/policy_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/supplements_model.dart';
 import 'package:touf_w_shouf/features/program_details/data/models/review_model.dart';
 
@@ -18,8 +17,6 @@ class ProgramDetailsState {
   // State for the main program details
   final ProgramDetailsStatus programDetailsStatus;
   final ProgramDetailsModel? programDetails;
-  final PolicyModel? policyModel;
-
   // State for supplements
   final SupplementsStatus supplementsStatus;
   final List<SupplementsModel>? supplements;
@@ -42,7 +39,6 @@ class ProgramDetailsState {
   const ProgramDetailsState({
     this.programDetailsStatus = ProgramDetailsStatus.initial,
     this.programDetails,
-    this.policyModel,
     this.supplementsStatus = SupplementsStatus.initial,
     this.supplements,
     this.photoGalleryStatus = PhotoGalleryStatus.initial,
@@ -57,7 +53,6 @@ class ProgramDetailsState {
   ProgramDetailsState copyWith({
     ProgramDetailsStatus? programDetailsStatus,
     ProgramDetailsModel? programDetails,
-    PolicyModel? policyModel,
     SupplementsStatus? supplementsStatus,
     List<SupplementsModel>? supplements,
     PhotoGalleryStatus? photoGalleryStatus,
@@ -71,7 +66,6 @@ class ProgramDetailsState {
     return ProgramDetailsState(
       programDetailsStatus: programDetailsStatus ?? this.programDetailsStatus,
       programDetails: programDetails ?? this.programDetails,
-      policyModel: policyModel ?? this.policyModel,
       supplementsStatus: supplementsStatus ?? this.supplementsStatus,
       supplements: supplements ?? this.supplements,
       photoGalleryStatus: photoGalleryStatus ?? this.photoGalleryStatus,

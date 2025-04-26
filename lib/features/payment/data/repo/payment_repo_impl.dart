@@ -8,10 +8,10 @@ import 'package:touf_w_shouf/features/payment/data/models/checkout/checkout_resp
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/details_reservation/details_reservation_response.dart';
 import 'package:touf_w_shouf/features/payment/data/models/display_payment.dart';
-import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_request.dart';
 import 'package:touf_w_shouf/features/payment/data/models/reservation/reservation_response.dart';
+import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
 import 'package:touf_w_shouf/features/payment/data/repo/payment_repo.dart';
 
 class PaymentRepoImpl extends PaymentRepo {
@@ -42,7 +42,7 @@ class PaymentRepoImpl extends PaymentRepo {
   }
 
   @override
-  Future<Either<Failure, List<GroupPrice>>> getGroupPrice({
+  Future<Either<Failure, ServicesModel>> getGroupPrice({
     required String programCode,
     required String programYear,
     required String groupNumber,
@@ -55,11 +55,8 @@ class PaymentRepoImpl extends PaymentRepo {
           groupNumber: groupNumber,
         ),
       );
-      final List<GroupPrice> groupPrice = [];
-      for (var pax in response['items']) {
-        groupPrice.add(GroupPrice.fromJson(pax));
-      }
-      return Right(groupPrice);
+      final services = ServicesModel.fromJson(response);
+      return Right(services);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

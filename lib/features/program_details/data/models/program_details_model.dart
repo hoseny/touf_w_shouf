@@ -11,6 +11,8 @@ class ProgramDetailsModel {
   final String overview;
   final String tourIncluding;
   final String tourExcluding;
+  final String cancelPolicy;
+  final String videoStatus;
 
   ProgramDetailsModel({
     required this.progCode,
@@ -25,22 +27,35 @@ class ProgramDetailsModel {
     required this.overview,
     required this.tourIncluding,
     required this.tourExcluding,
+    required this.cancelPolicy,
+    required this.videoStatus,
   });
 
   factory ProgramDetailsModel.fromJson(Map<String, dynamic> json) {
+    final items = (json['items'] as List?)?.firstOrNull ?? {};
+    final cancelPolicyList = (json['Cancel Policy'] as List?) ?? [];
+    final videoList = (json['Vedio'] as List?) ?? [];
+
     return ProgramDetailsModel(
-      progCode: json['PROGCODE'] ?? 0,
-      programName: json['ProgramName'] ?? 'Unknown',
-      programYear: json['ProgramYear'] ?? 0,
-      startPrice: json['StartPrice'] ?? 0,
-      startDate: json['startDate'] ?? 'Unknown',
-      endDate: json['endDate'] ?? 'Unknown',
-      day: json['day'] ?? 0,
-      classTrip: json['ClassTrip'] ?? 'Unknown',
-      city: json['City'] ?? 'Unknown',
-      overview: json['OverView'] ?? 'Unknown',
-      tourIncluding: json['TOUR_INCLUDING'] ?? 'Unknown',
-      tourExcluding: json['TOUREXCLUDING'] ?? 'Unknown',
+      progCode: items['PROGCODE'] ?? 0,
+      programName: items['ProgramName'] ?? 'Unknown',
+      programYear: items['ProgramYear'] ?? 0,
+      startPrice: items['StartPrice'] ?? 0,
+      startDate: items['startDate'] ?? 'Unknown',
+      endDate: items['endDate'] ?? 'Unknown',
+      day: items['day'] ?? 0,
+      classTrip: items['ClassTrip'] ?? 'Unknown',
+      city: items['City'] ?? 'Unknown',
+      overview: items['OverView'] ?? 'Unknown',
+      tourIncluding: items['TOUR_INCLUDING'] ?? 'Unknown',
+      tourExcluding: items['TOUREXCLUDING'] ?? 'Unknown',
+      cancelPolicy: cancelPolicyList.isNotEmpty ? (cancelPolicyList.first['policy'] ?? 'No Policy') : 'No Policy',
+      videoStatus: videoList.isNotEmpty ? (videoList.first['Status'] ?? 'No Video') : 'No Video',
     );
   }
+}
+
+// Helper extension to avoid crash if items list is empty
+extension FirstOrNullExtension<E> on List<E> {
+  E? get firstOrNull => isNotEmpty ? first : null;
 }

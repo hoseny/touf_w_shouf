@@ -1,5 +1,5 @@
-import 'package:touf_w_shouf/features/payment/data/models/group_price.dart';
 import 'package:touf_w_shouf/features/payment/data/models/program_group.dart';
+import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
 
 enum ProgramGroupStatus { initial, loading, success, failure }
 enum GroupPriceStatus { initial, loading, success, failure }
@@ -9,7 +9,7 @@ class ProgramGroupState {
   final GroupPriceStatus groupPriceStatus;
 
   final List<ProgramGroup>? programGroups;
-  final List<GroupPrice>? groupPrice;
+  final ServicesModel? services;
   final String errorMessage;
   final bool isTermsAccepted;
 
@@ -17,7 +17,7 @@ class ProgramGroupState {
     this.programGroupStatus = ProgramGroupStatus.initial,
     this.groupPriceStatus = GroupPriceStatus.initial,
     this.programGroups,
-    this.groupPrice,
+    this.services,
     this.errorMessage = '',
     this.isTermsAccepted = false,
   });
@@ -26,7 +26,7 @@ class ProgramGroupState {
     ProgramGroupStatus? programGroupStatus,
     GroupPriceStatus? groupPriceStatus,
     List<ProgramGroup>? programGroups,
-    List<GroupPrice>? groupPrice,
+    ServicesModel? services,
     String? errorMessage,
     bool? isTermsAccepted,
   }) {
@@ -34,7 +34,7 @@ class ProgramGroupState {
       programGroupStatus: programGroupStatus ?? this.programGroupStatus,
       groupPriceStatus: groupPriceStatus ?? this.groupPriceStatus,
       programGroups: programGroups ?? this.programGroups,
-      groupPrice: groupPrice ?? this.groupPrice,
+      services: services ?? this.services,
       errorMessage: errorMessage ?? this.errorMessage,
       isTermsAccepted: isTermsAccepted ?? this.isTermsAccepted,
     );

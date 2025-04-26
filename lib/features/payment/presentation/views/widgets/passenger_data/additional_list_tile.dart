@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/features/payment/data/models/services_model.dart';
-import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/increment_decrement_buttons.dart';
+import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/increment_decrement_additional.dart';
 
-class PassengerDataTile extends StatelessWidget {
-  const PassengerDataTile({
+class AdditionalListTile extends StatelessWidget {
+  const AdditionalListTile({
     super.key,
-    required this.groupPrice,
+    required this.service,
     required this.index,
   });
 
   final int index;
-  final GroupPrice groupPrice;
+  final AdditionalService service;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +23,14 @@ class PassengerDataTile extends StatelessWidget {
         vertical: 0,
       ),
       title: Text(
-        groupPrice.paxType,
+        service.pCategory,
         style: TextStyles.font16BlackMedium,
       ),
       subtitle: Text(
-        groupPrice.pPrice.toString(),
+        service.extPrice.toString(),
         style: TextStyles.font14deepTealRegular,
       ),
-      trailing: IncrementDecrementButtons(
+      trailing: IncrementDecrementAdditional(
         index: index,
       ),
     );

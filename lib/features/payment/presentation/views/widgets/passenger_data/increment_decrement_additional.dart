@@ -7,8 +7,8 @@ import 'package:touf_w_shouf/features/payment/presentation/manager/program_group
 import 'package:touf_w_shouf/features/payment/presentation/manager/program_group/program_group_state.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/widgets/passenger_data/count_button.dart';
 
-class IncrementDecrementButtons extends StatelessWidget {
-  const IncrementDecrementButtons({super.key, required this.index});
+class IncrementDecrementAdditional extends StatelessWidget {
+  const IncrementDecrementAdditional({super.key, required this.index});
 
   final int index;
 
@@ -22,8 +22,8 @@ class IncrementDecrementButtons extends StatelessWidget {
       child: BlocBuilder<ProgramGroupCubit, ProgramGroupState>(
         builder: (context, state) {
           final cubit = context.read<ProgramGroupCubit>();
-          final count = (state.services?.groupPrice.length ?? 0) > index
-              ? state.services!.groupPrice[index].count
+          final count = (state.services?.additionalServices.length ?? 0) > index
+              ? state.services!.additionalServices[index].count
               : 0;
 
           return Row(
@@ -32,7 +32,7 @@ class IncrementDecrementButtons extends StatelessWidget {
             children: [
               CountButton(
                 icon: Icons.remove,
-                onTap: () => cubit.decreaseGroupPriceCount(index),
+                onTap: () => cubit.decreaseAdditionalServiceCount(index),
               ),
               Text(
                 count.toString(),
@@ -40,7 +40,7 @@ class IncrementDecrementButtons extends StatelessWidget {
               ),
               CountButton(
                 icon: Icons.add,
-                onTap: () => cubit.increaseGroupPriceCount(index),
+                onTap: () => cubit.increaseAdditionalServiceCount(index),
               ),
             ],
           );
