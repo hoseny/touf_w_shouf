@@ -92,7 +92,6 @@ class ReservationCubit extends Cubit<ReservationState> {
     emit(
       ReservationSuccess(
         reservationResponse: reservation,
-        detailsReservationResponse: detailsReservation,
       ),
     );
   }

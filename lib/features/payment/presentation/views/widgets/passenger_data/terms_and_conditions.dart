@@ -49,7 +49,47 @@ class TermsAndConditions extends StatelessWidget {
                         ? 'Read Terms and conditions'
                         : 'قراءة الشروط والأحكام',
                     style: TextStyles.font18DeepTealRegular,
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return Dialog(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 12.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  color: Colors.white,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 6.h,
+                                  children: [
+                                    Text(
+                                      'Terms & Conditions',
+                                      style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    Text(
+                                      'By using our hotel booking services, you agree to provide accurate information, adhere to the hotel’s booking and cancellation policies, take full responsibility for any additional fees or damages, and acknowledge that the site is not liable for any losses or changes due to unforeseen circumstances',
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                   ),
                 ],
               ),

@@ -26,7 +26,7 @@ abstract class PaymentRepo {
     required ReservationRequest request,
   });
 
-  Future<Either<Failure, DetailsReservationResponse>> postDetailsReservation({
+  Future<Either<Failure, String>> postDetailsReservation({
     required DetailsReservationRequest request,
   });
 

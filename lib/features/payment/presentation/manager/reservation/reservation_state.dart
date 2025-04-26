@@ -9,11 +9,9 @@ final class ReservationLoading extends ReservationState {}
 
 final class ReservationSuccess extends ReservationState {
   final ReservationResponse reservationResponse;
-  final DetailsReservationResponse detailsReservationResponse;
 
   ReservationSuccess({
     required this.reservationResponse,
-    required this.detailsReservationResponse,
   });
 }
 

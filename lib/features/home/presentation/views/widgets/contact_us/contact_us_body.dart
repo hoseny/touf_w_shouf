@@ -45,7 +45,8 @@ class ContactUsBody extends StatelessWidget {
             onPressed: () {},
             backgroundColor: AppColors.orange,
             text: 'Confirm',
-          )
+          ),
+          16.verticalSpace,
         ],
       ),
     );

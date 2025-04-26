@@ -83,18 +83,18 @@ class PaymentRepoImpl extends PaymentRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
   @override
-  Future<Either<Failure, DetailsReservationResponse>> postDetailsReservation({
+  Future<Either<Failure, String>> postDetailsReservation({
     required DetailsReservationRequest request,
   }) async {
     try {
-      final response = await apiService.post(
+      await apiService.post(
         endpoint: 'add_details/v1',
         contentType: Headers.jsonContentType,
         data: request.toJson(),
       );
-      final detailsReservationResponse = DetailsReservationResponse.fromJson(response);
-      return Right(detailsReservationResponse);
+      return const Right('Success');
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
@@ -112,7 +112,8 @@ class PaymentRepoImpl extends PaymentRepo {
       final response = await apiService.get(
         endpoint: ApiEndpoints.displayPayment(refNo: refNo, ressp: ressp),
       );
-      final displayPaymentModel = DisplayPaymentModel.fromJson(response['items'][0]);
+      final displayPaymentModel =
+          DisplayPaymentModel.fromJson(response['items'][0]);
       return Right(displayPaymentModel);
     } catch (e) {
       if (e is DioException) {
@@ -126,7 +127,8 @@ class PaymentRepoImpl extends PaymentRepo {
   Future<Either<Failure, CheckoutResponse>> checkout({
     required CheckoutRequest request,
   }) async {
-    const String baseUrl = 'https://app.misrtravelco.net:4444/ords/invoice/public/';
+    const String baseUrl =
+        'https://app.misrtravelco.net:4444/ords/invoice/public/';
 
     String checkout({
       required CheckoutRequest checkoutRequest,
