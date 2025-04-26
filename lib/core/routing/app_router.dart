@@ -16,6 +16,7 @@ import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_v
 import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
 import 'package:touf_w_shouf/features/program_details/views/program_details_view.dart';
+import 'package:touf_w_shouf/features/program_details/views/program_video_player_view.dart';
 
 class AppRouter {
   Route<dynamic>? generateRouter(RouteSettings settings) {
@@ -73,6 +74,12 @@ class AppRouter {
       case Routes.complaint:
         return MaterialPageRoute(
           builder: (context) => const ComplaintView(),
+        );
+      case Routes.programVideoPlayer:
+        return MaterialPageRoute(
+          builder: (context) => ProgramVideoPlayer(
+            videoUrl: arguments as String,
+          ),
         );
       case Routes.seeAllView:
         return MaterialPageRoute(

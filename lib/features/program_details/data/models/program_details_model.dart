@@ -12,7 +12,7 @@ class ProgramDetailsModel {
   final String tourIncluding;
   final String tourExcluding;
   final String cancelPolicy;
-  final String videoStatus;
+  final String videoUrl;
 
   ProgramDetailsModel({
     required this.progCode,
@@ -28,13 +28,25 @@ class ProgramDetailsModel {
     required this.tourIncluding,
     required this.tourExcluding,
     required this.cancelPolicy,
-    required this.videoStatus,
+    required this.videoUrl,
   });
 
   factory ProgramDetailsModel.fromJson(Map<String, dynamic> json) {
     final items = (json['items'] as List?)?.firstOrNull ?? {};
     final cancelPolicyList = (json['Cancel Policy'] as List?) ?? [];
     final videoList = (json['Vedio'] as List?) ?? [];
+
+    // Extract the first video's Logo_PATH as URL, or empty string
+    String extractVideoUrl() {
+      if (videoList.isNotEmpty) {
+        final firstVideo = videoList.first;
+        final url = firstVideo['Logo_PATH'];
+        if (url is String && url.isNotEmpty) {
+          return url;
+        }
+      }
+      return '';
+    }
 
     return ProgramDetailsModel(
       progCode: items['PROGCODE'] ?? 0,
@@ -49,8 +61,10 @@ class ProgramDetailsModel {
       overview: items['OverView'] ?? 'Unknown',
       tourIncluding: items['TOUR_INCLUDING'] ?? 'Unknown',
       tourExcluding: items['TOUREXCLUDING'] ?? 'Unknown',
-      cancelPolicy: cancelPolicyList.isNotEmpty ? (cancelPolicyList.first['policy'] ?? 'No Policy') : 'No Policy',
-      videoStatus: videoList.isNotEmpty ? (videoList.first['Status'] ?? 'No Video') : 'No Video',
+      cancelPolicy: cancelPolicyList.isNotEmpty
+          ? (cancelPolicyList.first['policy'] ?? 'No Policy')
+          : 'No Policy',
+      videoUrl: extractVideoUrl(),
     );
   }
 }

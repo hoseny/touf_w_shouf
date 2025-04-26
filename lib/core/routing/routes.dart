@@ -13,4 +13,5 @@ abstract class Routes {
   static const String myReservations = '/myReservations';
   static const String contactUs = '/contactUs';
   static const String complaint = '/complaint';
+  static const String programVideoPlayer = '/programVideoPlayer';
 }

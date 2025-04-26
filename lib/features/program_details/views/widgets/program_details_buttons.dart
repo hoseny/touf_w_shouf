@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
+import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
+import 'package:touf_w_shouf/core/routing/routes.dart';
+import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/icon_text_button.dart';
 
 class ProgramDetailsButtons extends StatelessWidget {
@@ -14,36 +19,50 @@ class ProgramDetailsButtons extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(
-          left: isEnglish(context)? 10.w : 64.w,
-          right: isEnglish(context)? 64.w : 10.w,
+          left: isEnglish(context) ? 10.w : 64.w,
+          right: isEnglish(context) ? 64.w : 10.w,
           top: 10.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                IconTextButton(
-                  svgPath: Assets.heart,
-                  text: isEnglish(context)
-                      ? 'Add To Wishlist'
-                      : 'اضافة للمفضلة',
-                  onTap: () {},
-                ),
-                const Spacer(),
-                IconTextButton(
-                  svgPath: Assets.map,
-                  text: isEnglish(context) ? 'Map' : 'خريطة',
-                  onTap: () {},
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     IconTextButton(
+            //       svgPath: Assets.heart,
+            //       text: isEnglish(context)
+            //           ? 'Add To Wishlist'
+            //           : 'اضافة للمفضلة',
+            //       onTap: () {},
+            //     ),
+            //     const Spacer(),
+            //     IconTextButton(
+            //       svgPath: Assets.map,
+            //       text: isEnglish(context) ? 'Map' : 'خريطة',
+            //       onTap: () {},
+            //     ),
+            //   ],
+            // ),
             10.verticalSpace,
             IconTextButton(
               svgPath: Assets.play,
               text: isEnglish(context) ? 'Watch Video' : 'مشاهدة الفيديو',
               lPadding: 4,
-              onTap: () {},
+              onTap: () {
+                final String videoUrl = context
+                    .read<ProgramDetailsCubit>()
+                    .state
+                    .programDetails!
+                    .videoUrl;
+                if (videoUrl.isEmpty) {
+                  ToastHelper.showErrorToast('No video available');
+                  return;
+                }
+                context.pushNamed(
+                  Routes.programVideoPlayer,
+                  arguments: videoUrl,
+                );
+              },
             ),
           ],
         ),

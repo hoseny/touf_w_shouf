@@ -47,7 +47,7 @@ class ProgramDetailsRepoImpl extends ProgramDetailsRepo {
               tourIncluding: 'No inclusions specified',
               tourExcluding: 'No exclusions specified',
               cancelPolicy: '',
-              videoStatus: '',
+              videoUrl: '',
             );
 
       return Right(programDetails);
