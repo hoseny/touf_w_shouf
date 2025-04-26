@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_state.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/see_all/see_all_list_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_state.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/see_all/see_all_list_view.dart';
 
 class SeeAllDayUse extends StatelessWidget {
   const SeeAllDayUse({super.key});

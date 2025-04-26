@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_state.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/program_list_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_state.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/program_list_view.dart';
 
 class DayUseProgramsBlocBuilder extends StatelessWidget {
   const DayUseProgramsBlocBuilder({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/outings_body.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/outings_body.dart';
 
 class HomeTabContent extends StatelessWidget {
   const HomeTabContent({super.key});

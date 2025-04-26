@@ -19,6 +19,7 @@ class Assets {
   static const String partner1 = 'assets/images/partner1.png';
   static const String partner2 = 'assets/images/partner2.png';
   static const String partner3 = 'assets/images/partner3.png';
+  static const String partner4 = 'assets/images/partner4.jpeg';
   static const String visa = 'assets/images/visa.png';
   static const String masterCard = 'assets/images/master.png';
   static const String payPal = 'assets/images/paypal.png';

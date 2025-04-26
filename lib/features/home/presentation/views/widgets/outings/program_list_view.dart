@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/program_list_view_item.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/program_list_view_item.dart';
 
 class ProgramListView extends StatelessWidget {
   const ProgramListView({

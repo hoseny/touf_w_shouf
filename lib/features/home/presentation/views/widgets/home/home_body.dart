@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/home_header.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/home_tabs_content.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_header.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_tabs_content.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});

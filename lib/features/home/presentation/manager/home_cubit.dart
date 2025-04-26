@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_state.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRepo) : super(const HomeState());

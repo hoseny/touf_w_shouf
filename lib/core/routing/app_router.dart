@@ -7,12 +7,13 @@ import 'package:touf_w_shouf/features/auth/presentation/views/reset_password_vie
 import 'package:touf_w_shouf/features/auth/presentation/views/signup_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/validate_otp_view.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
-import 'package:touf_w_shouf/features/home/views/home_view.dart';
-import 'package:touf_w_shouf/features/home/views/see_all_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/home_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/see_all_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
 import 'package:touf_w_shouf/features/program_details/views/program_details_view.dart';
+
 
 class AppRouter {
   Route<dynamic>? generateRouter(RouteSettings settings) {
@@ -28,8 +29,7 @@ class AppRouter {
       case Routes.signUpView:
         return MaterialPageRoute(builder: (context) => const SignupView());
       case Routes.forgotPasswordView:
-        return MaterialPageRoute(
-            builder: (context) => const ForgotPasswordView());
+        return MaterialPageRoute(builder: (context) => const ForgotPasswordView());
       case Routes.resetPasswordView:
         final args = arguments as Map<String, dynamic>?;
         if (args != null &&

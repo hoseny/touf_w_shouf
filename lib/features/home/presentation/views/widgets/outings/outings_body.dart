@@ -6,11 +6,11 @@ import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
 import 'package:touf_w_shouf/core/routing/args_model/sell_all_model.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/active_program_bloc_builder.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/advertisements.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/day_use_programs_bloc_builder.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/partners.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/outings/program_section_header.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/active_program_bloc_builder.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/advertisements.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/day_use_programs_bloc_builder.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/partners.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/outings/program_section_header.dart';
 
 class OutingsBody extends StatelessWidget {
   const OutingsBody({super.key});

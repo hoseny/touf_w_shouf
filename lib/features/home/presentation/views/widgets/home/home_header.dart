@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/home_carousel.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/home_tabs.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_carousel.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_tabs.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({

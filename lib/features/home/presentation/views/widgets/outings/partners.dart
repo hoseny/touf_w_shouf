@@ -18,6 +18,7 @@ class Partners extends StatelessWidget {
           Expanded(child: Image.asset(Assets.partner1)),
           Expanded(child: Image.asset(Assets.partner2)),
           Expanded(child: Image.asset(Assets.partner3)),
+          Expanded(child: Image.asset(Assets.partner4)),
         ],
       ),
     );

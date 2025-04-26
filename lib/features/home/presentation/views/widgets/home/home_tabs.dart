@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/locale_keys.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
-import 'package:touf_w_shouf/features/home/views/manager/home_cubit.dart';
-import 'package:touf_w_shouf/features/home/views/widgets/home/custom_home_tab.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/custom_home_tab.dart';
 
 class HomeTabs extends StatelessWidget {
   const HomeTabs({super.key});
