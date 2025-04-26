@@ -4,6 +4,7 @@ import 'package:touf_w_shouf/core/di/service_locator.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_app_bar.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_body.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/home/home_drawer.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -19,8 +20,11 @@ class HomeView extends StatelessWidget {
       },
       child: const Scaffold(
         appBar: HomeAppBar(),
+        drawer: HomeDrawer(),
         body: HomeBody(),
       ),
     );
   }
 }
+
+

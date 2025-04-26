@@ -93,7 +93,6 @@ class PaymentRepoImpl extends PaymentRepo {
     try {
       final response = await apiService.post(
         endpoint: 'add_details/v1',
-        customBaseUrl: 'https://app.misrtravelco.net:4444/ords/invoice/',
         contentType: Headers.jsonContentType,
         data: request.toJson(),
       );

@@ -252,6 +252,11 @@ abstract class TextStyles {
     color: AppColors.orange,
     fontWeight: FontWeightHelper.medium,
   );
+  static TextStyle font16OrangeMedium = baseStyle(
+    fontSize: 16.sp,
+    color: AppColors.orange,
+    fontWeight: FontWeightHelper.medium,
+  );
   static TextStyle error = baseStyle(
     fontSize: 18.sp,
     color: AppColors.error,

@@ -16,6 +16,16 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  void updateReservationTab(int index) {
+    if (index != state.reservationTabIndex) {
+      emit(
+        state.copyWith(
+          reservationTabIndex: index,
+        ),
+      );
+    }
+  }
+
   Future<void> getActivePrograms() async {
     emit(
       state.copyWith(
@@ -57,6 +67,52 @@ class HomeCubit extends Cubit<HomeState> {
         state.copyWith(
           dayUseProgramStatus: DayUseProgramStatus.success,
           dayUsePrograms: dayUsePrograms,
+        ),
+      ),
+    );
+  }
+
+  Future<void> getPaidReservations() async {
+    emit(
+      state.copyWith(
+        paidReservationStatus: PaidReservationStatus.loading,
+      ),
+    );
+    final response = await homeRepo.getPaidReservations();
+    response.fold(
+      (failure) => emit(
+        state.copyWith(
+          paidReservationStatus: PaidReservationStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (paidReservations) => emit(
+        state.copyWith(
+          paidReservationStatus: PaidReservationStatus.success,
+          paidReservations: paidReservations,
+        ),
+      ),
+    );
+  }
+
+  Future<void> getUnpaidReservations() async {
+    emit(
+      state.copyWith(
+        unPaidReservationStatus: UnPaidReservationStatus.loading,
+      ),
+    );
+    final response = await homeRepo.getUnpaidReservations();
+    response.fold(
+      (failure) => emit(
+        state.copyWith(
+          unPaidReservationStatus: UnPaidReservationStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (unPaidReservations) => emit(
+        state.copyWith(
+          unPaidReservationStatus: UnPaidReservationStatus.success,
+          unPaidReservations: unPaidReservations,
         ),
       ),
     );

@@ -10,4 +10,5 @@ abstract class Routes {
   static const String seeAllView = '/seeAllView';
   static const String programDetailsView = '/programDetailsView';
   static const String paymentView = '/paymentView';
+  static const String myReservations = '/myReservations';
 }
