@@ -49,7 +49,7 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<ReservationModel>>> getPaidReservations() async {
     try {
-      final int custCode = SharedPref.getInt(key: SharedPrefKeys.custCode);
+      final int custCode = SharedPref.getInt(key: SharedPrefKeys.custCode)!;
       final response = await apiService.get(
         endpoint: ApiEndpoints.paidReservations(custCode: custCode.toString()),
       );
@@ -66,7 +66,7 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<ReservationModel>>> getUnpaidReservations() async {
     try {
-      final int custCode = SharedPref.getInt(key: SharedPrefKeys.custCode);
+      final int custCode = SharedPref.getInt(key: SharedPrefKeys.custCode)!;
       final response = await apiService.get(
         endpoint: ApiEndpoints.unpaidReservations(custCode: custCode.toString()),
       );

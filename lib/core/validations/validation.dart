@@ -65,11 +65,11 @@ class Validation {
           ? 'Password is required.'
           : 'كلمة المرور مطلوبة.';
     }
-    if (value.length < 8) {
-      return isEnglish(context)
-          ? 'Password should be at least 8 characters long.'
-          : 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
-    }
+    // if (value.length < 8) {
+    //   return isEnglish(context)
+    //       ? 'Password should be at least 8 characters long.'
+    //       : 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
+    // }
     return null;
   }
 
@@ -94,11 +94,11 @@ class Validation {
           ? 'Password is required.'
           : 'كلمة المرور مطلوبة.';
     }
-    if (value.length < 8) {
-      return isEnglish(context)
-          ? 'Password should be at least 8 characters long.'
-          : 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
-    }
+    // if (value.length < 8) {
+    //   return isEnglish(context)
+    //       ? 'Password should be at least 8 characters long.'
+    //       : 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.';
+    // }
     return null;
   }
 

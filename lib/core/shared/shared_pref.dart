@@ -53,9 +53,9 @@ class SharedPref {
   }
 
   /// Gets an int value from SharedPreferences with given [key].
-  static int getInt({required String key}) {
+  static int? getInt({required String key}) {
     log('SharedPrefHelper : getInt with key : $key');
-    return _sharedPreferences.getInt(key) ?? 0;
+    return _sharedPreferences.getInt(key);
   }
 
   /// Gets a String value from SharedPreferences with given [key].

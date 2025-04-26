@@ -3,6 +3,8 @@ import 'package:touf_w_shouf/core/helpers/extensions.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref.dart';
+import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -26,7 +28,12 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyles.font16BlackMedium,
             ),
             onTap: () {
-              context.pushNamed(Routes.myReservations);
+              final int? custCode = SharedPref.getInt(key: SharedPrefKeys.custCode);
+              if (custCode != null) {
+                context.pushNamed(Routes.myReservations);
+              } else {
+                context.pushNamed(Routes.loginView);
+              }
             },
           ),
           ListTile(
@@ -34,12 +41,18 @@ class HomeDrawer extends StatelessWidget {
               'Contact Us',
               style: TextStyles.font16BlackMedium,
             ),
+            onTap: () {
+              context.pushNamed(Routes.contactUs);
+            },
           ),
           ListTile(
             title: Text(
               'Complaints & Suggestions',
               style: TextStyles.font16BlackMedium,
             ),
+            onTap: () {
+              context.pushNamed(Routes.complaint);
+            },
           ),
         ],
       ),

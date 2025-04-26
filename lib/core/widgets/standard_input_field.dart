@@ -5,7 +5,7 @@ import 'package:touf_w_shouf/core/resources/styles.dart';
 
 class StandardInputField extends StatelessWidget {
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool isPassword;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -17,7 +17,7 @@ class StandardInputField extends StatelessWidget {
   const StandardInputField({
     super.key,
     required this.hintText,
-    required this.controller,
+     this.controller,
     required this.isPassword,
     this.validator,
     this.onChanged,

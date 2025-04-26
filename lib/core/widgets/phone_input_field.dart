@@ -4,7 +4,7 @@ import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 class PhoneInputField extends StatelessWidget {
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final String countryFlag;
@@ -14,7 +14,7 @@ class PhoneInputField extends StatelessWidget {
   const PhoneInputField({
     super.key,
     required this.hintText,
-    required this.controller,
+     this.controller,
     this.validator,
     this.onChanged,
     required this.countryFlag,

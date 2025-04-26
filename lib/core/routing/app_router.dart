@@ -7,6 +7,8 @@ import 'package:touf_w_shouf/features/auth/presentation/views/reset_password_vie
 import 'package:touf_w_shouf/features/auth/presentation/views/signup_view.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/validate_otp_view.dart';
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/complaint_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/contact_us_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/home_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/my_reservations_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/see_all_view.dart';
@@ -63,6 +65,14 @@ class AppRouter {
       case Routes.myReservations:
         return MaterialPageRoute(
           builder: (context) => const MyReservationsView(),
+        );
+      case Routes.contactUs:
+        return MaterialPageRoute(
+          builder: (context) => const ContactUsView(),
+        );
+      case Routes.complaint:
+        return MaterialPageRoute(
+          builder: (context) => const ComplaintView(),
         );
       case Routes.seeAllView:
         return MaterialPageRoute(

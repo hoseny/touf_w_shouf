@@ -6,7 +6,7 @@ import 'standard_input_field.dart';
 class AppTextFormField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool isPhoneField;
   final ValueChanged<String>? onChanged;
@@ -17,7 +17,7 @@ class AppTextFormField extends StatefulWidget {
     super.key,
     required this.hintText,
     this.isPassword = false,
-    required this.controller,
+     this.controller,
     this.validator,
     this.isPhoneField = false,
     this.onChanged,

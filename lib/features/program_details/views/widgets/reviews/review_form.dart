@@ -154,7 +154,7 @@ class _ReviewFormState extends State<ReviewForm> {
     final reviewRequest = InsertReviewRequest(
       review: reviewController.text.trim(),
       rate: userRating.toString(),
-      cust: SharedPref.getInt(key: SharedPrefKeys.custCode),
+      cust: SharedPref.getInt(key: SharedPrefKeys.custCode)!,
     );
 
     context.read<ProgramDetailsCubit>().insertReview(reviewRequest);
