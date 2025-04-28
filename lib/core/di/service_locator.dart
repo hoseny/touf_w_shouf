@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:geideapay/common/geidea.dart';
 import 'package:geideapay/common/server_environments.dart';
 import 'package:get_it/get_it.dart';
+import 'package:touf_w_shouf/core/helpers/pdf_service.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
 import 'package:touf_w_shouf/core/networking/dio_factory.dart';
 import 'package:touf_w_shouf/features/auth/data/repos/auth_repo.dart';
@@ -39,6 +40,10 @@ Future<void> setupServiceLocator() async {
   // Register Geidea plugin
   getIt.registerLazySingleton<GeideapayPlugin>(
     () => _initializeGeideaPlugin(),
+  );
+  // Register Pdf Serivice
+  getIt.registerLazySingleton<PdfService>(
+        () => PdfService(),
   );
   // <---------------------------------------------------------------------------->
   // Features

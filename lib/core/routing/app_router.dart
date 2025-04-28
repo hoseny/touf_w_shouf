@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:touf_w_shouf/core/routing/args_model/pdf_args_model.dart';
 import 'package:touf_w_shouf/core/routing/args_model/sell_all_model.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/auth/presentation/views/forgot_password_view.dart';
@@ -12,6 +14,7 @@ import 'package:touf_w_shouf/features/home/presentation/views/contact_us_view.da
 import 'package:touf_w_shouf/features/home/presentation/views/home_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/my_reservations_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/see_all_view.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/pdf_preview_screen.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
@@ -70,6 +73,12 @@ class AppRouter {
       case Routes.contactUs:
         return MaterialPageRoute(
           builder: (context) => const ContactUsView(),
+        );
+      case Routes.pdfPreviewScreen:
+        return MaterialPageRoute(
+          builder: (context) => PdfPreviewScreen(
+            pdfModel: arguments as PdfArgsModel,
+          ),
         );
       case Routes.complaint:
         return MaterialPageRoute(

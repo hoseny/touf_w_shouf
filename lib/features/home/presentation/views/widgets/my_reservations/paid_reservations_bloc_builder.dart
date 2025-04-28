@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
+import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_state.dart';
@@ -22,9 +23,19 @@ class PaidReservationsBlocBuilder extends StatelessWidget {
             ),
           );
         } else if (state.paidReservationStatus == PaidReservationStatus.success) {
-          return ReservationsList(
-            reservations: state.paidReservations!,
-          );
+          return state.paidReservations!.isEmpty
+              ? Expanded(
+                  child: Center(
+                    child: Text(
+                      'No paid reservations',
+                      style: TextStyles.font18BlackMedium,
+                    ),
+                  ),
+                )
+              : ReservationsList(
+                  reservations: state.paidReservations!,
+                  isPaid: true,
+                );
         } else if (state.paidReservationStatus == PaidReservationStatus.failure) {
           return Expanded(
             child: Center(

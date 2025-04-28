@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
+import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/failure_state.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_state.dart';
@@ -22,9 +23,19 @@ class UnpaidReservationsBlocBuilder extends StatelessWidget {
             ),
           );
         } else if (state.unPaidReservationStatus == UnPaidReservationStatus.success) {
-          return ReservationsList(
-            reservations: state.unPaidReservations!,
-          );
+          return state.unPaidReservations!.isEmpty
+              ? Expanded(
+                  child: Center(
+                    child: Text(
+                      'No unpaid reservations',
+                      style: TextStyles.font18BlackMedium,
+                    ),
+                  ),
+                )
+              : ReservationsList(
+                  reservations: state.unPaidReservations!,
+                  isPaid: false,
+                );
         } else if (state.unPaidReservationStatus == UnPaidReservationStatus.failure) {
           return Expanded(
             child: Center(

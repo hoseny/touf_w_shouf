@@ -59,7 +59,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     final titleText = isLoggedIn
         ? (isEnglish(context) ? 'Welcome, $name' : 'اهلا بك $name')
-        : 'قم بتسجيل الدخول';
+        : (isEnglish(context) ? 'Please login' : 'قم بتسجيل الدخول');
 
     final buttonText = isLoggedIn
         ? (isEnglish(context) ? 'Logout' : 'تسجيل الخروج')
@@ -68,9 +68,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     void Function() buttonAction = isLoggedIn
         ? () => _logout(context)
         : () {
-      Navigator.of(context).pop();
-      Navigator.of(context).pushNamed(Routes.loginView);
-    };
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed(Routes.loginView);
+          };
 
     showDialog(
       context: context,

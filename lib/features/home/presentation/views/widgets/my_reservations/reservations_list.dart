@@ -5,14 +5,18 @@ import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
 import 'package:touf_w_shouf/core/widgets/app_cached_network_image.dart';
 import 'package:touf_w_shouf/features/home/data/models/reservation_model.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/paid_buttons.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/un_paid_buttons.dart';
 
 class ReservationsList extends StatelessWidget {
   const ReservationsList({
     super.key,
     required this.reservations,
+    required this.isPaid,
   });
 
   final List<ReservationModel> reservations;
+  final bool isPaid;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class ReservationsList extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: const [
                 BoxShadow(
-                  color: Colors.black38,
+                  color: Colors.black12,
                   blurRadius: 5,
                   offset: Offset(0, 4),
                 ),
@@ -41,7 +45,7 @@ class ReservationsList extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 4.h,
+              spacing: 6.h,
               children: [
                 AppCachedNetworkImage(
                   imgUrl: reservation.imgPath,
@@ -77,6 +81,13 @@ class ReservationsList extends StatelessWidget {
                   title: 'Status: ',
                   value: reservation.payMentStatus,
                 ),
+                isPaid
+                    ? PaidButtons(
+                        reservation: reservation,
+                      )
+                    : UnPaidButtons(
+                        reservation: reservation,
+                      ),
               ],
             ),
           );
