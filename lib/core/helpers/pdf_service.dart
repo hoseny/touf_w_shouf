@@ -10,7 +10,9 @@ import 'package:touf_w_shouf/core/shared/shared_pref.dart';
 import 'package:touf_w_shouf/core/shared/shared_pref_keys.dart';
 import 'package:touf_w_shouf/features/home/data/models/invoice_pdf_model.dart';
 import 'package:touf_w_shouf/features/home/data/models/reservation_model.dart';
+import 'package:touf_w_shouf/features/home/data/models/voucher_model.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/invoice_pdf.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/voucher_pdf.dart';
 
 class PdfService {
   final pdf = pw.Document();
@@ -18,9 +20,10 @@ class PdfService {
   Future<void> createPDF() async {
     pdf.addPage(
       pw.Page(
-        build: (pw.Context context) => pw.Center(
-          child: pw.Text('Hello World!'),
-        ),
+        build: (pw.Context context) =>
+            pw.Center(
+              child: pw.Text('Hello World!'),
+            ),
       ),
     );
   }
@@ -65,10 +68,28 @@ class PdfService {
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.symmetric(horizontal: 40, vertical: 24),
-        build: (_) => InvoicePdf(
-          data: invoicePdfData,
-        ),
+        build: (_) =>
+            InvoicePdf(
+              data: invoicePdfData,
+            ),
       ),
     );
   }
+
+  Future<void> createVoucherPdf({ required Voucher voucher }) async {
+    pdf.addPage(
+      pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: const pw.EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+        footer: (context) => pw.Align(
+          alignment: pw.Alignment.centerRight,
+          child: pw.Text('Page ${context.pageNumber} of ${context.pagesCount}'),
+        ),
+        build: (context) => [
+          VoucherPdf(voucher: voucher),
+        ],
+      ),
+    );
+  }
+
 }

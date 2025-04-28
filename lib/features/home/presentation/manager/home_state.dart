@@ -1,27 +1,41 @@
 import 'package:touf_w_shouf/features/home/data/models/program_model.dart';
 import 'package:touf_w_shouf/features/home/data/models/reservation_model.dart';
+import 'package:touf_w_shouf/features/home/data/models/voucher_model.dart';
 
 enum ProgramsStatus { initial, loading, success, failure }
+
 enum DayUseProgramStatus { initial, loading, success, failure }
+
 enum PaidReservationStatus { initial, loading, success, failure }
+
 enum UnPaidReservationStatus { initial, loading, success, failure }
 
-class HomeState  {
+enum VoucherStatus { initial, loading, success, failure }
+
+class HomeState {
   final int tabIndex;
   final int reservationTabIndex;
   final String errorMessage;
+
   // Active programs States
   final ProgramsStatus programsStatus;
   final List<ProgramModel>? programs;
+
   // Day use programs States
   final DayUseProgramStatus dayUseProgramStatus;
   final List<ProgramModel>? dayUsePrograms;
+
   // Paid Reservations States
   final PaidReservationStatus paidReservationStatus;
   final List<ReservationModel>? paidReservations;
+
   // UnPaid Reservations States
   final UnPaidReservationStatus unPaidReservationStatus;
   final List<ReservationModel>? unPaidReservations;
+
+  // Voucher States
+  final VoucherStatus voucherStatus;
+  final Voucher? voucher;
 
   const HomeState({
     this.tabIndex = 0,
@@ -39,6 +53,9 @@ class HomeState  {
     // UnPaid Reservations States
     this.unPaidReservationStatus = UnPaidReservationStatus.initial,
     this.unPaidReservations,
+    // Voucher States
+    this.voucherStatus = VoucherStatus.initial,
+    this.voucher,
   });
 
   HomeState copyWith({
@@ -57,6 +74,9 @@ class HomeState  {
     // UnPaid Reservations States
     UnPaidReservationStatus? unPaidReservationStatus,
     List<ReservationModel>? unPaidReservations,
+    // Voucher States
+    VoucherStatus? voucherStatus,
+    Voucher? voucher,
   }) {
     return HomeState(
       tabIndex: tabIndex ?? this.tabIndex,
@@ -69,11 +89,15 @@ class HomeState  {
       dayUseProgramStatus: dayUseProgramStatus ?? this.dayUseProgramStatus,
       dayUsePrograms: dayUsePrograms ?? this.dayUsePrograms,
       // Paid Reservations States
-      paidReservationStatus: paidReservationStatus ?? this.paidReservationStatus,
+      paidReservationStatus:
+          paidReservationStatus ?? this.paidReservationStatus,
       paidReservations: paidReservations ?? this.paidReservations,
       // UnPaid Reservations States
       unPaidReservationStatus: unPaidReservationStatus ?? this.unPaidReservationStatus,
       unPaidReservations: unPaidReservations ?? this.unPaidReservations,
+      // Voucher States
+      voucherStatus: voucherStatus ?? this.voucherStatus,
+      voucher: voucher ?? this.voucher,
     );
   }
 }

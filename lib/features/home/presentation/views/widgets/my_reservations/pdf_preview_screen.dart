@@ -38,10 +38,9 @@ class PdfPreviewScreen extends StatelessWidget {
         loadingWidget: const CircularProgressIndicator(
           color: Color(0xFF292A2D),
         ),
-        pdfPreviewPageDecoration: BoxDecoration(
+        pdfPreviewPageDecoration: const BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 5,

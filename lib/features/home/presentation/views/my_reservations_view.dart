@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/di/service_locator.dart';
+import 'package:touf_w_shouf/features/home/data/repos/home_repo.dart';
 import 'package:touf_w_shouf/features/home/presentation/manager/home_cubit.dart';
+import 'package:touf_w_shouf/features/home/presentation/manager/voucher_cubit/voucher_cubit.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/my_reservations_body.dart';
 
 class MyReservationsView extends StatelessWidget {
@@ -10,12 +12,21 @@ class MyReservationsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) {
-        final HomeCubit cubit = getIt.get<HomeCubit>();
-        cubit.getPaidReservations();
-        return cubit;
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) {
+            final HomeCubit cubit = getIt.get<HomeCubit>();
+            cubit.getPaidReservations();
+            return cubit;
+          },
+        ),
+        BlocProvider(
+          create: (context) => VoucherCubit(
+            getIt.get<HomeRepo>(),
+          ),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,

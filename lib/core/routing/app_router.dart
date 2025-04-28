@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:touf_w_shouf/core/routing/args_model/pdf_args_model.dart';
 import 'package:touf_w_shouf/core/routing/args_model/sell_all_model.dart';
 import 'package:touf_w_shouf/core/routing/routes.dart';
@@ -27,16 +26,25 @@ class AppRouter {
 
     switch (settings.name) {
       case Routes.splashView:
-        return MaterialPageRoute(builder: (context) => const SplashView());
+        return MaterialPageRoute(
+          builder: (context) => const SplashView(),
+        );
       case Routes.onboardingView:
-        return MaterialPageRoute(builder: (context) => const OnboardingView());
+        return MaterialPageRoute(
+          builder: (context) => const OnboardingView(),
+        );
       case Routes.loginView:
-        return MaterialPageRoute(builder: (context) => const LoginView());
+        return MaterialPageRoute(
+          builder: (context) => const LoginView(),
+        );
       case Routes.signUpView:
-        return MaterialPageRoute(builder: (context) => const SignupView());
+        return MaterialPageRoute(
+          builder: (context) => const SignupView(),
+        );
       case Routes.forgotPasswordView:
         return MaterialPageRoute(
-            builder: (context) => const ForgotPasswordView());
+          builder: (context) => const ForgotPasswordView(),
+        );
       case Routes.resetPasswordView:
         final args = arguments as Map<String, dynamic>?;
         if (args != null &&

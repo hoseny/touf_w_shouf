@@ -2,7 +2,8 @@ import 'package:touf_w_shouf/features/auth/data/models/login_models/login_reques
 import 'package:touf_w_shouf/features/auth/data/models/reset_password_models/reset_password_request.dart';
 
 abstract class ApiEndpoints {
-  static const String baseUrl = 'https://app.misrtravelco.net:4444/ords/invoice/';
+  static const String baseUrl =
+      'https://app.misrtravelco.net:4444/ords/invoice/';
   static const String signUp = 'programes/client/';
 
   static String login({required LoginRequest loginRequest}) {
@@ -107,5 +108,11 @@ abstract class ApiEndpoints {
     required String custCode,
   }) {
     return 'public/getReservation?CustomerID=$custCode';
+  }
+
+  static String getVoucher({
+    required String resNo,
+  }) {
+    return 'voucher/v1?ResNO=$resNo';
   }
 }
