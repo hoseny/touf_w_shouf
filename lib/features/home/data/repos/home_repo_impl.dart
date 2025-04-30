@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:touf_w_shouf/core/helpers/wish_list_service.dart';
 import 'package:touf_w_shouf/core/networking/api_endpoints.dart';
 import 'package:touf_w_shouf/core/networking/api_failure.dart';
 import 'package:touf_w_shouf/core/networking/api_service.dart';
@@ -100,6 +101,16 @@ class HomeRepoImpl extends HomeRepo {
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<String, List<ProgramModel>>> getWishList() async {
+    try {
+      final List<ProgramModel> myWishlist = await WishlistService.loadWishlist();
+      return Right(myWishlist);
+    } catch (e) {
+      return Left(e.toString());
     }
   }
 }

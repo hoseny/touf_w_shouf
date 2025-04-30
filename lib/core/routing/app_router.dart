@@ -14,6 +14,7 @@ import 'package:touf_w_shouf/features/home/presentation/views/home_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/my_reservations_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/see_all_view.dart';
 import 'package:touf_w_shouf/features/home/presentation/views/widgets/my_reservations/pdf_preview_screen.dart';
+import 'package:touf_w_shouf/features/home/presentation/views/wishlist_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:touf_w_shouf/features/onboarding/presentation/views/splash_view.dart';
 import 'package:touf_w_shouf/features/payment/presentation/views/payment_view.dart';
@@ -103,6 +104,10 @@ class AppRouter {
           builder: (context) => SeeAllView(
             seeAllModel: arguments as SeeAllModel,
           ),
+        );
+      case Routes.wishList:
+        return MaterialPageRoute(
+          builder: (context) => const WishlistView(),
         );
       case Routes.programDetailsView:
         if (arguments is ProgramModel) {

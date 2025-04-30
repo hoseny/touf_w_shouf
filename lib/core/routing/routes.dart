@@ -15,4 +15,5 @@ abstract class Routes {
   static const String complaint = '/complaint';
   static const String programVideoPlayer = '/programVideoPlayer';
   static const String pdfPreviewScreen = '/pdfPreviewScreen';
+  static const String wishList = '/wishList';
 }

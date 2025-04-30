@@ -12,6 +12,8 @@ enum UnPaidReservationStatus { initial, loading, success, failure }
 
 enum VoucherStatus { initial, loading, success, failure }
 
+enum WishListStatus { initial, loading, success, failure }
+
 class HomeState {
   final int tabIndex;
   final int reservationTabIndex;
@@ -37,6 +39,10 @@ class HomeState {
   final VoucherStatus voucherStatus;
   final Voucher? voucher;
 
+  // WishList States
+  final WishListStatus wishListStatus;
+  final List<ProgramModel>? wishList;
+
   const HomeState({
     this.tabIndex = 0,
     this.reservationTabIndex = 0,
@@ -56,6 +62,9 @@ class HomeState {
     // Voucher States
     this.voucherStatus = VoucherStatus.initial,
     this.voucher,
+    // WishList States
+    this.wishListStatus = WishListStatus.initial,
+    this.wishList,
   });
 
   HomeState copyWith({
@@ -77,6 +86,9 @@ class HomeState {
     // Voucher States
     VoucherStatus? voucherStatus,
     Voucher? voucher,
+    // WishList States
+    WishListStatus? wishListStatus,
+    List<ProgramModel>? wishList,
   }) {
     return HomeState(
       tabIndex: tabIndex ?? this.tabIndex,
@@ -93,11 +105,15 @@ class HomeState {
           paidReservationStatus ?? this.paidReservationStatus,
       paidReservations: paidReservations ?? this.paidReservations,
       // UnPaid Reservations States
-      unPaidReservationStatus: unPaidReservationStatus ?? this.unPaidReservationStatus,
+      unPaidReservationStatus:
+          unPaidReservationStatus ?? this.unPaidReservationStatus,
       unPaidReservations: unPaidReservations ?? this.unPaidReservations,
       // Voucher States
       voucherStatus: voucherStatus ?? this.voucherStatus,
       voucher: voucher ?? this.voucher,
+      // WishList States
+      wishListStatus: wishListStatus ?? this.wishListStatus,
+      wishList: wishList ?? this.wishList,
     );
   }
 }

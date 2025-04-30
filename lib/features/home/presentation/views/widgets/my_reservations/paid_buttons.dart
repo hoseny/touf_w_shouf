@@ -23,7 +23,6 @@ class PaidButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isVoucherPrinted = false;
     return Column(
       spacing: 6.h,
       children: [
@@ -31,30 +30,26 @@ class PaidButtons extends StatelessWidget {
           onPressed: () => _printInvoice(context, reservation),
           text: 'Print invoice',
         ),
-        BlocListener<VoucherCubit, VoucherState>(
-          listener: (context, state) {
-            if (state is VoucherSuccess && !isVoucherPrinted) {
-              _printVoucher(
-                context,
-                state.voucher,
-              );
-              isVoucherPrinted = true;
-            }
-            if (state is VoucherFailure) {
-              ToastHelper.showErrorToast(state.message);
-            }
-          },
-          child: AppButton(
+        BlocConsumer<VoucherCubit, VoucherState>(listener: (context, state) {
+          if (state is VoucherSuccess) {
+            _printVoucher(
+              context,
+              state.voucher,
+            );
+          }
+          if (state is VoucherFailure) {
+            ToastHelper.showErrorToast(state.message);
+          }
+        }, builder: (context, state) {
+          return AppButton(
             onPressed: () {
-              context
-                  .read<VoucherCubit>()
-                  .getVoucher(resNo: reservation.reservationNo.toString());
+              context.read<VoucherCubit>().getVoucher(resNo: reservation.reservationNo.toString());
             },
             text: 'Print Voucher',
             backgroundColor: AppColors.orange,
-            isLoading: context.watch<VoucherCubit>().state is VoucherLoading,
-          ),
-        ),
+            isLoading: state is VoucherLoading,
+          );
+        }),
       ],
     );
   }

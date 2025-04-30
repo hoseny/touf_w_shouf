@@ -118,5 +118,26 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-
+  Future<void> getWishList() async {
+    emit(
+      state.copyWith(
+        wishListStatus: WishListStatus.loading,
+      ),
+    );
+    final response = await homeRepo.getWishList();
+    response.fold(
+      (failure) => emit(
+        state.copyWith(
+          wishListStatus: WishListStatus.failure,
+          errorMessage: failure,
+        ),
+      ),
+      (wishList) => emit(
+        state.copyWith(
+          wishListStatus: WishListStatus.success,
+          wishList: wishList,
+        ),
+      ),
+    );
+  }
 }

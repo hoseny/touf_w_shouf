@@ -28,7 +28,8 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyles.font16BlackMedium,
             ),
             onTap: () {
-              final int? custCode = SharedPref.getInt(key: SharedPrefKeys.custCode);
+              final int? custCode =
+                  SharedPref.getInt(key: SharedPrefKeys.custCode);
               if (custCode != null) {
                 context.pushNamed(Routes.myReservations);
               } else {
@@ -52,6 +53,15 @@ class HomeDrawer extends StatelessWidget {
             ),
             onTap: () {
               context.pushNamed(Routes.complaint);
+            },
+          ),
+          ListTile(
+            title: Text(
+              'My WishList',
+              style: TextStyles.font16BlackMedium,
+            ),
+            onTap: () {
+              context.pushNamed(Routes.wishList);
             },
           ),
         ],

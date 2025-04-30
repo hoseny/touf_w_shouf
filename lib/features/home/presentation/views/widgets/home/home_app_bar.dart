@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:touf_w_shouf/core/helpers/helpers_methods.dart';
 import 'package:touf_w_shouf/core/helpers/toast_helper.dart';
 import 'package:touf_w_shouf/core/networking/dio_factory.dart';
+import 'package:touf_w_shouf/core/helpers/wish_list_service.dart';
 import 'package:touf_w_shouf/core/resources/assets.dart';
 import 'package:touf_w_shouf/core/resources/colors.dart';
 import 'package:touf_w_shouf/core/resources/styles.dart';
@@ -108,6 +109,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     SharedPref.removeData(key: SharedPrefKeys.customerEmail);
     SharedPref.removeData(key: SharedPrefKeys.custCode);
     SharedPref.removeData(key: SharedPrefKeys.telephone);
+    WishlistService.clearWishlist();
     DioFactory.clearAuthToken();
     ToastHelper.showSuccessToast(
       isEnglish(context) ? 'Logout successfully' : 'تم تسجيل الخروج بنجاح',

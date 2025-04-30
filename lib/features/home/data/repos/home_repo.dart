@@ -14,4 +14,6 @@ abstract class HomeRepo {
   Future<Either<Failure, List<ReservationModel>>> getUnpaidReservations();
 
   Future<Either<Failure, Voucher>> getVoucher({required String resNo});
+
+  Future<Either<String, List<ProgramModel>>> getWishList();
 }

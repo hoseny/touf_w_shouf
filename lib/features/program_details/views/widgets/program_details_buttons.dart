@@ -9,6 +9,8 @@ import 'package:touf_w_shouf/core/routing/routes.dart';
 import 'package:touf_w_shouf/features/program_details/views/manager/program_details_cubit.dart';
 import 'package:touf_w_shouf/features/program_details/views/widgets/icon_text_button.dart';
 
+import 'add_to_wish_list_button.dart';
+
 class ProgramDetailsButtons extends StatelessWidget {
   const ProgramDetailsButtons({
     super.key,
@@ -16,6 +18,7 @@ class ProgramDetailsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ProgramDetailsCubit>();
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(
@@ -26,23 +29,9 @@ class ProgramDetailsButtons extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row(
-            //   children: [
-            //     IconTextButton(
-            //       svgPath: Assets.heart,
-            //       text: isEnglish(context)
-            //           ? 'Add To Wishlist'
-            //           : 'اضافة للمفضلة',
-            //       onTap: () {},
-            //     ),
-            //     const Spacer(),
-            //     IconTextButton(
-            //       svgPath: Assets.map,
-            //       text: isEnglish(context) ? 'Map' : 'خريطة',
-            //       onTap: () {},
-            //     ),
-            //   ],
-            // ),
+            AddToWishListButton(
+              program: cubit.program,
+            ),
             10.verticalSpace,
             IconTextButton(
               svgPath: Assets.play,

@@ -43,7 +43,7 @@ Future<void> setupServiceLocator() async {
   );
   // Register Pdf Serivice
   getIt.registerLazySingleton<PdfService>(
-        () => PdfService(),
+    () => PdfService(),
   );
   // <---------------------------------------------------------------------------->
   // Features
